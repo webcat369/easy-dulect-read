@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!--可以让部分国产浏览器默认采用高速模式渲染页面-->
+  <meta name="renderer" content="webkit">
+  <!--为了让 IE 浏览器运行最新的渲染模式下-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--SEO三大标签-->
+  <!--利用预渲染vue-cli-plugin-prerender-spa插件自动添加多个界面的SEO标签后,就需要在这里手动添加SEO标签-->
+        <title>轻悦读</title>
+        <meta name="keywords" content="轻悦读,读书,读好书,好读书">
+        <meta name="description" content="轻悦读是一款专注于发现和阅读的产品,为用户打造全新的极简生活。">
+  <!--
+  apple-touch-icon: 是苹果私有的属性
+  作用: 指定将网页保存到主屏幕上的时候的图标
+  -->
+  <link rel="apple-touch-icon"  href="./reading.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="./reading.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="./reading.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./reading.png">
+  <!--网页快捷图标-->
+  <link rel="icon" href="./reading.png">
+  <script>
+    let scale = 1.0 / window.devicePixelRatio;
+    let text = `<meta name="viewport" content="width=device-width, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no">`;
+    document.write(text);
+    document.documentElement.style.fontSize = window.innerWidth / 7.5 + "px";
+    //给<html>设置屏幕的像素比
+    document.documentElement.setAttribute('data-dpr', parseInt(window.devicePixelRatio) + '');
+  </script>
+</head>
+<body>
+<div id="app"></div>
+</body>
+</html>
+<!--
+  *打包成dist目录：npm run build
+  *打包成本地网址(接口)：npm run serve
+-->
+<!--
+1.初始化HTML中的代码
+2.利用rem+视口释放的方式来适配移动端
+将index.html中代码打包，会借助html-plugin将index.html中代码拷贝到dist目录
+注意点: 如果在HTML文件中用到了字符串模板, 字符串模板中用到了变量, 那么html-plugin是无法处理的, 所以会报错
+        如果想解决这个问题, 那么我们需要再借助一个loader, html-loader
+        *先安装html-loader：npm install --save-dev html-loader
+        *创建vue.config.js文件并在其中配置html-loader需要的代码
+3.借助postcss-pxtorem实现自动将px转换成rem
+    安装命令：npm i -D postcss-pxtorem
+    在music目录中创建postcss.config.js文件进行配置
+4.借助webpack实现CSS3/ES678语法的兼容
+    CSS3/ES678语法的兼容问题在通过用Vue-CLI创建music项目时，Vue-CLI已经自动帮助实现了
+    想要在不同浏览器上显示时，添加不同的私有前缀，可以直接在.browserslistrc中配置，配置完成后重新打包
+5.借助fastclick解决移动端100~300ms的点击事件延迟问题
+     *安装fastclick：npm install fastclick
+     *在main.js中初始化fastclick，导入一下fastclick，然后调用一下fastclick的attach方法
+6.初始化默认的全局样式
+     *在assets中新建css目录导入base.scss，mixin.scss,reset.scss,variable.scss四个文件
+     *并在main.js中引入base.scss文件
+     *在base.scss中导入了reset.scss文件，而reset.scss文件保存的是清空一些默认样式的代码
+     *在base.scss中导入了variable.scss变量文件，而variable.scss文件中定义的是scss中常用的一些规范变量
+     *在base.scss中导入了mixin.scss混合文件，而mixin.scss文件中定义的是scss中自定义的一些函数
+注意点: 在移动端开发中, 一般情况下我们不需要让字体大小随着屏幕尺寸的变化而变化
+       由于我们是通过视口缩放来适配移动端的, 所以我们不能直接设置字体大小,否则字体大小就会随着屏幕尺寸的变化而       变化
+-->
