@@ -1,0 +1,26 @@
+
+GET http://localhost:3000/bookshelf
+
+###
+GET http://localhost:3000/bookshelf/5f425da5d98e592ad473b9c3
+
+###
+POST http://localhost:3000/bookshelf
+Content-Type: application/json
+
+{
+  "text": "boy"
+}
+
+###
+PUT http://localhost:3000/bookshelf/5f425dbc1e0b370294add700
+Content-Type: application/json
+
+{
+  "text": "boy"
+}
+
+###
+DELETE http://localhost:3000/bookshelf/5f425dbc1e0b370294add700
+
+###

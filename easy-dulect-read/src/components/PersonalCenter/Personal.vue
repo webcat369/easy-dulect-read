@@ -1,0 +1,167 @@
+<template>
+    <div class="Personal">
+        <div class="header">
+            <div class="header-top">
+                <img src="../../assets/icon/moon.svg" alt="">
+                <img src="../../assets/icon/set.svg" alt="">
+            </div>
+            <div class="header-middle">
+                <img src="../../assets/icon/photo.svg" alt="">
+                <p>哑戏</p>
+            </div>
+            <ul class="header-bottom">
+                <li>
+                    <img src="../../assets/icon/news.svg" alt="">
+                    <p>消息</p>
+                </li>
+                <li>
+                    <img src="../../assets/icon/collect.svg" alt="">
+                    <p>收藏</p>
+                </li>
+                <li>
+                    <img src="../../assets/icon/review.svg" alt="">
+                    <p>书评</p>
+                </li>
+                <li>
+                    <img src="../../assets/icon/record.svg" alt="">
+                    <p>阅历</p>
+                </li>
+            </ul>
+        </div>
+        <ul class="list">
+            <li>
+                <p>我的阅读喜好</p>
+                <img src="../../assets/icon/enter.svg" alt="">
+            </li>
+            <li>
+                <p>帮助与反馈</p>
+                <img src="../../assets/icon/enter.svg" alt="">
+            </li>
+            <li>
+                <p>问题与建议</p>
+                <img src="../../assets/icon/enter.svg" alt="">
+            </li>
+            <li>
+                <p>我要写作</p>
+                <img src="../../assets/icon/enter.svg" alt="">
+            </li>
+        </ul>
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'Personal'
+}
+</script>
+
+<style scoped lang="scss">
+.Personal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 100px;
+    background-image:linear-gradient(to right, #caddf4,#bed0e6);
+    overflow: hidden;
+    .header{
+        width: 100%;
+        height: 550px;
+        /*background: #be75ee;*/
+        position: relative;
+        .header-top{
+            width: 100%;
+            height: 80px;
+            /*background: #bfbfbf;*/
+            img{
+                width: 50px;
+                height: 50px;
+                &:nth-of-type(1){
+                    position: absolute;
+                    top: 15px;
+                    right: 120px;
+                }
+                &:nth-of-type(2){
+                    position: absolute;
+                    top: 15px;
+                    right: 20px;
+                }
+            }
+        }
+        .header-middle{
+            width: 100%;
+            height: 300px;
+            /*background: #bfbfbf;*/
+            img{
+                width: 120px;
+                height: 120px;
+                background: #ffffff;
+                border-radius: 50%;
+                position: absolute;
+                top: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            p{
+                font-size:38px ;
+                color: #333333;
+                font-weight: bold;
+                position: absolute;
+                top: 255px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        .header-bottom{
+            width: 95%;
+            height: 120px;
+            margin:0 auto;
+            /*background: #adbada;*/
+            display: flex;
+            justify-content: space-between;
+            li{
+                /*background: #c2baee;*/
+                padding: 0 30px;
+                img{
+                    width: 70px;
+                    height: 70px;
+                    /*background: #facc41;*/
+                }
+                p{
+                    text-align: center;
+                    margin-top: 10px;
+                    font-size: 30px;
+                    color: #333333;
+                }
+            }
+
+        }
+    }
+    .list{
+        position: fixed;
+        top: 550px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        background: #ffffff;
+        border-top-right-radius:30px;
+        border-top-left-radius:30px;
+        padding-top: 20px;
+        li{
+            width: 95%;
+            height: 100px;
+            background: #ffffff;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            line-height:100px;
+            p{
+                font-size: 30px;
+                color: #333333;
+            }
+        }
+    }
+
+}
+</style>
