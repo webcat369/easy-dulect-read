@@ -4,6 +4,13 @@ export default {
   searchHistoryList: [], // 将最新的搜索记录加在最上面
   showDetail: false,
   currentBook: [], // 储存当前展示书的详细信息
-  showChannel: false
+  showChannel: false,
+  channelTitle: '',
+  Tips: [],
+  currentUser: {
+    userName: '未登录',
+    userId: '0',
+    isShow: true
+  }
 
 }

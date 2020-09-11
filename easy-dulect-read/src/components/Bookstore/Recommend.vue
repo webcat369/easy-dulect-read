@@ -107,11 +107,8 @@ export default {
     left: 0;
     right: 0;
     bottom:100px;
-    background: #bed0e6;
+    /*background: #bed0e6;*/
     width: 100%;
     overflow: hidden;
-    .list{
-        /*height: 10000px;*/
-    }
 }
 </style>

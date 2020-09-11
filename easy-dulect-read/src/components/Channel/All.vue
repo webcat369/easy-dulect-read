@@ -5,12 +5,9 @@
                 <ul class="tag">
                     <li class="active">全部</li>
                     <li>总裁豪门</li>
-                    <li>高干军婚</li>
-                    <li>婚恋爱情</li>
-                    <li>职场情缘</li>
-                    <li>民国旧影</li>
-                    <li>娱乐明星</li>
                     <li>重生异能</li>
+                    <li>婚恋爱情</li>
+                    <li>青春校园</li>
                 </ul>
                 <ul class="end">
                     <li class="active">全部</li>
@@ -31,73 +28,19 @@
                     <li>新书</li>
                 </ul>
             </div>
-            <div class="list">
-                <div class="TopThree">
-                    <div class="top">现代言情类全网最热前三名</div>
-                    <ul class="bottom">
-                        <li>
-                            <i>1</i>
-                            <img src="https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/f74b8ce07e3e37db5ad063ea96977308_360x480.jpg" alt="">
-                            <p>登雀枝</p>
-                        </li>
-                        <li>
-                            <i>2</i>
-                            <img src="https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/72b3859ad460a1d5f2a8979c78c78c22_360x480.jpg" alt="">
-                            <p>神探仵作娇王妃</p>
-                        </li>
-                        <li>
-                            <i>3</i>
-                            <img src="https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/7be9859fe2072e14a7e56aa26aafcf5a_360x480.jpg" alt="">
-                            <p>冲喜娘子病娇夫冲喜娘子病娇夫</p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="van-list"
-                >
-                    <div class="van-cell" v-for="(item,index) in List" :key="index">
-                        <div class="cell-left">
-                            <img v-lazy="item.coverPicture" alt="">
-                        </div>
-                        <div class="cell-right">
-                            <div class="right-top">
-                                <p>{{item.title}}</p>
-                                <p><i>{{item.grade}}</i> 分</p>
-                            </div>
-                            <div class="right-middle">
-                                <p>{{item.description}}</p>
-                            </div>
-                            <div class="right-bottom">
-                                <p>
-                                    <span>{{item.author}}</span>
-                                    <span>{{item.wordCount}}万字</span>
-                                </p>
-                                <p>
-                                    <span>{{item.tag}}</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="more">{{msg}}</div>
-            </div>
+            <ScrollList ref="show"></ScrollList>
         </div>
     </ScrollView>
 </template>
 
 <script>
 import ScrollView from '../ScrollView'
-import { getBookList } from '../../api'
+import ScrollList from '../Module/ScrollList'
 export default {
   name: 'All',
   components: {
-    ScrollView
-  },
-  data () {
-    return {
-      List: [],
-      nowPage: 1, // 当前有几页
-      msg: '上拉加载更多...'
-    }
+    ScrollView,
+    ScrollList
   },
   props: {
     Height: {
@@ -106,36 +49,7 @@ export default {
       require: true
     }
   },
-  methods: {
-    init () { // 加载5条
-      getBookList()
-        .then(data => {
-          if (data.list.girlList.length <= 5) { // 5条数据一页
-            this.List = data.list.girlList
-          } else {
-            this.List = data.list.girlList.slice(0, 5)
-          }
-        })
-        .catch(err => {
-          console.error(err)
-        })
-    },
-    scrollMore () { // 上拉查询更多
-      if (this.nowPage >= 5) return
-      getBookList().then(data => {
-        // concat() 方法用于连接两个或多个数组
-        this.List = this.List.concat(data.list.girlList.slice(this.nowPage * 5, (this.nowPage + 1) * 5))
-
-        this.nowPage++
-
-        if (data.list.girlList.length <= this.nowPage * 5) {
-          this.msg = '轻悦读'
-        }
-      })
-    }
-  },
   mounted () {
-    this.init()
     // 列表盒子高度
     const topHeight = window.innerHeight - this.Height
     // console.log(bottomHeight)
@@ -146,7 +60,7 @@ export default {
       // console.log(scrollY, 'mounted')
       // console.log(y)
       if (Math.abs(topHeight - scrollY) < 10) {
-        this.scrollMore()
+        this.$refs.show.scrollMore()
       }
     })
   }
@@ -192,59 +106,6 @@ export default {
     .list{
         width: 100%;
         background: #fdfdfe;
-        .TopThree{
-            width: 100%;
-            height: 480px;
-            /*background: #fae34b;*/
-            margin-bottom: 40px;
-            border-bottom: 1px solid #cccccc;
-            .top{
-                width: 90%;
-                height: 100px;
-                line-height: 100px;
-                margin: 0 auto;
-                /*background: #e7555b;*/
-                font-size: 38px;
-                font-weight: bold;
-                color: #333333;
-            }
-            .bottom{
-                width: 90%;
-                height: 380px;
-                /*background: #70bfd3;*/
-                margin: 0 auto;
-                display: flex;
-                justify-content: space-between;
-                li{
-                    width: 200px;
-                    height: 100%;
-                    /*background: #42b983;*/
-                    position: relative;
-                    img{
-                        width: 100%;
-                        border-radius: 10px;
-                    }
-                    p{
-                        width: 100%;
-                        font-size: 28px;
-                        color: #333333;
-                        /*background: #dddddd;*/
-                        margin-top: 10px;
-                    }
-                    i{
-                        width: 40px;
-                        height: 40px;
-                        text-align: center;
-                        font-size: 28px;
-                        color: #ffffff;
-                        background: #fae34b;
-                        position: absolute;
-                        top: 0;
-                        border-bottom-right-radius:15px;
-                    }
-                }
-            }
-        }
         .van-list{
             /*background: #70bfd3;*/
             .van-cell{

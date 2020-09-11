@@ -3,7 +3,7 @@
         <div class="header">
             <p>{{title}}</p>
             <p>
-                <span  @click.stop="ShowChannel">更多</span>
+                <span  @click.stop="ShowChannel(type,title)">更多</span>
                 <van-icon name="arrow"/>
             </p>
         </div>
@@ -47,6 +47,7 @@ export default {
   },
   data () {
     return {
+      items: ['现代言情', '古代言情']
     }
   },
   props: {
@@ -87,18 +88,33 @@ export default {
     ...mapActions([
       'setShowDetail',
       'setCurrentBook',
-      'setShowChannel'
+      'setShowChannel',
+      'setChannelTitle'
     ]),
     ShowDetail (value) {
-      console.log(value)
+      // console.log(value)
       this.setShowDetail(true)
       this.setCurrentBook(value)
     },
-    // selectItem () {
-    //   // this.$emit('select', this.type, this.name)
-    // }
-    ShowChannel () {
+    ShowChannel (type, title) {
       this.setShowChannel(true)
+      console.log(type)
+      if (type === 'girl') {
+        if (title === '总裁豪门' || title === '重生异能' || title === '婚恋爱情') {
+          this.setChannelTitle(this.items[0])
+        }
+        if (title === '穿越时空' || title === '宫闱宅斗' || title === '种田经商' || title === '幻想言情') {
+          this.setChannelTitle(this.items[1])
+        }
+      }
+      if (type === 'boy') {
+        if (title === '异术超能' || title === '都市高手' || title === '游戏竞技' || title === '科幻世界') {
+          this.setChannelTitle(this.items[0])
+        }
+        if (title === '玄幻奇幻' || title === '穿越历史' || title === '武侠仙侠' || title === '奇闻异事') {
+          this.setChannelTitle(this.items[1])
+        }
+      }
     }
   }
 }
@@ -145,7 +161,7 @@ export default {
         .middle{
             width: 100%;
             height: 150px;
-            background: #adbada;
+            background: #bed0e6;
             border-radius: 10px;
             position: relative;
             margin-bottom: 20px;

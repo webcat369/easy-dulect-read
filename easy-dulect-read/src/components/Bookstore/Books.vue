@@ -1,7 +1,7 @@
 <template>
     <div class="books">
-        <ScrollView>
-            <div class="list">
+        <ScrollView ref="ScrollView">
+            <div class="list" ref="list">
                 <Swipe></Swipe>
                 <ul class="classify">
                    <li>
@@ -10,7 +10,7 @@
                    </li>
                     <li>
                         <img src="../../assets/images/story.svg" alt="">
-                        <p>出版小说</p>
+                        <p>经典文学</p>
                     </li>
                     <li>
                         <img src="../../assets/images/pen.svg" alt="">
@@ -25,10 +25,12 @@
                         <p>经管励志</p>
                     </li>
                 </ul>
-                <ExclusiveOriginal :title="'精选畅销图书'"></ExclusiveOriginal>
-                <Publish :title="'出版小说'"></Publish>
-                <Publish :title="'经管励志'"></Publish>
-                <Publish :title="'经典文学'"></Publish>
+                <ExclusiveOriginal :title="'热门图书'"></ExclusiveOriginal>
+                <Publish :title="'影视著作'"></Publish>
+                <Publish :title="'现代言情'"></Publish>
+                <Publish :title="'古代言情'"></Publish>
+                <div class="title">精选好书</div>
+                <ScrollList ref="show"></ScrollList>
             </div>
         </ScrollView>
     </div>
@@ -39,13 +41,34 @@ import ScrollView from '../ScrollView'
 import Swipe from '../Swipe'
 import ExclusiveOriginal from '../Module/ExclusiveOriginal'
 import Publish from '../Module/Publish'
+import ScrollList from '../Module/ScrollList'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Books',
   components: {
     ScrollView,
     Swipe,
     ExclusiveOriginal,
-    Publish
+    Publish,
+    ScrollList
+  },
+  mounted () {
+    // 列表盒子高度
+    const bottomHeight = window.innerHeight - this.TabBarHeight * 2
+    this.$refs.ScrollView.scrolling((y) => {
+      const listHeight = this.$refs.list.offsetHeight
+      const scrollY = listHeight + y
+      // console.log(listHeight, 'mounted')
+      // console.log(y)
+      if (Math.abs(bottomHeight - scrollY) < 10) {
+        this.$refs.show.scrollMore()
+      }
+    })
+  },
+  computed: {
+    ...mapGetters([
+      'TabBarHeight'
+    ])
   }
 }
 </script>
@@ -88,6 +111,15 @@ export default {
                     }
                 }
             }
+        }
+        .title{
+            width: 90%;
+            height: 80px;
+            margin: 0 auto;
+            line-height: 80px;
+            font-size: 40px;
+            color: #333333;
+            font-weight: bold;
         }
     }
 </style>

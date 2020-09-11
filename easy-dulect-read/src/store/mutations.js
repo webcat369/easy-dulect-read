@@ -4,7 +4,10 @@ import {
   SET_SEARCH_HISTORY_LIST,
   SET_SHOW_DETAIL,
   SET_CURRENT_BOOK,
-  SET_SHOW_CHANNEL
+  SET_SHOW_CHANNEL,
+  SET_CHANNEL_TITLE,
+  SET_TIPS,
+  SET_CURRENT_USER
 } from './mutations-Type'
 export default {
   [SET_TABBAR_HEIGHT] (state, PayLoad) {
@@ -24,5 +27,17 @@ export default {
   },
   [SET_SHOW_CHANNEL] (state, PayLoad) {
     state.showChannel = PayLoad
+  },
+  [SET_CHANNEL_TITLE] (state, title) {
+    state.channelTitle = title
+  },
+  [SET_TIPS] (state, payload) {
+    state.Tips = [payload, true]
+    setTimeout(() => {
+      state.Tips = ['', false]
+    }, 1000)
+  },
+  [SET_CURRENT_USER] (state, PayLoad) {
+    state.currentUser = PayLoad
   }
 }

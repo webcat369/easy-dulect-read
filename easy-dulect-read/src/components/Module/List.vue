@@ -197,7 +197,7 @@ export default {
 <style lang="scss">
 .PullDown{
     width: 90%;
-    background: #c2baee;
+    /*background: #c2baee;*/
     margin: 0 auto;
     margin-top: 30px;
     .title{

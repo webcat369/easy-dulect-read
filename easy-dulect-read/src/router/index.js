@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import SignUp from '../views/SignUp'
 
 // 如何实现Vue组件的'按需加载'(异步加载)
 /* 书架界面 */
@@ -93,16 +94,25 @@ const Man = () => { // resolve是一个回调函数
 const Publication = () => { // resolve是一个回调函数
   return new Promise((resolve, reject) => {
     // 通过import异步加载组件，加载成功就调用.then()的方法
-    import('../components/Classification/Publication').then((module) => { // method是加载成功后的组件
+    import('../views/SignUp').then((module) => { // method是加载成功后的组件
+      // 通过resolve把加载成功的组件返回回去
+      resolve(module)
+    })
+  })
+}
+const SignUp = () => { // resolve是一个回调函数
+  return new Promise((resolve, reject) => {
+    // 通过import异步加载组件，加载成功就调用.then()的方法
+    import('../views/SignUp').then((module) => { // method是加载成功后的组件
       // 通过resolve把加载成功的组件返回回去
       resolve(module)
     })
   })
 }
 Vue.use(VueRouter)
-
 /* 指定路由切换的规则 */
 const routes = [
+  // { path: '/', redirect: '/bookshelf' },
   { path: '/', redirect: '/bookshelf' },
   { path: '/bookshelf', component: Bookshelf },
   {
@@ -127,7 +137,8 @@ const routes = [
     ]
   },
   { path: '/personalcenter', component: PersonalCenter },
-  { path: '/detailPage', component: DetailPage }
+  { path: '/detailPage', component: DetailPage },
+  { path: '/sign', component: SignUp }
   // { path: '/:module/:page/search', component: Search }
 ]
 

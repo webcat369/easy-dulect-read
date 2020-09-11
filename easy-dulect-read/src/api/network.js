@@ -39,7 +39,7 @@ export default {
     return new Promise(function (resolve, reject) {
       axios.post(path, data)
         .then(function (response) {
-          resolve(response)
+          resolve(response.data)
         })
         .catch(function (err) {
           console.log(err)

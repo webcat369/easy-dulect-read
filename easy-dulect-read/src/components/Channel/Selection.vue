@@ -1,5 +1,5 @@
 <template>
-    <ScrollView>
+    <ScrollView ref="ScrollView">
         <div class="Selection">
             <div class="recommend">
                 <div class="top">本期频道推荐</div>
@@ -18,9 +18,9 @@
                    </li>
                 </ul>
             </div>
-            <Publish :title="'新晋热门'" :Channel="Channel"></Publish>
-            <Publish :title="'热度飙升中'" :Channel="Channel"></Publish>
-            <Publish :title="'人气新书'" :Channel="Channel"></Publish>
+            <ExclusiveOriginal :title="'新晋热门'" :Channel="Channel"></ExclusiveOriginal>
+            <ExclusiveOriginal :title="'热度飙升中'" :Channel="Channel"></ExclusiveOriginal>
+            <ExclusiveOriginal :title="'人气新书'" :Channel="Channel"></ExclusiveOriginal>
             <p class="end">轻悦读</p>
         </div>
     </ScrollView>
@@ -28,12 +28,12 @@
 
 <script>
 import ScrollView from '../ScrollView'
-import Publish from '../Module/Publish'
+import ExclusiveOriginal from '../Module/ExclusiveOriginal'
 export default {
   name: 'Selection',
   components: {
     ScrollView,
-    Publish
+    ExclusiveOriginal
   },
   props: {
     Channel: {

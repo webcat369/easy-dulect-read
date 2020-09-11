@@ -3,7 +3,7 @@
         <div class="Channel">
             <div class="title" ref="title">
                 <img @click="back" src="../assets/icon/back.svg"/>
-                <p>现代言情频道</p>
+                <p>{{channelTitle}}频道</p>
             </div>
             <div class="Tab">
                 <van-tabs animated ref="tabs">
@@ -42,7 +42,7 @@
 import Vue from 'vue'
 import { Tab, Tabs } from 'vant'
 import { getHighMarksNovel } from '../api/index'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Selection from './Channel/Selection'
 import NewBook from './Channel/NewBook'
 import End from './Channel/End'
@@ -75,6 +75,11 @@ export default {
       this.setShowChannel(false)
     }
   },
+  computed: {
+    ...mapGetters([
+      'channelTitle'
+    ])
+  },
   created () {
     getHighMarksNovel()
       .then(data => {
@@ -105,6 +110,7 @@ export default {
     right: 0;
     width: 100%;
     height: 100%;
+    z-index: 999;
     background: #fdfdfe;
     .title{
         width: 100%;
@@ -156,7 +162,7 @@ export default {
                 top: 180px;
                 left: 0;
                 right: 0;
-                bottom: 0;
+                bottom:0;
                 background: #dddddd;
                 .van-tab__pane-wrapper {
                     width: 100%;

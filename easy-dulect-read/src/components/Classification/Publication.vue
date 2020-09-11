@@ -11,8 +11,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import { TreeSelect } from 'vant'
 import BookList from './BookList'
-
+Vue.use(TreeSelect)
 export default {
   name: 'Publication',
   data () {

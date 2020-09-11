@@ -65,7 +65,7 @@ export default {
       this.iWidths = this.$refs.item[0].$el.offsetWidth
       // this.iWidths = this.$refs.item[0].offsetWidth
     })
-    // console.log(this.$refs.header.style.background)
+    this.checkIndex = this.$route.meta.index
   }
 }
 </script>

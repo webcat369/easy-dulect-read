@@ -1,6 +1,6 @@
 <template>
   <div class="ListPage">
-    <ScrollView>
+    <ScrollView ref="ScrollView">
       <div class="box">
         <div class="item">
           <div class="left">
@@ -208,6 +208,9 @@ export default {
   name: 'ListPage',
   components: {
     ScrollView
+  },
+  updated () {
+    this.$refs.ScrollView.refresh()
   }
 }
 </script>
@@ -222,7 +225,7 @@ export default {
   background: #c2baee;
   overflow: hidden;
   .box{
-    height: 2750px;
+    /*height: 2750px;*/
     .item{
       width: 75%;
       height: 150px;

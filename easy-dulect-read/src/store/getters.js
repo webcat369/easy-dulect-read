@@ -16,5 +16,14 @@ export default {
   },
   showChannel (state) {
     return state.showChannel
+  },
+  channelTitle (state) {
+    return state.channelTitle
+  },
+  Tips (state) {
+    return state.Tips
+  },
+  currentUser (state) {
+    return state.currentUser
   }
 }

@@ -5,9 +5,13 @@
                 <img src="../../assets/icon/moon.svg" alt="">
                 <img src="../../assets/icon/set.svg" alt="">
             </div>
-            <div class="header-middle">
+            <div class="log-in"  v-show="currentUser.isShow">
+                <p>欢迎使用轻悦读</p>
+                <p @click.stop="logIn">马上登陆</p>
+            </div>
+            <div class="header-middle" v-show="!currentUser.isShow">
                 <img src="../../assets/icon/photo.svg" alt="">
-                <p>哑戏</p>
+                <p>{{currentUser.userName}}</p>
             </div>
             <ul class="header-bottom">
                 <li>
@@ -50,8 +54,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'Personal'
+  name: 'Personal',
+  mounted () {
+    console.log('我创建了')
+  },
+  methods: {
+    logIn () {
+      this.$router.push({ path: '/sign' })
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'currentUser'
+    ])
+  }
 }
 </script>
 
@@ -85,6 +103,34 @@ export default {
                     position: absolute;
                     top: 15px;
                     right: 20px;
+                }
+            }
+        }
+        .log-in{
+            width: 100%;
+            height: 300px;
+            /*background: #bfbfbf;*/
+            p{
+                &:nth-of-type(1){
+                    font-size:38px ;
+                    color: #333333;
+                    font-weight: bold;
+                    position: absolute;
+                    top: 180px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+                &:nth-of-type(2){
+                    width: 200px;
+                    height: 80px;
+                    line-height: 80px;
+                    text-align: center;
+                    background: #adbada;
+                    border-radius: 20px;
+                    position: absolute;
+                    top: 255px;
+                    left: 50%;
+                    transform: translateX(-50%);
                 }
             }
         }

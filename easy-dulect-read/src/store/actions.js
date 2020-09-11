@@ -4,7 +4,10 @@ import {
   SET_SEARCH_HISTORY_LIST,
   SET_SHOW_DETAIL,
   SET_CURRENT_BOOK,
-  SET_SHOW_CHANNEL
+  SET_SHOW_CHANNEL,
+  SET_CHANNEL_TITLE,
+  SET_TIPS,
+  SET_CURRENT_USER
 } from './mutations-Type'
 export default {
   setTabBarHeight ({ commit }, PayLoad) {
@@ -23,7 +26,16 @@ export default {
   setCurrentBook ({ commit }, value) {
     commit(SET_CURRENT_BOOK, value)
   },
-  setShowChannel ({ commit }, value) {
-    commit(SET_SHOW_CHANNEL, value)
+  setShowChannel ({ commit }, payload) {
+    commit(SET_SHOW_CHANNEL, payload)
+  },
+  setChannelTitle ({ commit }, title) {
+    commit(SET_CHANNEL_TITLE, title)
+  },
+  setTips ({ commit }, payload) {
+    commit(SET_TIPS, payload)
+  },
+  setCurrentUser ({ commit }, payload) {
+    commit(SET_CURRENT_USER, payload)
   }
 }
