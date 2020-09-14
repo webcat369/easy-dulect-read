@@ -4,33 +4,34 @@
             <div class="list" ref="list">
                 <Swipe></Swipe>
                 <ul class="classify">
-                   <li>
+                   <router-link tag="li" to="/classification/publication">
                        <img src="../../assets/images/stack.svg" alt="">
                        <p>图书书库</p>
-                   </li>
-                    <li>
+                   </router-link>
+                    <li @click.stop="ScrollDetailPage('经典文学')">
                         <img src="../../assets/images/story.svg" alt="">
                         <p>经典文学</p>
                     </li>
-                    <li>
+                    <li @click.stop="ScrollDetailPage('文学艺术')">
                         <img src="../../assets/images/pen.svg" alt="">
                         <p>文学艺术</p>
                     </li>
-                    <li>
+                    <li @click.stop="ScrollDetailPage('人文社科')">
                         <img src="../../assets/images/radar.svg" alt="">
                         <p>人文社科</p>
                     </li>
-                    <li>
+                    <li @click.stop="ScrollDetailPage('经管励志')">
                         <img src="../../assets/images/wallet.svg" alt="">
                         <p>经管励志</p>
                     </li>
                 </ul>
-                <ExclusiveOriginal :title="'热门图书'"></ExclusiveOriginal>
-                <Publish :title="'影视著作'"></Publish>
-                <Publish :title="'现代言情'"></Publish>
-                <Publish :title="'古代言情'"></Publish>
+                <ExclusiveOriginal :title="'热门图书'" :Channel="hotBook"></ExclusiveOriginal>
+                <Publish :title="'影视著作'" :Channel="filmWorks"></Publish>
+                <Publish :title="'现代言情'" :Channel="modernRomance"></Publish>
+                <Publish :title="'古代言情'" :Channel="ancientRomance"></Publish>
                 <div class="title">精选好书</div>
-                <ScrollList ref="show"></ScrollList>
+                <ScrollList ref="ScrollList"
+                            :Channel="selectionBooks"></ScrollList>
             </div>
         </ScrollView>
     </div>
@@ -42,7 +43,8 @@ import Swipe from '../Swipe'
 import ExclusiveOriginal from '../Module/ExclusiveOriginal'
 import Publish from '../Module/Publish'
 import ScrollList from '../Module/ScrollList'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import { getSelectionBooks } from '../../api/index'
 export default {
   name: 'Books',
   components: {
@@ -52,23 +54,58 @@ export default {
     Publish,
     ScrollList
   },
+  data () {
+    return {
+      hotBook: [],
+      filmWorks: [],
+      modernRomance: [],
+      ancientRomance: [],
+      selectionBooks: []
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'TabBarHeight',
+      'channelTitle'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'setScrollDetailPage',
+      'setSelectTitle'
+    ]),
+    ScrollDetailPage (e) {
+      console.log(e)
+      this.setScrollDetailPage(true)
+      this.setSelectTitle(e)
+      // this.setScrollDetailPage(true)
+      // if (this.channelTitle === '经典文学' || this.channelTitle === '人文艺术' || this.channelTitle === '人文社科' || this.channelTitle === '经管励志') {
+      // }
+    }
+  },
+  created () {
+    getSelectionBooks()
+      .then(data => {
+        this.selectionBooks = data.selectionBooks
+        this.hotBook = data.hotBook.splice(0, 8)
+        this.filmWorks = data.filmWorks.splice(0, 8)
+        this.modernRomance = data.modernRomance.splice(0, 8)
+        this.ancientRomance = data.ancientRomance.splice(0, 8)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
   mounted () {
     // 列表盒子高度
     const bottomHeight = window.innerHeight - this.TabBarHeight * 2
     this.$refs.ScrollView.scrolling((y) => {
       const listHeight = this.$refs.list.offsetHeight
       const scrollY = listHeight + y
-      // console.log(listHeight, 'mounted')
-      // console.log(y)
       if (Math.abs(bottomHeight - scrollY) < 10) {
-        this.$refs.show.scrollMore()
+        this.$refs.ScrollList.scrollMore()
       }
     })
-  },
-  computed: {
-    ...mapGetters([
-      'TabBarHeight'
-    ])
   }
 }
 </script>
@@ -81,7 +118,7 @@ export default {
         right: 0;
         bottom: 100px;
         overflow: hidden;
-        /*background: #42b983;*/
+        background: #42b983;
         .classify{
             width: 90%;
             height: 200px;
@@ -120,6 +157,7 @@ export default {
             font-size: 40px;
             color: #333333;
             font-weight: bold;
+            margin-top: 30px;
         }
     }
 </style>

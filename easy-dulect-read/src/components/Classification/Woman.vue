@@ -2,7 +2,9 @@
     <div class="Woman">
         <van-tree-select height="100%" :items="items" :main-active-index.sync="active">
             <template #content>
-                <AllCategories v-if="active === 0"></AllCategories>
+                <AllCategories v-if="active === 0"
+                               :Tag="womanTag"
+                ></AllCategories>
                 <ListPage v-if="active === 1"></ListPage>
                 <ListPage v-if="active === 2"></ListPage>
                 <ListPage v-if="active === 3"></ListPage>
@@ -19,6 +21,7 @@ import { TreeSelect } from 'vant'
 import AllCategories from './AllCategories'
 import ListPage from './ListPage'
 import ClassificationList from './ClassificationList'
+import { getSelectionTag } from '../../api'
 Vue.use(TreeSelect)
 export default {
   name: 'Woman',
@@ -32,13 +35,23 @@ export default {
         { text: '黑马榜' },
         { text: '热搜榜' },
         { text: '分类榜' }
-      ]
+      ],
+      womanTag: []
     }
   },
   components: {
     AllCategories,
     ListPage,
     ClassificationList
+  },
+  created () {
+    getSelectionTag()
+      .then(data => {
+        this.womanTag = data.Woman
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>

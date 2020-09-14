@@ -53,14 +53,11 @@ export default {
     }
   },
   methods: {
-    // selectItem () {
-    //   this.$emit('select', this.type, this.name)
-    // }
     ...mapActions([
-      'setShowChannel'
+      'setScrollDetailPage'
     ]),
     ShowChannel () {
-      this.setShowChannel(true)
+      this.setScrollDetailPage(true)
     }
   },
   created () {

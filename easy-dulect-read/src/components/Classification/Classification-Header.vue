@@ -21,9 +21,6 @@
             </div>
             <div class="Header-right">
                 <p>
-<!--                    <router-link tag="i"-->
-<!--                                 :to="{path: '/classification/' + this.items[this.checkIndex].id+'/search'}"-->
-<!--                    ></router-link>-->
                     <i @click.stop="ShowPage"></i>
                 </p>
             </div>

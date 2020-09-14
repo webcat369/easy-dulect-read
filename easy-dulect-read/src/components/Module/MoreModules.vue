@@ -34,7 +34,7 @@ import Vue from 'vue'
 /* 宫格 */
 import { Grid, GridItem, Image as VanImage, Icon } from 'vant'
 import EightGrid from '../EightGrid'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 // import { getHighMarksNovel } from '../../api/index'
 Vue.use(VanImage)
 Vue.use(Grid)
@@ -84,12 +84,19 @@ export default {
       require: true
     }
   },
+  computed: {
+    ...mapGetters([
+      'channelTitle'
+    ])
+  },
   methods: {
     ...mapActions([
       'setShowDetail',
       'setCurrentBook',
       'setShowChannel',
-      'setChannelTitle'
+      'setChannelType',
+      'setChannelTitle',
+      'setChannelStoryTag'
     ]),
     ShowDetail (value) {
       // console.log(value)
@@ -98,25 +105,23 @@ export default {
     },
     ShowChannel (type, title) {
       this.setShowChannel(true)
-      console.log(type)
-      if (type === 'girl') {
-        if (title === '总裁豪门' || title === '重生异能' || title === '婚恋爱情') {
-          this.setChannelTitle(this.items[0])
-        }
-        if (title === '穿越时空' || title === '宫闱宅斗' || title === '种田经商' || title === '幻想言情') {
-          this.setChannelTitle(this.items[1])
-        }
-      }
-      if (type === 'boy') {
-        if (title === '异术超能' || title === '都市高手' || title === '游戏竞技' || title === '科幻世界') {
-          this.setChannelTitle(this.items[0])
-        }
-        if (title === '玄幻奇幻' || title === '穿越历史' || title === '武侠仙侠' || title === '奇闻异事') {
-          this.setChannelTitle(this.items[1])
-        }
+      this.setChannelType(type)
+      // console.log(type)
+      const girlNormalTag = title === '总裁豪门' || title === '重生异能' || title === '婚恋爱情'
+      const girlAncientTag = title === '穿越时空' || title === '种田经商' || title === '宫闱宅斗' || title === '幻想言情'
+      const boyNarmalTag = title === '异术超能' || title === '都市高手' || title === '游戏竞技' || title === '科幻世界'
+      if (type === 'girl' && girlNormalTag) {
+        this.setChannelTitle(this.items[0])
+      } else if (type === 'girl' && girlAncientTag) {
+        this.setChannelTitle(this.items[1])
+      } else if (type === 'boy' && boyNarmalTag) {
+        this.setChannelTitle(this.items[0])
+      } else {
+        this.setChannelTitle(this.items[1])
       }
     }
   }
+
 }
 </script>
 

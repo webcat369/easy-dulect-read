@@ -47,3 +47,55 @@ export const getGameCompetition = () => Network.get('/gameCompetition.json')
 export const getMartialArts = () => Network.get('/martialArts.json')
 /* 科幻世界 */
 export const getScienceFictionWorld = () => Network.get('/scienceFictionWorld.json')
+
+/* 图书精选书籍 */
+export const getSelectionBooks = () => Network.get('/PublicationBook.json')
+/* 分类标签 */
+export const getSelectionTag = () => Network.get('/tag.json')
+
+export const getWomanList = (data) => {
+  return new Promise(function (resolve, reject) {
+    Network.all([
+      Network.get('/presidentWealthy.json'),
+      Network.get('/rebirthSpecialAbility.json'),
+      Network.get('/travelThroughTime.json'),
+      Network.get('/courtStruggle.json'),
+      Network.get('/farmingBusiness.json'),
+      Network.get('/marriageAndLove.json'),
+      Network.get('/fantasyRomance.json')
+    ])
+      .then(function (result) {
+        // console.log(...result)
+        const womanList = Object.assign(...result)
+        // console.log(womanList)
+        resolve(womanList)
+      })
+      .catch(function (err) {
+        reject(err)
+      })
+  })
+}
+
+export const getManList = (data) => {
+  return new Promise(function (resolve, reject) {
+    Network.all([
+      Network.get('/superPower.json'),
+      Network.get('/mysterious.json'),
+      Network.get('/urbanMaster.json'),
+      Network.get('/incredibleStory.json'),
+      Network.get('/throughHistory.json'),
+      Network.get('/gameCompetition.json'),
+      Network.get('/martialArts.json'),
+      Network.get('/scienceFictionWorld.json')
+    ])
+      .then(function (result) {
+        // console.log(...result)
+        const ManList = Object.assign(...result)
+        // console.log(womanList)
+        resolve(ManList)
+      })
+      .catch(function (err) {
+        reject(err)
+      })
+  })
+}

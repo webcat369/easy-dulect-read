@@ -30,6 +30,7 @@
                     <van-tab title="全部">
                         <All ref="All"
                              :Height="Height"
+                             @switchTag="switchTag"
                         > </All>
                     </van-tab>
                 </van-tabs>
@@ -63,22 +64,42 @@ export default {
   data () {
     return {
       Height: 0,
-      highMarksNovel: []
-    }
-  },
-  methods: {
-    ...mapActions([
-      'setShowChannel'
-    ]),
-    back () {
-      // window.history.back()
-      this.setShowChannel(false)
+      highMarksNovel: [],
+      girlNormalStory: ['总裁豪门', '重生异能', '婚恋爱情'],
+      girlAncientStory: ['穿越时空', '种田经商', '宫闱宅斗', '幻想言情'],
+      boyNormalStory: ['都市高手', '游戏竞技', '科幻世界'],
+      boyAncientStory: ['玄幻奇幻', '穿越时空', '武侠仙侠', '奇闻异事']
     }
   },
   computed: {
     ...mapGetters([
+      'showChannel',
+      'channelType',
       'channelTitle'
     ])
+  },
+  methods: {
+    ...mapActions([
+      'setShowChannel',
+      'setChannelStoryTag'
+    ]),
+    back () {
+      // window.history.back()
+      this.setShowChannel(false)
+    },
+    switchTag () {
+      if (this.showChannel) {
+        if (this.channelType === 'girl' && this.channelTitle === '现代言情') {
+          this.setChannelStoryTag(this.girlNormalStory)
+        } else if (this.channelType === 'girl' && this.channelTitle === '古代言情') {
+          this.setChannelStoryTag(this.girlAncientStory)
+        } else if (this.channelType === 'boy' && this.channelTitle === '现代言情') {
+          this.setChannelStoryTag(this.boyNormalStory)
+        } else {
+          this.setChannelStoryTag(this.boyAncientStory)
+        }
+      }
+    }
   },
   created () {
     getHighMarksNovel()
@@ -90,6 +111,7 @@ export default {
       })
   },
   mounted () {
+    console.log(this.showChannel)
     this.$nextTick(function () {
       // this.titleHeight = this.$refs.title.offsetHeight
       // this.tabsHeight = this.$refs.tabs.$el.offsetHeight

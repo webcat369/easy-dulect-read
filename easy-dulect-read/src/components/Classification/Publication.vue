@@ -3,7 +3,7 @@
         <van-tree-select height="100%" :items="items" :main-active-index.sync="active">
             <template #content>
                 <div class="allClassic" v-if="active === 0">
-                    <BookList></BookList>
+                    <AllCategories :Tag="publicationTag"></AllCategories>
                 </div>
             </template>
         </van-tree-select>
@@ -13,7 +13,9 @@
 <script>
 import Vue from 'vue'
 import { TreeSelect } from 'vant'
-import BookList from './BookList'
+import AllCategories from './AllCategories'
+import { getSelectionTag } from '../../api'
+
 Vue.use(TreeSelect)
 export default {
   name: 'Publication',
@@ -22,11 +24,22 @@ export default {
       active: 0,
       items: [
         { text: '全部分类' }
-      ]
+      ],
+      publicationTag: []
+
     }
   },
   components: {
-    BookList
+    AllCategories
+  },
+  created () {
+    getSelectionTag()
+      .then(data => {
+        this.publicationTag = data.Publication
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>

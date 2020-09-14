@@ -5,12 +5,20 @@ export default {
   showDetail: false,
   currentBook: [], // 储存当前展示书的详细信息
   showChannel: false,
+  channelType: '',
   channelTitle: '',
+  channelStoryTag: [],
   Tips: [],
   currentUser: {
     userName: '未登录',
     userId: '0',
     isShow: true
-  }
+  },
+  showScrollDetailPage: false,
+  selectTag: '',
+  selectTitle: '',
+  currentWomanDetailPage: {},
+  currentManDetailPage: {},
+  currentPublicationDetailPage: {}
 
 }

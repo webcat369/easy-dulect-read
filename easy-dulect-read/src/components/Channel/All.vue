@@ -3,11 +3,10 @@
         <div class="All" ref="All">
             <div class="select">
                 <ul class="tag">
-                    <li class="active">全部</li>
-                    <li>总裁豪门</li>
-                    <li>重生异能</li>
-                    <li>婚恋爱情</li>
-                    <li>青春校园</li>
+                    <li class="active" @click.stop="SelectionTag">全部</li>
+                    <li v-for="(value,index) in channelStoryTag"
+                        :key="index"
+                        @click.stop="SelectionTag">{{value}}</li>
                 </ul>
                 <ul class="end">
                     <li class="active">全部</li>
@@ -36,17 +35,35 @@
 <script>
 import ScrollView from '../ScrollView'
 import ScrollList from '../Module/ScrollList'
+import { mapGetters } from 'vuex'
 export default {
   name: 'All',
   components: {
     ScrollView,
     ScrollList
   },
+  data () {
+    return {
+      StoryTag: []
+    }
+  },
   props: {
     Height: {
       type: Number,
       default: 0,
       require: true
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'channelType',
+      'channelTitle',
+      'channelStoryTag'
+    ])
+  },
+  methods: {
+    SelectionTag () {
+      this.$emit('switchTag')
     }
   },
   mounted () {
@@ -63,7 +80,10 @@ export default {
         this.$refs.show.scrollMore()
       }
     })
+    // 进入All页面就触发Channel的switchTag方法
+    this.SelectionTag()
   }
+
 }
 </script>
 

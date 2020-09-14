@@ -30,8 +30,7 @@
 </template>
 
 <script>
-import { getBookList } from '../../api'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'ScrollList',
   data () {
@@ -41,36 +40,42 @@ export default {
       msg: '上拉加载更多...'
     }
   },
-  methods: {
-    init () { // 加载5条
-      getBookList()
-        .then(data => {
-          if (data.list.girlList.length <= 5) { // 5条数据一页
-            this.List = data.list.girlList
-          } else {
-            this.List = data.list.girlList.slice(0, 5)
-          }
-        })
-        .catch(err => {
-          console.error(err)
-        })
-    },
-    scrollMore () { // 上拉查询更多
-      if (this.nowPage >= 5) return
-      getBookList().then(data => {
-        // concat() 方法用于连接两个或多个数组
-        this.List = this.List.concat(data.list.girlList.slice(this.nowPage * 5, (this.nowPage + 1) * 5))
-
-        this.nowPage++
-
-        if (data.list.girlList.length <= this.nowPage * 5) {
-          this.msg = '轻悦读'
-        }
+  props: {
+    Channel: {
+      type: Array,
+      default: () => [],
+      require: true
+    }
+  },
+  watch: {
+    Channel (n, o) {
+      console.log(n, '新的值')
+      console.log(o, '旧的值')
+      this.$nextTick(() => {
+        this.List = n.slice(0, 5)
       })
     }
   },
+  methods: {
+    scrollMore () { // 上拉查询更多
+      if (this.nowPage >= 3) return
+      // concat() 方法用于连接两个或多个数组
+      this.List = this.List.concat(this.Channel.slice(this.nowPage * 5, (this.nowPage + 1) * 5))
+      this.nowPage++
+      console.log(this.nowPage)
+      console.log(this.List)
+      if (this.List.length === this.nowPage * 5) {
+        this.msg = '轻悦读'
+      }
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'showScrollDetailPage'
+    ])
+  },
   mounted () {
-    this.init()
+    console.log(this.Channel)
   }
 }
 </script>
@@ -78,7 +83,7 @@ export default {
 <style scoped lang="scss">
 .ScrollList{
     width: 100%;
-    background: #fdfdfe;
+    background: #fddfdf;
     .van-list{
         /*background: #70bfd3;*/
         .van-cell{
@@ -121,7 +126,11 @@ export default {
                     p{
                         line-height: 50px;
                         &:nth-of-type(1){
+                            width: 380px;
                             font-size: 32px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
                         }
                         &:nth-of-type(2){
                             line-height: 40px;

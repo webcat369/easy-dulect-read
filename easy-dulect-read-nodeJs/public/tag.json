@@ -1,0 +1,179 @@
+{
+  "Woman": [
+    {
+      "title": "现代言情",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5ed74acf59a39_360x480.jpg",
+      "tag": "PresidentWealthy"
+    },
+    {
+      "title": "豪门总裁",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/9e2ed72d2af8bfc94814701367c31fa9_360x480.jpg",
+      "tag": "PresidentWealthy"
+    },
+    {
+      "title": "重生异能",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/3520f7a0f9d45a655e893197ea6a9234_360x480.jpg",
+      "tag": "RebirthSpecialAbility"
+    },
+    {
+      "title": "婚恋爱情",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5f3351440f60c_360x480.jpeg",
+      "tag": "MarriageAndLove"
+    },
+    {
+      "title": "古代言情",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/38b3/d03532e18165f2969ebd1ad75b1375a7_360x480.jpg",
+      "tag": "TravelThroughTime"
+    },
+    {
+      "title": "穿越时空",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e1d4dc852c72_360x480.jpg",
+      "tag": "TravelThroughTime"
+    },
+    {
+      "title": "种田经商",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e96796e76cf7_360x480.jpg",
+      "tag": "FarmingBusiness"
+    },
+    {
+      "title": "宫闱宅斗",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5d5502cf35dd0_360x480.jpg",
+      "tag": "CourtStruggle"
+    },
+    {
+      "title": "幻想言情",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5f1e35e45f99e_360x480.jpg",
+      "tag": "FantasyRomance"
+    },
+    {
+      "title": "影视著作",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e201eaad4196_360x480.jpg",
+      "tag": "filmWorks"
+    }
+
+  ],
+  "Man": [
+    {
+      "title": "现代小说",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5ed74acf59a39_360x480.jpg",
+      "tag": "urbanMaster"
+    },
+    {
+      "title": "都市高手",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/9e2ed72d2af8bfc94814701367c31fa9_360x480.jpg",
+      "tag": "urbanMaster"
+    },
+    {
+      "title": "游戏竞技",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5f3351440f60c_360x480.jpeg",
+      "tag": "gameCompetition"
+    },
+    {
+      "title": "科幻世界",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/38b3/d03532e18165f2969ebd1ad75b1375a7_360x480.jpg",
+      "tag": "scienceFictionWorld"
+    },
+    {
+      "title": "异术超能",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/38b3/d03532e18165f2969ebd1ad75b1375a7_360x480.jpg",
+      "tag": "superPower"
+    },
+    {
+      "title": "古代小说",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e201eaad4196_360x480.jpg",
+      "tag": "mysterious"
+    },
+    {
+      "title": "玄幻奇幻",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e1d4dc852c72_360x480.jpg",
+      "tag": "mysterious"
+    },
+    {
+      "title": "穿越历史",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e96796e76cf7_360x480.jpg",
+      "tag": "throughHistory"
+    },
+    {
+      "title": "武侠仙侠",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5d5502cf35dd0_360x480.jpg",
+      "tag": "martialArts"
+    },
+    {
+      "title": "奇闻异事",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5f1e35e45f99e_360x480.jpg",
+      "tag": "incredibleStory"
+    }
+  ],
+  "Publication": [
+    {
+      "title": "影视著作",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5ed74acf59a39_360x480.jpg",
+      "tag": "filmWorks"
+    },
+    {
+      "title": "现代言情",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/9e2ed72d2af8bfc94814701367c31fa9_360x480.jpg",
+      "tag": "modernRomance"
+    },
+    {
+      "title": "古代言情",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/3520f7a0f9d45a655e893197ea6a9234_360x480.jpg",
+      "tag": "ancientRomance"
+    },
+    {
+      "title": "青春文学",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5f3351440f60c_360x480.jpeg",
+      "tag": "youthLiterature"
+    },
+    {
+      "title": "悬疑推理",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/38b3/d03532e18165f2969ebd1ad75b1375a7_360x480.jpg",
+      "tag": "suspenseReasoning"
+    },
+    {
+      "title": "武侠仙侠",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e1d4dc852c72_360x480.jpg",
+      "tag": "gongFuStory"
+    },
+    {
+      "title": "科幻未来",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e96796e76cf7_360x480.jpg",
+      "tag": "scienceFuture"
+    },
+    {
+      "title": "历史小说",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5d5502cf35dd0_360x480.jpg",
+      "tag": "historyStory"
+    },
+    {
+      "title": "现代小说",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5f1e35e45f99e_360x480.jpg",
+      "tag": "modernLiterature"
+    },
+    {
+      "title": "文物传记",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e201eaad4196_360x480.jpg",
+      "tag": "biography"
+    },
+    {
+      "title": "经典文学",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e201eaad4196_360x480.jpg",
+      "tag": "classicLiterature"
+    },
+    {
+      "title": "人文艺术",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e201eaad4196_360x480.jpg",
+      "tag": "literatureArt"
+    },
+    {
+      "title": "人文社科",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e201eaad4196_360x480.jpg",
+      "tag": "humanitiesSocialScience"
+    },
+    {
+      "title": "经管励志",
+      "photo": "https://cdn.wtzw.com/bookimg/public/images/cover/5e201eaad4196_360x480.jpg",
+      "tag": "economicManagement"
+    }
+  ]
+}

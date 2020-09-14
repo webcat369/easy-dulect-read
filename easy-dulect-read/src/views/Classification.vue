@@ -8,18 +8,21 @@
             </keep-alive>
         </transition>
         <Search v-if="this.showPage"></Search>
+        <ScrollDetailPage v-if="this.showScrollDetailPage"></ScrollDetailPage>
     </div>
 </template>
 
 <script>
 import ClassificationHeader from '../components/Classification/Classification-Header'
 import Search from '../components/Search'
+import ScrollDetailPage from '../components/Module/ScrollDetailPage'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Classification',
   components: {
     ClassificationHeader,
-    Search
+    Search,
+    ScrollDetailPage
   },
   data () {
     return {
@@ -28,7 +31,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'showPage'
+      'showPage',
+      'showScrollDetailPage'
     ])
   },
   mounted () {

@@ -25,53 +25,12 @@
             <i></i>
          </div>
          <ul>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/5ed74acf59a39_360x480.jpg" alt="">
-               现代言情
-            </li>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/9e2ed72d2af8bfc94814701367c31fa9_360x480.jpg" alt="">
-               豪门总裁
-            </li>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/3520f7a0f9d45a655e893197ea6a9234_360x480.jpg" alt="">
-               重生异能
-            </li>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/5f3351440f60c_360x480.jpeg" alt="">
-               婚恋爱情
-            </li>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/38b3/d03532e18165f2969ebd1ad75b1375a7_360x480.jpg" alt="">
-               古代言情
-            </li>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/5e1d4dc852c72_360x480.jpg" alt="">
-               穿越时空
-            </li>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/5e96796e76cf7_360x480.jpg" alt="">
-               种田经商
-            </li>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/5d5502cf35dd0_360x480.jpg" alt="">
-               宫闱宅斗
-            </li>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/5f1e35e45f99e_360x480.jpg" alt="">
-               幻想言情
-            </li>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/5f0c2f2a33c41_360x480.jpg" alt="">
-               青春校园
-            </li>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/5e78610ce4160_360x480.jpg" alt="">
-               奇闻异事
-            </li>
-            <li>
-               <img src="https://cdn.wtzw.com/bookimg/public/images/cover/5e201eaad4196_360x480.jpg" alt="">
-               影视著作
+            <li v-for="(value,index) in Tag"
+                :key="index"
+                @click.stop="ToScrollDetailPage(value.title,value.tag)"
+            >
+               <img v-lazy="value.photo" alt="">
+               {{value.title}}
             </li>
          </ul>
       </div>
@@ -81,7 +40,12 @@
 <script>
 import Vue from 'vue'
 import { Swipe, SwipeItem, Lazyload } from 'vant'
-
+import { mapActions } from 'vuex'
+import {
+  getSelectionBooks,
+  getWomanList,
+  getManList
+} from '../../api'
 Vue.use(Lazyload)
 Vue.use(Swipe)
 Vue.use(SwipeItem)
@@ -95,13 +59,76 @@ export default {
         'https://cdn.qimao.com/bookimg/zww/backendstatic/images/other/15982364469798187.jpg',
         'https://cdn.qimao.com/bookimg/zww/backendstatic/images/other/15982619859032892.jpg'
       ],
-      item: [0, 1, 3]
+      item: [0, 1, 3],
+      WomanBook: {},
+      ManBook: {},
+      publicationBook: {},
+      womanList: {}
+    }
+  },
+  props: {
+    Tag: {
+      type: Array,
+      default: () => [],
+      require: true
     }
   },
   methods: {
+    ...mapActions([
+      'setScrollDetailPage',
+      'setSelectTag',
+      'setSelectTitle',
+      'setCurrentWomanDetailPage',
+      'setCurrentManDetailPage',
+      'setCurrentPublicationDetailPage'
+    ]),
     onChange (index) {
       this.currentIndex = index
+    },
+    ToScrollDetailPage (title, tag) {
+      console.log(title)
+      this.setSelectTitle(title)
+      this.setSelectTag(tag)
+      this.setScrollDetailPage(true)
+      this.setCurrentWomanDetailPage(this.WomanBook)
+      this.setCurrentManDetailPage(this.ManBook)
+      this.setCurrentPublicationDetailPage(this.publicationBook)
+      // getPresidentWealthy()
+      // getRebirthSpecialAbility()
+      // getTravelThroughTime()
+      // getCourtStruggle()
+      // getFarmingBusiness()
+      // getMarriageAndLove()
+      // getFantasyRomance()
     }
+  },
+  created () {
+    getSelectionBooks()
+      .then(data => {
+        this.publicationBook = data
+        // console.log(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+    getWomanList()
+      .then(data => {
+        // console.log(data)
+        this.WomanBook = data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+    getManList()
+      .then(data => {
+        // console.log(data)
+        this.ManBook = data
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   mounted () {
     // 让第一个指示器在页面加载完成的时候变为选中状态
@@ -113,6 +140,9 @@ export default {
       this.$refs.customIndicator[oldValue].classList.remove('custom-indicator-active')
       this.$refs.customIndicator[newValue].classList.add('custom-indicator-active')
       // console.log(this.$refs.customIndicator[newValue].classList.add('custom-indicator-active'))
+    },
+    tagIndex (newValue, oldValue) {
+      console.log(newValue, oldValue)
     }
   }
 }

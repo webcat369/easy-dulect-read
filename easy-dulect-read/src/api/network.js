@@ -45,5 +45,16 @@ export default {
           console.log(err)
         })
     })
+  },
+  all: function (list) { // list:要发送哪些请求
+    return new Promise(function (resolve, reject) {
+      axios.all(list)
+        .then(axios.spread(function (...result) { // ...result:将所有的结果都解构出来放在一个数组中
+          resolve(result)
+        }))
+        .catch(function (err) {
+          reject(err)
+        })
+    })
   }
 }

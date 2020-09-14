@@ -2,24 +2,14 @@
     <div class="Man">
         <van-tree-select height="100%" :items="items" :main-active-index.sync="active">
             <template #content>
-                <div class="allClassic" v-if="active === 0">
-                    <AllCategories></AllCategories>
-                </div>
-                <div class="hotList" v-if="active === 1">
-                    <ListPage></ListPage>
-                </div>
-                <div class="endList" v-if="active === 2">
-                    <ListPage></ListPage>
-                </div>
-                <div class="breakHorseList" v-if="active === 3">
-                    <ListPage></ListPage>
-                </div>
-                <div class="topSearchList" v-if="active === 4">
-                    <ListPage></ListPage>
-                </div>
-                <div class="classicList" v-if="active === 5">
-                    <ClassificationList></ClassificationList>
-                </div>
+                <AllCategories v-if="active === 0"
+                               :Tag="ManTag"
+                ></AllCategories>
+                <ListPage v-if="active === 1"></ListPage>
+                <ListPage v-if="active === 2"></ListPage>
+                <ListPage  v-if="active === 3"></ListPage>
+                <ListPage v-if="active === 4"></ListPage>
+                <ClassificationList  v-if="active === 5"></ClassificationList>
             </template>
         </van-tree-select>
     </div>
@@ -31,6 +21,7 @@ import { TreeSelect } from 'vant'
 import AllCategories from './AllCategories'
 import ListPage from './ListPage'
 import ClassificationList from './ClassificationList'
+import { getSelectionTag } from '../../api'
 Vue.use(TreeSelect)
 export default {
   name: 'Man',
@@ -44,13 +35,23 @@ export default {
         { text: '黑马榜' },
         { text: '热搜榜' },
         { text: '分类榜' }
-      ]
+      ],
+      ManTag: []
     }
   },
   components: {
     AllCategories,
     ListPage,
     ClassificationList
+  },
+  created () {
+    getSelectionTag()
+      .then(data => {
+        this.ManTag = data.Man
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>

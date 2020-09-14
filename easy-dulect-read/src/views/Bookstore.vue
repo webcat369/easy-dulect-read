@@ -10,6 +10,7 @@
         <Search v-if="this.showPage"></Search>
         <Detail v-if="this.showDetail"></Detail>
         <Channel v-if="this.showChannel"></Channel>
+        <ScrollDetailPage v-if="this.showScrollDetailPage"></ScrollDetailPage>
     </div>
 </template>
 
@@ -18,6 +19,7 @@ import BookstoreHeader from './../components/Bookstore/Bookstore-Header'
 import Search from '../components/Search'
 import Detail from '../components/Detail'
 import Channel from '../components/Channel'
+import ScrollDetailPage from '../components/Module/ScrollDetailPage'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Bookstore',
@@ -25,7 +27,8 @@ export default {
     BookstoreHeader,
     Search,
     Detail,
-    Channel
+    Channel,
+    ScrollDetailPage
   },
   data () {
     return {
@@ -36,7 +39,8 @@ export default {
     ...mapGetters([
       'showPage',
       'showDetail',
-      'showChannel'
+      'showChannel',
+      'showScrollDetailPage'
     ])
   },
   watch: {

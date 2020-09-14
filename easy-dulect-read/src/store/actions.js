@@ -5,9 +5,17 @@ import {
   SET_SHOW_DETAIL,
   SET_CURRENT_BOOK,
   SET_SHOW_CHANNEL,
+  SET_CHANNEL_TYPE,
   SET_CHANNEL_TITLE,
+  SET_CHANNEL_STORY_TAG,
   SET_TIPS,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  SET_SHOW_SCROLL_DETAIL_PAGE,
+  SET_SELECT_TAG,
+  SET_SELECT_TITLE,
+  SET_CURRENT_WOMAN_DETAIL_PAGE,
+  SET_CURRENT_MAN_DETAIL_PAGE,
+  SET_CURRENT_PUBLICATION_DETAIL_PAGE
 } from './mutations-Type'
 export default {
   setTabBarHeight ({ commit }, PayLoad) {
@@ -29,13 +37,37 @@ export default {
   setShowChannel ({ commit }, payload) {
     commit(SET_SHOW_CHANNEL, payload)
   },
+  setChannelType ({ commit }, type) {
+    commit(SET_CHANNEL_TYPE, type)
+  },
   setChannelTitle ({ commit }, title) {
     commit(SET_CHANNEL_TITLE, title)
+  },
+  setChannelStoryTag ({ commit }, storyTag) {
+    commit(SET_CHANNEL_STORY_TAG, storyTag)
   },
   setTips ({ commit }, payload) {
     commit(SET_TIPS, payload)
   },
   setCurrentUser ({ commit }, payload) {
     commit(SET_CURRENT_USER, payload)
+  },
+  setScrollDetailPage ({ commit }, payload) {
+    commit(SET_SHOW_SCROLL_DETAIL_PAGE, payload)
+  },
+  setSelectTag ({ commit }, payload) {
+    commit(SET_SELECT_TAG, payload)
+  },
+  setSelectTitle ({ commit }, payload) {
+    commit(SET_SELECT_TITLE, payload)
+  },
+  setCurrentWomanDetailPage ({ commit }, payload) {
+    commit(SET_CURRENT_WOMAN_DETAIL_PAGE, payload)
+  },
+  setCurrentManDetailPage ({ commit }, payload) {
+    commit(SET_CURRENT_MAN_DETAIL_PAGE, payload)
+  },
+  setCurrentPublicationDetailPage ({ commit }, payload) {
+    commit(SET_CURRENT_PUBLICATION_DETAIL_PAGE, payload)
   }
 }

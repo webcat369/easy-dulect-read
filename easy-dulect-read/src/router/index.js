@@ -94,7 +94,7 @@ const Man = () => { // resolve是一个回调函数
 const Publication = () => { // resolve是一个回调函数
   return new Promise((resolve, reject) => {
     // 通过import异步加载组件，加载成功就调用.then()的方法
-    import('../views/SignUp').then((module) => { // method是加载成功后的组件
+    import('../components/Classification/Publication').then((module) => { // method是加载成功后的组件
       // 通过resolve把加载成功的组件返回回去
       resolve(module)
     })
