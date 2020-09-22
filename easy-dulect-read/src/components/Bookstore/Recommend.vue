@@ -9,7 +9,7 @@
                 <HotList
                         :title="'全网大热榜'"
                         :hotList="recommendHotList"
-                        :type="'recommend'"
+                        :type="'publication'"
                         :name="'recommendHotList'"
                 ></HotList>
                 <MustSeeList

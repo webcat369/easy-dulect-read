@@ -2,9 +2,12 @@
     <ScrollView ref="ScrollView">
         <div class="NewBook" ref="NewBook">
             <div class="title">上架新书</div>
-            <div class="van-list"
-            >
-                <div class="van-cell" v-for="(item,index) in List" :key="index">
+            <div class="van-list">
+                <div class="van-cell"
+                     v-for="(item,index) in List"
+                     :key="index"
+                     @click.stop="ShowDetail(item)"
+                >
                     <div class="cell-left">
                         <img v-lazy="item.coverPicture" alt="">
                     </div>
@@ -35,55 +38,10 @@
 
 <script>
 import ScrollView from '../ScrollView'
-import { getBookList } from '../../api'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'NewBook',
-  components: {
-    ScrollView
-  },
-  data () {
-    return {
-      List: [],
-      nowPage: 1, // 当前有几页
-      msg: '上拉加载更多...'
-    }
-  },
-  props: {
-    Height: {
-      type: Number,
-      default: 0,
-      require: true
-    }
-  },
-  methods: {
-    init () { // 加载5条
-      getBookList()
-        .then(data => {
-          if (data.list.girlList.length <= 5) { // 5条数据一页
-            this.List = data.list.girlList
-          } else {
-            this.List = data.list.girlList.slice(0, 5)
-          }
-        })
-        .catch(err => {
-          console.error(err)
-        })
-    },
-    scrollMore () { // 上拉查询更多
-      if (this.nowPage >= 5) return
-      getBookList().then(data => {
-        // concat() 方法用于连接两个或多个数组
-        this.List = this.List.concat(data.list.girlList.slice(this.nowPage * 5, (this.nowPage + 1) * 5))
-
-        this.nowPage++
-
-        if (data.list.girlList.length <= this.nowPage * 5) {
-          this.msg = '轻悦读'
-        }
-      })
-    }
-  },
   mounted () {
     this.init()
     // 列表盒子高度
@@ -99,6 +57,57 @@ export default {
         this.scrollMore()
       }
     })
+  },
+  components: {
+    ScrollView
+  },
+  data () {
+    return {
+      List: [],
+      nowPage: 1, // 当前有几页
+      msg: '上拉加载更多...'
+    }
+  },
+  props: {
+    Height: {
+      type: Number,
+      default: 0,
+      require: true
+    },
+    Channel: {
+      type: Array,
+      default: () => [],
+      require: true
+    }
+  },
+  methods: {
+    ...mapActions([
+      'setShowDetail',
+      'setCurrentBook'
+    ]),
+    init () { // 加载5条
+      if (this.Channel.length <= 5) { // 5条数据一页
+        this.List = this.Channel
+      } else {
+        this.List = this.Channel.slice(0, 5)
+      }
+    },
+    scrollMore () { // 上拉查询更多
+      if (this.nowPage >= 5) return
+      // concat() 方法用于连接两个或多个数组
+      this.List = this.List.concat(this.Channel.slice(this.nowPage * 5, (this.nowPage + 1) * 5))
+
+      this.nowPage++
+
+      if (this.Channel.length <= this.nowPage * 5) {
+        this.msg = '轻悦读'
+      }
+    },
+    ShowDetail (item) {
+      // console.log(item)
+      this.setShowDetail(true)
+      this.setCurrentBook(item)
+    }
   }
 }
 </script>

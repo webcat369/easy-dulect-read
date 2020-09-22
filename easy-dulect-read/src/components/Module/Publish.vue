@@ -3,14 +3,12 @@
         <div class="header">
             <p>{{title}}</p>
             <p>
-                <span @click.stop="ShowChannel">更多</span>
+                <span @click.stop="ShowChannel(title)">更多</span>
                 <van-icon name="arrow"/>
             </p>
         </div>
         <EightGrid
                 :Channel="Channel"
-                :type="type"
-                :name="name"
         ></EightGrid>
     </div>
 </template>
@@ -20,6 +18,7 @@ import { Icon } from 'vant'
 import EightGrid from '../EightGrid'
 import Vue from 'vue'
 import { mapActions } from 'vuex'
+import { getSelectionBooks } from '../../api'
 Vue.use(Icon)
 export default {
   name: 'Publish',
@@ -32,17 +31,22 @@ export default {
       default: '',
       require: true
     },
-    type: {
-      type: String,
-      default: '',
-      require: true
-    },
+    // type: {
+    //   type: String,
+    //   default: '',
+    //   require: true
+    // },
     Channel: {
       type: Array,
       default: () => [],
       require: true
     },
-    name: {
+    // name: {
+    //   type: String,
+    //   default: '',
+    //   require: true
+    // }
+    Tag: {
       type: String,
       default: '',
       require: true
@@ -50,18 +54,32 @@ export default {
   },
   data () {
     return {
+      publicationBook: {}
     }
   },
   methods: {
     ...mapActions([
-      'setScrollDetailPage'
+      'setScrollDetailPage',
+      'setSelectTitle',
+      'setSelectTag',
+      'setCurrentPublicationDetailPage'
     ]),
-    ShowChannel () {
+    ShowChannel (title) {
       this.setScrollDetailPage(true)
+      this.setSelectTitle(title)
+      this.setSelectTag(this.Tag)
+      this.setCurrentPublicationDetailPage(this.publicationBook)
     }
   },
   created () {
-
+    getSelectionBooks()
+      .then(data => {
+        this.publicationBook = data
+        // console.log(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   mounted () {
   }

@@ -107,14 +107,14 @@ export default {
       this.setShowChannel(true)
       this.setChannelType(type)
       // console.log(type)
-      const girlNormalTag = title === '总裁豪门' || title === '重生异能' || title === '婚恋爱情'
+      const girlModernTag = title === '总裁豪门' || title === '重生异能' || title === '婚恋爱情'
       const girlAncientTag = title === '穿越时空' || title === '种田经商' || title === '宫闱宅斗' || title === '幻想言情'
-      const boyNarmalTag = title === '异术超能' || title === '都市高手' || title === '游戏竞技' || title === '科幻世界'
-      if (type === 'girl' && girlNormalTag) {
+      const boyModernTag = title === '异术超能' || title === '都市高手' || title === '游戏竞技' || title === '科幻世界'
+      if (type === 'girl' && girlModernTag) {
         this.setChannelTitle(this.items[0])
       } else if (type === 'girl' && girlAncientTag) {
         this.setChannelTitle(this.items[1])
-      } else if (type === 'boy' && boyNarmalTag) {
+      } else if (type === 'boy' && boyModernTag) {
         this.setChannelTitle(this.items[0])
       } else {
         this.setChannelTitle(this.items[1])

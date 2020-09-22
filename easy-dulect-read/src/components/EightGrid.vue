@@ -29,21 +29,21 @@ export default {
       default: '',
       require: true
     },
-    type: {
-      type: String,
-      default: '',
-      require: true
-    },
+    // type: {
+    //   type: String,
+    //   default: '',
+    //   require: true
+    // },
     Channel: {
       type: Array,
       default: () => [],
       require: true
-    },
-    name: {
-      type: String,
-      default: '',
-      require: true
     }
+    // name: {
+    //   type: String,
+    //   default: '',
+    //   require: true
+    // }
   },
   mounted () {
     // console.log(this.girlChannel)

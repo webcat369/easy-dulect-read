@@ -8,7 +8,6 @@ import VueLazyload from 'vue-lazyload'
 import fastclick from 'fastclick'
 // 导入初始化默认的全局样式
 import './assets/css/base.scss'
-
 fastclick.attach(document.body)
 
 Vue.config.productionTip = false

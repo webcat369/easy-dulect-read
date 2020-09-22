@@ -30,12 +30,12 @@
 // 设置导航栏的背景颜色
 @mixin bg_color(){
   // bg_color这个函数默认设置的颜色就是传递的颜色
-  background: $background-color-theme;
+  background:url("../../assets/images/book_background1.jpg");
   [data-theme=theme1] & {
-    background: $background-color-theme1;
+    background: url("../../assets/images/book_background2.jpg");
   }
   [data-theme=theme2] & {
-    background: $background-color-theme2;
+    background: url("../../assets/images/book_background3.jpg");
   }
 }
 // 设置Tab选项卡的背景颜色

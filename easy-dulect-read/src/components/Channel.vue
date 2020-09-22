@@ -9,28 +9,30 @@
                 <van-tabs animated ref="tabs">
                     <van-tab title="精选">
                         <Selection ref="Selection"
-                                   :Channel="highMarksNovel"
+                                   :SelectionBook="selectionBook"
                         ></Selection>
                     </van-tab>
                     <van-tab title="新书">
                         <NewBook ref="NewBook"
                                  :Height="Height"
+                                 :Channel="newBook"
                         ></NewBook>
                     </van-tab>
                     <van-tab title="完结">
                         <End ref="End"
                              :Height="Height"
+                             :Channel="end"
                         ></End>
                     </van-tab>
                     <van-tab title="排行">
                         <Rank ref="Rank"
                               :Height="Height"
+                              :Channel="rank"
                         ></Rank>
                     </van-tab>
                     <van-tab title="全部">
                         <All ref="All"
                              :Height="Height"
-                             @switchTag="switchTag"
                         > </All>
                     </van-tab>
                 </van-tabs>
@@ -42,7 +44,13 @@
 <script>
 import Vue from 'vue'
 import { Tab, Tabs } from 'vant'
-import { getHighMarksNovel } from '../api/index'
+import {
+  getHighMarksNovel,
+  getGirlModern,
+  getGirlAncient,
+  getBoyModern,
+  getBoyAncient
+} from '../api/index'
 import { mapActions, mapGetters } from 'vuex'
 import Selection from './Channel/Selection'
 import NewBook from './Channel/NewBook'
@@ -54,6 +62,75 @@ Vue.use(Tabs)
 
 export default {
   name: 'Channel',
+  created () {
+    getHighMarksNovel()
+      .then(data => {
+        this.highMarksNovel = data.highMarksNovel.girl
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  mounted () {
+    this.$nextTick(function () {
+      // this.titleHeight = this.$refs.title.offsetHeight
+      // this.tabsHeight = this.$refs.tabs.$el.offsetHeight
+      this.Height = this.$refs.title.offsetHeight + this.$refs.tabs.$el.offsetHeight
+      if (this.channelType === 'girl' && this.channelTitle === '现代言情') {
+        this.setChannelStoryTag(this.girlModernStory)
+        getGirlModern()
+          .then(data => {
+            this.selectionBook = data.selectionBook
+            this.newBook = data.newBook
+            this.end = data.end
+            this.rank = data.rank
+            console.log(data)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else if (this.channelType === 'girl' && this.channelTitle === '古代言情') {
+        this.setChannelStoryTag(this.girlAncientStory)
+        getGirlAncient()
+          .then(data => {
+            this.selectionBook = data.selectionBook
+            this.newBook = data.newBook
+            this.end = data.end
+            this.rank = data.rank
+            console.log(data)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else if (this.channelType === 'boy' && this.channelTitle === '现代言情') {
+        this.setChannelStoryTag(this.boyModernStory)
+        getBoyModern()
+          .then(data => {
+            this.selectionBook = data.selectionBook
+            this.newBook = data.newBook
+            this.end = data.end
+            this.rank = data.rank
+            console.log(data)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        this.setChannelStoryTag(this.boyAncientStory)
+        getBoyAncient()
+          .then(data => {
+            this.selectionBook = data.selectionBook
+            this.newBook = data.newBook
+            this.end = data.end
+            this.rank = data.rank
+            console.log(data)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
+    })
+  },
   components: {
     Selection,
     NewBook,
@@ -65,15 +142,18 @@ export default {
     return {
       Height: 0,
       highMarksNovel: [],
-      girlNormalStory: ['总裁豪门', '重生异能', '婚恋爱情'],
-      girlAncientStory: ['穿越时空', '种田经商', '宫闱宅斗', '幻想言情'],
-      boyNormalStory: ['都市高手', '游戏竞技', '科幻世界'],
-      boyAncientStory: ['玄幻奇幻', '穿越时空', '武侠仙侠', '奇闻异事']
+      girlModernStory: ['全部', '豪门总裁', '重生异能', '婚恋爱情'],
+      girlAncientStory: ['全部', '穿越时空', '种田经商', '宫闱宅斗', '幻想言情'],
+      boyModernStory: ['全部', '都市高手', '游戏竞技', '科幻世界'],
+      boyAncientStory: ['全部', '玄幻奇幻', '穿越时空', '武侠仙侠', '奇闻异事'],
+      selectionBook: {},
+      newBook: [],
+      end: [],
+      rank: []
     }
   },
   computed: {
     ...mapGetters([
-      'showChannel',
       'channelType',
       'channelTitle'
     ])
@@ -86,39 +166,7 @@ export default {
     back () {
       // window.history.back()
       this.setShowChannel(false)
-    },
-    switchTag () {
-      if (this.showChannel) {
-        if (this.channelType === 'girl' && this.channelTitle === '现代言情') {
-          this.setChannelStoryTag(this.girlNormalStory)
-        } else if (this.channelType === 'girl' && this.channelTitle === '古代言情') {
-          this.setChannelStoryTag(this.girlAncientStory)
-        } else if (this.channelType === 'boy' && this.channelTitle === '现代言情') {
-          this.setChannelStoryTag(this.boyNormalStory)
-        } else {
-          this.setChannelStoryTag(this.boyAncientStory)
-        }
-      }
     }
-  },
-  created () {
-    getHighMarksNovel()
-      .then(data => {
-        this.highMarksNovel = data.highMarksNovel.girl
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },
-  mounted () {
-    console.log(this.showChannel)
-    this.$nextTick(function () {
-      // this.titleHeight = this.$refs.title.offsetHeight
-      // this.tabsHeight = this.$refs.tabs.$el.offsetHeight
-      this.Height = this.$refs.title.offsetHeight + this.$refs.tabs.$el.offsetHeight
-    })
-    // console.log(this.$refs.title.offsetHeight)
-    // console.log(this.$refs.tabs.$el.offsetHeight)
   }
 }
 </script>

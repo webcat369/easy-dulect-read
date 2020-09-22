@@ -1,15 +1,40 @@
 <template>
     <div class="Woman">
-        <van-tree-select height="100%" :items="items" :main-active-index.sync="active">
+        <van-tree-select height="100%" :items="items"
+                         :main-active-index.sync="active"
+                         ref="vanTree"
+        >
             <template #content>
                 <AllCategories v-if="active === 0"
                                :Tag="womanTag"
                 ></AllCategories>
-                <ListPage v-if="active === 1"></ListPage>
-                <ListPage v-if="active === 2"></ListPage>
-                <ListPage v-if="active === 3"></ListPage>
-                <ListPage v-if="active === 4"></ListPage>
-                <ClassificationList v-if="active === 5"></ClassificationList>
+                <MeScroll v-if="active === 1"
+                          :Tag="'rank'"
+                          :key="'rank'"
+                          :CurrentRank="rankList.hotList"></MeScroll>
+                <MeScroll v-if="active === 2"
+                          :Tag="'end'"
+                          :key="'end'"
+                          :CurrentRank="rankList.endList"
+                ></MeScroll>
+                <MeScroll v-if="active === 3"
+                          :Tag="'popularBook'"
+                          :key="'popularBook'"
+                          :CurrentRank="rankList.popularBook"
+                ></MeScroll>
+                <MeScroll v-if="active === 4"
+                          :Tag="'nowHot'"
+                          :key="'nowHot'"
+                          :CurrentRank="rankList.hotSurge"
+                ></MeScroll>
+                <MeScroll v-if="active === 5"
+                          :Tag="'newBook'"
+                          :key="'newBook'"
+                          :CurrentRank="rankList.newBookList"
+                ></MeScroll>
+                <ClassificationList v-if="active === 6"
+                                    :ChannelType="'girl'"
+                ></ClassificationList>
             </template>
         </van-tree-select>
     </div>
@@ -19,12 +44,51 @@
 import Vue from 'vue'
 import { TreeSelect } from 'vant'
 import AllCategories from './AllCategories'
-import ListPage from './ListPage'
+import MeScroll from '../MeScroll'
 import ClassificationList from './ClassificationList'
-import { getSelectionTag } from '../../api'
+import { getSelectionTag, AllGirl } from '../../api'
 Vue.use(TreeSelect)
 export default {
   name: 'Woman',
+  created () {
+    getSelectionTag()
+      .then(data => {
+        this.womanTag = data.Woman
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+    AllGirl()
+      .then(data => {
+        console.log(data)
+        const hotList = data[0].rank.concat(data[1].rank)
+        const endList = data[0].end.concat(data[1].end)
+        const newBookList = data[0].newBook.concat(data[1].newBook)
+        const hotSurge = data[0].selectionBook.hotSurge.concat(data[1].selectionBook.hotSurge)
+        const popularBook = data[0].selectionBook.popularBook.concat(data[1].selectionBook.popularBook)
+        this.rankList.hotList = hotList
+        this.rankList.endList = endList
+        this.rankList.newBookList = newBookList
+        this.rankList.hotSurge = hotSurge
+        this.rankList.popularBook = popularBook
+        console.log(this.rankList)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  mounted () {
+    console.log('父组件创建完成')
+  },
+  updated () {
+    // console.log(this.active)
+  },
+  watch: {
+    active (n, o) {
+      // console.log(n, o)
+    }
+  },
   data () {
     return {
       active: 0,
@@ -34,24 +98,22 @@ export default {
         { text: '完结榜' },
         { text: '黑马榜' },
         { text: '热搜榜' },
+        { text: '新书榜' },
         { text: '分类榜' }
       ],
-      womanTag: []
+      womanTag: [],
+      rankList: {}
     }
   },
   components: {
     AllCategories,
-    ListPage,
-    ClassificationList
+    ClassificationList,
+    MeScroll
   },
-  created () {
-    getSelectionTag()
-      .then(data => {
-        this.womanTag = data.Woman
-      })
-      .catch(err => {
-        console.log(err)
-      })
+  methods: {
+    VanTree (e) {
+      console.log(e)
+    }
   }
 }
 </script>
@@ -94,9 +156,6 @@ export default {
             height: 100%;
             /*background: #e7555b;*/
             /*background:orange;*/
-            .allClassic{
-
-            }
         }
     }
 }

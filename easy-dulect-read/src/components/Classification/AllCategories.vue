@@ -30,7 +30,7 @@
                 @click.stop="ToScrollDetailPage(value.title,value.tag)"
             >
                <img v-lazy="value.photo" alt="">
-               {{value.title}}
+               <p>{{value.title}}</p>
             </li>
          </ul>
       </div>
@@ -43,8 +43,8 @@ import { Swipe, SwipeItem, Lazyload } from 'vant'
 import { mapActions } from 'vuex'
 import {
   getSelectionBooks,
-  getWomanList,
-  getManList
+  AllWomanList,
+  AllManList
 } from '../../api'
 Vue.use(Lazyload)
 Vue.use(Swipe)
@@ -112,7 +112,7 @@ export default {
         console.log(err)
       })
 
-    getWomanList()
+    AllWomanList()
       .then(data => {
         // console.log(data)
         this.WomanBook = data
@@ -121,7 +121,7 @@ export default {
         console.log(err)
       })
 
-    getManList()
+    AllManList()
       .then(data => {
         // console.log(data)
         this.ManBook = data
@@ -155,7 +155,7 @@ export default {
    /*bottom:100px;*/
    width: 100%;
    height: 100%;
-   background: #c2baee;
+   background: #ffffff;
    .my-swipe{
       width:75%;
       height:180px;
@@ -228,16 +228,23 @@ export default {
          li{
             width:270px;
             height: 100px;
-            line-height: 100px;
-            font-size: 30px;
-            color: #333333;
             background: #ececed;
             margin-bottom: 20px;
             border-radius: 10px;
+            position: relative;
+            p{
+               display: inline-block;
+               font-size: 30px;
+               color: #333333;
+               text-align: center;
+               position: absolute;
+               bottom: 25px;
+            }
             img{
-               width:60px;
+               width:70px;
+               height: 100%;
                border-radius: 10px;
-               margin: 10px 20px;
+               margin: 0 20px;
             }
          }
       }

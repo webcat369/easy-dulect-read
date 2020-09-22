@@ -8,27 +8,27 @@
                        <img src="../../assets/images/stack.svg" alt="">
                        <p>图书书库</p>
                    </router-link>
-                    <li @click.stop="ScrollDetailPage('经典文学')">
+                    <li @click.stop="ScrollDetailPage('经典文学','classicLiterature')">
                         <img src="../../assets/images/story.svg" alt="">
                         <p>经典文学</p>
                     </li>
-                    <li @click.stop="ScrollDetailPage('文学艺术')">
+                    <li @click.stop="ScrollDetailPage('文学艺术','literatureArt')">
                         <img src="../../assets/images/pen.svg" alt="">
                         <p>文学艺术</p>
                     </li>
-                    <li @click.stop="ScrollDetailPage('人文社科')">
+                    <li @click.stop="ScrollDetailPage('人文社科','humanitiesSocialScience')">
                         <img src="../../assets/images/radar.svg" alt="">
                         <p>人文社科</p>
                     </li>
-                    <li @click.stop="ScrollDetailPage('经管励志')">
+                    <li @click.stop="ScrollDetailPage('经管励志','economicManagement')">
                         <img src="../../assets/images/wallet.svg" alt="">
                         <p>经管励志</p>
                     </li>
                 </ul>
                 <ExclusiveOriginal :title="'热门图书'" :Channel="hotBook"></ExclusiveOriginal>
-                <Publish :title="'影视著作'" :Channel="filmWorks"></Publish>
-                <Publish :title="'现代言情'" :Channel="modernRomance"></Publish>
-                <Publish :title="'古代言情'" :Channel="ancientRomance"></Publish>
+                <Publish :title="'影视著作'" :Tag="'filmWorks'" :Channel="filmWorks"></Publish>
+                <Publish :title="'现代言情'" :Tag="'modernRomance'" :Channel="modernRomance"></Publish>
+                <Publish :title="'古代言情'" :Tag="'ancientRomance'" :Channel="ancientRomance"></Publish>
                 <div class="title">精选好书</div>
                 <ScrollList ref="ScrollList"
                             :Channel="selectionBooks"></ScrollList>
@@ -60,7 +60,8 @@ export default {
       filmWorks: [],
       modernRomance: [],
       ancientRomance: [],
-      selectionBooks: []
+      selectionBooks: [],
+      publicationBook: []
     }
   },
   computed: {
@@ -72,12 +73,16 @@ export default {
   methods: {
     ...mapActions([
       'setScrollDetailPage',
-      'setSelectTitle'
+      'setSelectTitle',
+      'setSelectTag',
+      'setCurrentPublicationDetailPage'
     ]),
-    ScrollDetailPage (e) {
-      console.log(e)
+    ScrollDetailPage (Title, Tag) {
+      console.log(Title)
       this.setScrollDetailPage(true)
-      this.setSelectTitle(e)
+      this.setSelectTitle(Title)
+      this.setSelectTag(Tag)
+      this.setCurrentPublicationDetailPage(this.publicationBook)
       // this.setScrollDetailPage(true)
       // if (this.channelTitle === '经典文学' || this.channelTitle === '人文艺术' || this.channelTitle === '人文社科' || this.channelTitle === '经管励志') {
       // }
@@ -91,6 +96,7 @@ export default {
         this.filmWorks = data.filmWorks.splice(0, 8)
         this.modernRomance = data.modernRomance.splice(0, 8)
         this.ancientRomance = data.ancientRomance.splice(0, 8)
+        this.publicationBook = data
       })
       .catch(err => {
         console.log(err)
@@ -118,7 +124,7 @@ export default {
         right: 0;
         bottom: 100px;
         overflow: hidden;
-        background: #42b983;
+        background: #ffffff;
         .classify{
             width: 90%;
             height: 200px;
@@ -157,7 +163,6 @@ export default {
             font-size: 40px;
             color: #333333;
             font-weight: bold;
-            margin-top: 30px;
         }
     }
 </style>

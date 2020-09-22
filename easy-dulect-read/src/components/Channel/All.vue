@@ -3,31 +3,32 @@
         <div class="All" ref="All">
             <div class="select">
                 <ul class="tag">
-                    <li class="active" @click.stop="SelectionTag">全部</li>
-                    <li v-for="(value,index) in channelStoryTag"
+<!--                    <li class="active" @click.stop="SelectionTag">全部</li>-->
+                    <li ref="tag"
+                        v-for="(value,index) in channelStoryTag"
                         :key="index"
-                        @click.stop="SelectionTag">{{value}}</li>
+                        @click.stop="selectionTag(index,value)">{{value}}</li>
                 </ul>
                 <ul class="end">
-                    <li class="active">全部</li>
-                    <li>完结</li>
-                    <li>连载</li>
+                    <li ref="end"
+                        v-for="(value,index) in end"
+                        :key="index"
+                        @click.stop="selectionEnd(index)">{{value}}</li>
                 </ul>
                 <ul class="words">
-                    <li class="active">全部</li>
-                    <li>50万字以下</li>
-                    <li>50-100万字</li>
-                    <li>100200万字</li>
-                    <li>200万字以上</li>
+                    <li ref="words"
+                        v-for="(value,index) in words"
+                        :key="index"
+                        @click.stop="selectionWords(index)">{{value}}</li>
                 </ul>
-                <ul>
-                    <li class="active">按热度</li>
-                    <li>按更新</li>
-                    <li>按评分</li>
-                    <li>新书</li>
+                <ul class="type">
+                    <li ref="type"
+                        v-for="(value,index) in type"
+                        :key="index"
+                        @click.stop="selectionType(index)">{{value}}</li>
                 </ul>
             </div>
-            <ScrollList ref="show"></ScrollList>
+            <ScrollList ref="show" :Channel="selectData"></ScrollList>
         </div>
     </ScrollView>
 </template>
@@ -36,15 +37,68 @@
 import ScrollView from '../ScrollView'
 import ScrollList from '../Module/ScrollList'
 import { mapGetters } from 'vuex'
+import { filterBooks } from '../../api/index'
+import selectBookApi from '../../api/selectBookApi'
+
 export default {
   name: 'All',
+  mounted () {
+    // 列表盒子高度
+    const topHeight = window.innerHeight - this.Height
+    // console.log(bottomHeight)
+    this.$refs.ScrollView.scrolling((y) => {
+      const AllHeight = this.$refs.All.offsetHeight
+      // console.log(AllHeight)
+      const scrollY = AllHeight + y
+      // console.log(scrollY, 'mounted')
+      // console.log(y)
+      if (Math.abs(topHeight - scrollY) < 10) {
+        this.$refs.show.scrollMore()
+      }
+    })
+    // 进入All页面就触发Channel的switchTag方法
+    this.$nextTick(() => {
+      // console.log(this.$refs.tag[0])
+      this.$refs.tag[0].classList.add('active')
+      this.$refs.end[0].classList.add('active')
+      this.$refs.words[0].classList.add('active')
+      this.$refs.type[0].classList.add('active')
+    })
+  },
   components: {
     ScrollView,
     ScrollList
   },
   data () {
     return {
-      StoryTag: []
+      StoryTag: [],
+      currentTag: 0,
+      currentEnd: 0,
+      currentWords: 0,
+      currentType: 0,
+      end: ['全部', '连载', '完结'],
+      words: ['全部', '50万字以下', '50-100万字', '100-200万字', '200万字以上'],
+      type: ['按热度', '按更新', '按评分'],
+      TagFlag: '',
+      selectData: []
+    }
+  },
+  watch: {
+    currentTag (n, o) {
+      this.$refs.tag[o].classList.remove('active')
+      this.$refs.tag[n].classList.add('active')
+    },
+    currentEnd (n, o) {
+      this.$refs.end[o].classList.remove('active')
+      this.$refs.end[n].classList.add('active')
+    },
+    currentWords (n, o) {
+      this.$refs.words[o].classList.remove('active')
+      this.$refs.words[n].classList.add('active')
+    },
+    currentType  (n, o) {
+      this.$refs.type[o].classList.remove('active')
+      this.$refs.type[n].classList.add('active')
     }
   },
   props: {
@@ -62,26 +116,46 @@ export default {
     ])
   },
   methods: {
-    SelectionTag () {
-      this.$emit('switchTag')
-    }
-  },
-  mounted () {
-    // 列表盒子高度
-    const topHeight = window.innerHeight - this.Height
-    // console.log(bottomHeight)
-    this.$refs.ScrollView.scrolling((y) => {
-      const AllHeight = this.$refs.All.offsetHeight
-      // console.log(AllHeight)
-      const scrollY = AllHeight + y
-      // console.log(scrollY, 'mounted')
-      // console.log(y)
-      if (Math.abs(topHeight - scrollY) < 10) {
-        this.$refs.show.scrollMore()
+    selectionTag (id = 0, value) {
+      // this.$emit('switchTag')
+      const List = []
+      this.currentTag = id
+      if (value === '全部') {
+        List.push(selectBookApi.getPresidentWealthy)
+        List.push(selectBookApi.getRebirthSpecialAbility)
+        List.push(selectBookApi.getMarriageAndLove)
+      } else if (value === '豪门总裁') {
+        List.push(selectBookApi.getPresidentWealthy)
+      } else if (value === '重生异能') {
+        List.push(selectBookApi.getRebirthSpecialAbility)
+      } else if (value === '婚恋爱情') {
+        List.push(selectBookApi.getMarriageAndLove)
       }
-    })
-    // 进入All页面就触发Channel的switchTag方法
-    this.SelectionTag()
+      console.log(List)
+      filterBooks(List).then(data => {
+        this.selectData = []
+        // console.log(data) // {presidentWealthy:[],marriageAndLove:[],rebirthSpecialAbility:[]}
+        for (const key in data) {
+          // console.log(key) presidentWealthy marriageAndLove rebirthSpecialAbility
+          for (const item of data[key]) {
+            this.selectData.push(item)
+          }
+        }
+        console.log(this.selectData)
+      })
+    },
+    selectionEnd (id = 0) {
+      // this.$emit('switchTag')
+      this.currentEnd = id
+    },
+    selectionWords (id = 0) {
+      // this.$emit('switchTag')
+      this.currentWords = id
+    },
+    selectionType (id = 0) {
+      // this.$emit('switchTag')
+      this.currentType = id
+    }
   }
 
 }
@@ -107,18 +181,21 @@ export default {
             padding: 10px 20px;
             box-sizing: border-box;
             li{
-                height: 50px;
-                line-height:20px;
+                border:2px solid transparent;
+                line-height:30px;
                 border-radius: 20px;
                 margin: 10px 10px;
-                padding: 15px 15px;
-                box-sizing: border-box;
+                padding: 5px 15px;
                 text-align: center;
                 font-size: 28px;
                 color: #333333;
+                box-sizing: border-box;
+                /*background: #ee9b9b;*/
                 &.active{
                     border: 2px solid #fa8100;
-                    color: #d86c00;
+                    font-weight: bold;
+                    box-sizing: border-box;
+                    color: #e07500;
                 }
             }
         }

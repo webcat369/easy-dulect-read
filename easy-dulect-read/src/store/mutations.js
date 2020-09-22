@@ -15,7 +15,8 @@ import {
   SET_SELECT_TITLE,
   SET_CURRENT_WOMAN_DETAIL_PAGE,
   SET_CURRENT_MAN_DETAIL_PAGE,
-  SET_CURRENT_PUBLICATION_DETAIL_PAGE
+  SET_CURRENT_PUBLICATION_DETAIL_PAGE,
+  SET_PAGE_NUM
 } from './mutations-Type'
 export default {
   [SET_TABBAR_HEIGHT] (state, PayLoad) {
@@ -71,5 +72,8 @@ export default {
   },
   [SET_CURRENT_PUBLICATION_DETAIL_PAGE] (state, PayLoad) {
     state.currentPublicationDetailPage = PayLoad
+  },
+  [SET_PAGE_NUM] (state, PayLoad) {
+    state.PageNum = PayLoad
   }
 }

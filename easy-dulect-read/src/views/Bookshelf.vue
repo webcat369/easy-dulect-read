@@ -1,25 +1,25 @@
 <template>
   <div class="Bookshelf">
-          <div class="text" @click="readIt">
-              <img src="./../assets/images/yuanlong.jpg">
-              <p>元龙</p>
-          </div>
+    <Bookcase></Bookcase>
   </div>
 </template>
 
 <script>
+import Bookcase from '../components/Bookshelf/Bookcase'
 export default {
   name: 'Bookshelf',
+  components: {
+    Bookcase
+  },
   methods: {
-    readIt () {
-      this.$router.push('/detailPage')
-    }
   }
 }
 </script>
 
 <style scoped lang="scss">
 .Bookshelf{
+  width: 100%;
+  height: 100%;
     .text{
         width: 300px;
         height: 350px;

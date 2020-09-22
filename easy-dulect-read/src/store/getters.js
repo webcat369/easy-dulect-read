@@ -49,5 +49,8 @@ export default {
   },
   currentPublicationDetailPage (state) {
     return state.currentPublicationDetailPage
+  },
+  PageNum (state) {
+    return state.PageNum
   }
 }

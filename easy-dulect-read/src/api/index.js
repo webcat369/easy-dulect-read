@@ -52,8 +52,24 @@ export const getScienceFictionWorld = () => Network.get('/scienceFictionWorld.js
 export const getSelectionBooks = () => Network.get('/PublicationBook.json')
 /* 分类标签 */
 export const getSelectionTag = () => Network.get('/tag.json')
+/* 筛选图书 */
+export const bookClassification = (list) => Network.all(list)
 
-export const getWomanList = (data) => {
+/* 书籍筛选 */
+export const filterBooks = async (list) => {
+  return new Promise(function (resolve, reject) {
+    Network.all(list).then(function (result) {
+      const womanList = Object.assign(...result)
+      // console.log(womanList)
+      resolve(womanList)
+    })
+      .catch(function (err) {
+        reject(err)
+      })
+  })
+}
+
+export const AllWomanList = (data) => {
   return new Promise(function (resolve, reject) {
     Network.all([
       Network.get('/presidentWealthy.json'),
@@ -76,7 +92,7 @@ export const getWomanList = (data) => {
   })
 }
 
-export const getManList = (data) => {
+export const AllManList = (data) => {
   return new Promise(function (resolve, reject) {
     Network.all([
       Network.get('/superPower.json'),
@@ -93,6 +109,49 @@ export const getManList = (data) => {
         const ManList = Object.assign(...result)
         // console.log(womanList)
         resolve(ManList)
+      })
+      .catch(function (err) {
+        reject(err)
+      })
+  })
+}
+
+/* 女生现代 */
+export const getGirlModern = () => Network.get('/girlModern.json')
+/* 女生古代 */
+export const getGirlAncient = () => Network.get('/girlAncient.json')
+/* 男生现代 */
+export const getBoyModern = () => Network.get('/boyModern.json')
+/* 男生古代 */
+export const getBoyAncient = () => Network.get('/boyAncient.json')
+
+export const AllGirl = (data) => {
+  return new Promise(function (resolve, reject) {
+    Network.all([
+      Network.get('/girlModern.json'),
+      Network.get('/girlAncient.json')
+    ])
+      .then(function (result) {
+        // GirlList.push(...result[0].newBook)
+        // GirlList.push(...result[1].newBook)
+        // console.log(result)
+        resolve(result)
+      })
+      .catch(function (err) {
+        reject(err)
+      })
+  })
+}
+
+export const AllBoy = (data) => {
+  return new Promise(function (resolve, reject) {
+    Network.all([
+      Network.get('/boyModern.json'),
+      Network.get('/boyAncient.json')
+    ])
+      .then(function (result) {
+        // console.log(result)
+        resolve(result)
       })
       .catch(function (err) {
         reject(err)

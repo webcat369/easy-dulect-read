@@ -5,7 +5,7 @@
         <Swipe></Swipe>
         <div class="classic">
           <ul class="grid-two">
-            <router-link tag="li" to="/">
+            <router-link tag="li" to="/classification/man">
               <div class="grid-left">
                 <p>分类</p>
                 <p>古代/现言</p>
@@ -14,7 +14,7 @@
                 <img src="">
               </div>
             </router-link>
-            <router-link tag="li" to="/">
+            <router-link tag="li" to="/classification/man">
               <div class="grid-left">
                 <p>排行榜</p>
                 <p>每日更新</p>
@@ -25,19 +25,19 @@
             </router-link>
           </ul>
           <ul class="grid-three">
-            <router-link tag="li" to="/">
+            <router-link tag="li" to="/classification/man">
               <div>
                 <p>完结</p>
                 <p>一次看到爽</p>
               </div>
             </router-link>
-            <router-link tag="li" to="/">
+            <router-link tag="li" to="/classification/man">
               <div>
                 <p>新书</p>
                 <p>27本新书上架</p>
               </div>
             </router-link>
-            <router-link tag="li" to="/">
+            <router-link tag="li" to="/classification/man">
               <div>
                 <p>独家</p>
                 <p>原创潜力大作</p>
@@ -48,7 +48,7 @@
         <HotList
                 :title="'今日大热榜'"
                 :hotList="boyHotList"
-                :type="'boy'"
+                :type="'man'"
                 :name="'boyHotList'"
         ></HotList>
         <ExclusiveOriginal

@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://localhost:3000'
+// axios.defaults.baseURL = 'http://192.168.137.1:3000'
 axios.defaults.timeout = 3000
 
 // 添加请求拦截器

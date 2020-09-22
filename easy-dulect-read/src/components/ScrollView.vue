@@ -17,11 +17,13 @@ export default {
       scrollbars: false, // 禁用滚动条
       probeType: 3, // 像素级的监听
       // 解决拖拽卡顿的问题
-      scrollX: false,
-      scrollY: true,
-      disablePointer: true,
-      disableTouch: false,
-      disableMouse: true
+      scrollX: false, // 可以设置IScroll滚动的初始位置
+      scrollY: true, // 可以设置IScroll滚动的初始位置
+      disablePointer: true, // 是否关闭指针事件探测。如知道运行在哪个平台，可以开启它来加速。
+
+      disableTouch: false, // 是否关闭触摸事件探测。如知道运行在哪个平台，可以开启它来加速。
+      disableMouse: true, // 是否关闭鼠标事件探测。如知道运行在哪个平台，可以开启它来加速。
+      bounce: false // 是否启用弹力动画效果，关掉可以加速
     })
     /* 利用setTimeout计算滚动范围
     setTimeout(() => {
@@ -80,7 +82,7 @@ export default {
         fn(this.y) // 调用外界的回调函数，把当前的偏移位传递给外界
       })
     },
-    // 100ms后创建列表播放的歌单显示，用iscroll刷新列表播放的歌单
+    // 刷新
     refresh () {
       setTimeout(() => {
         // 延迟100ms后刷新

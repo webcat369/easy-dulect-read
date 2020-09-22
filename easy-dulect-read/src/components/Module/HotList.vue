@@ -3,7 +3,7 @@
         <div class="header">
             <p>{{title}}</p>
             <p>
-                <span>更多</span>
+                <router-link tag="span" :to="{ path: '/classification/'+`${type}` }">更多</router-link>
                 <van-icon name="arrow"/>
             </p>
         </div>
@@ -28,7 +28,7 @@
 <script>
 import Vue from 'vue'
 import { Grid, GridItem, Icon, Lazyload } from 'vant'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 Vue.use(Icon)
 Vue.use(Grid)
@@ -72,6 +72,11 @@ export default {
       this.setShowDetail(true)
       this.setCurrentBook(value)
     }
+  },
+  computed: {
+    ...mapGetters([
+      'channelType'
+    ])
   }
 }
 </script>

@@ -9,7 +9,6 @@
                 <ScrollView ref="ScrollView">
                     <div class="box" ref="box">
                         <ScrollList ref="ScrollList"
-                                    style="margin-top: 30Px"
                                     :Channel="DetailPage"></ScrollList>
                     </div>
                 </ScrollView>
@@ -52,7 +51,7 @@ export default {
   },
   mounted () {
     console.log(this.currentWomanDetailPage)
-    console.log(this.currentManDetailPage)
+    console.log(this.DetailPage)
     console.log(this.currentPublicationDetailPage)
     switch (this.selectTag) {
       // 女生
@@ -177,7 +176,7 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 999;
-    background: #fdfdfe;
+    background: #f3f3f3;
     .header{
         width: 100%;
         height: 100px;
@@ -203,7 +202,7 @@ export default {
         bottom: 0;
         left: 0;
         right: 0;
-        background: #c2baee;
+        /*background: #c2baee;*/
         overflow: hidden;
     }
 }

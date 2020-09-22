@@ -4,23 +4,24 @@
             <div class="recommend">
                 <div class="top">本期频道推荐</div>
                 <ul class="bottom">
-                   <li>
-                       <img src="https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/f74b8ce07e3e37db5ad063ea96977308_360x480.jpg" alt="">
-                       <p>登雀枝</p>
-                   </li>
-                   <li>
-                       <img src="https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/72b3859ad460a1d5f2a8979c78c78c22_360x480.jpg" alt="">
-                       <p>神探仵作娇王妃</p>
-                   </li>
-                   <li>
-                       <img src="https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/7be9859fe2072e14a7e56aa26aafcf5a_360x480.jpg" alt="">
-                       <p>冲喜娘子病娇夫冲喜娘子病娇夫</p>
+                   <li v-for="(value,index) in SelectionBook.recommendChannel"
+                       :key="index"
+                       @click.stop="ShowDetail(value)"
+                   >
+                       <img v-lazy="value.coverPicture" alt="">
+                       <p>{{value.title}}</p>
                    </li>
                 </ul>
             </div>
-            <ExclusiveOriginal :title="'新晋热门'" :Channel="Channel"></ExclusiveOriginal>
-            <ExclusiveOriginal :title="'热度飙升中'" :Channel="Channel"></ExclusiveOriginal>
-            <ExclusiveOriginal :title="'人气新书'" :Channel="Channel"></ExclusiveOriginal>
+            <ExclusiveOriginal
+                    :title="'新晋热门'"
+                    :Channel="SelectionBook.nowHot"></ExclusiveOriginal>
+            <ExclusiveOriginal
+                    :title="'热度飙升中'"
+                    :Channel="SelectionBook.hotSurge"></ExclusiveOriginal>
+            <ExclusiveOriginal
+                    :title="'人气新书'"
+                    :Channel="SelectionBook.popularBook"></ExclusiveOriginal>
             <p class="end">轻悦读</p>
         </div>
     </ScrollView>
@@ -29,6 +30,7 @@
 <script>
 import ScrollView from '../ScrollView'
 import ExclusiveOriginal from '../Module/ExclusiveOriginal'
+import { mapActions } from 'vuex'
 export default {
   name: 'Selection',
   components: {
@@ -36,10 +38,21 @@ export default {
     ExclusiveOriginal
   },
   props: {
-    Channel: {
-      type: Array,
-      default: () => [],
+    SelectionBook: {
+      type: Object,
+      default: () => {},
       require: true
+    }
+  },
+  methods: {
+    ...mapActions([
+      'setShowDetail',
+      'setCurrentBook'
+    ]),
+    ShowDetail (vaule) {
+      // console.log(vaule)
+      this.setShowDetail(true)
+      this.setCurrentBook(vaule)
     }
   }
 }

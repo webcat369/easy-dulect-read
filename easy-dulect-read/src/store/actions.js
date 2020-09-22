@@ -15,7 +15,8 @@ import {
   SET_SELECT_TITLE,
   SET_CURRENT_WOMAN_DETAIL_PAGE,
   SET_CURRENT_MAN_DETAIL_PAGE,
-  SET_CURRENT_PUBLICATION_DETAIL_PAGE
+  SET_CURRENT_PUBLICATION_DETAIL_PAGE,
+  SET_PAGE_NUM
 } from './mutations-Type'
 export default {
   setTabBarHeight ({ commit }, PayLoad) {
@@ -69,5 +70,8 @@ export default {
   },
   setCurrentPublicationDetailPage ({ commit }, payload) {
     commit(SET_CURRENT_PUBLICATION_DETAIL_PAGE, payload)
+  },
+  setPageNum ({ commit }, payload) {
+    commit(SET_PAGE_NUM, payload)
   }
 }

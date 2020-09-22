@@ -1,7 +1,11 @@
 <template>
     <div class="ScrollList">
         <div class="van-list">
-            <div class="van-cell" v-for="(item,index) in List" :key="index">
+            <div class="van-cell"
+                 v-for="(item,index) in List"
+                 :key="index"
+                 @click.stop="ShowDetail(item)"
+            >
                 <div class="cell-left">
                     <img v-lazy="item.coverPicture" alt="">
                 </div>
@@ -24,13 +28,13 @@
                     </div>
                 </div>
             </div>
+            <div class="more">{{msg}}</div>
         </div>
-        <div class="more">{{msg}}</div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   name: 'ScrollList',
   data () {
@@ -48,31 +52,35 @@ export default {
     }
   },
   watch: {
-    Channel (n, o) {
-      console.log(n, '新的值')
-      console.log(o, '旧的值')
+    Channel (newValue, oldValue) {
+      console.log(newValue, '新的值')
+      console.log(oldValue, '旧的值')
       this.$nextTick(() => {
-        this.List = n.slice(0, 5)
+        this.List = newValue.slice(0, 5)
       })
     }
   },
   methods: {
+    ...mapActions([
+      'setShowDetail',
+      'setCurrentBook'
+    ]),
     scrollMore () { // 上拉查询更多
       if (this.nowPage >= 3) return
       // concat() 方法用于连接两个或多个数组
       this.List = this.List.concat(this.Channel.slice(this.nowPage * 5, (this.nowPage + 1) * 5))
       this.nowPage++
       console.log(this.nowPage)
-      console.log(this.List)
-      if (this.List.length === this.nowPage * 5) {
+      console.log(this.List.length)
+      if (this.Channel.length <= this.nowPage * 5) {
         this.msg = '轻悦读'
       }
+    },
+    ShowDetail (item) {
+      console.log(item)
+      this.setShowDetail(true)
+      this.setCurrentBook(item)
     }
-  },
-  computed: {
-    ...mapGetters([
-      'showScrollDetailPage'
-    ])
   },
   mounted () {
     console.log(this.Channel)
@@ -83,16 +91,17 @@ export default {
 <style scoped lang="scss">
 .ScrollList{
     width: 100%;
-    background: #fddfdf;
+    background: #ffffff;
     .van-list{
         /*background: #70bfd3;*/
         .van-cell{
             position: relative;
+            left: 50%;
+            transform: translateX(-50%);
             width: 90%;
             height: 210px;
             padding: 0;
             /*background: #ee9b9b;*/
-            margin: 0 auto;
             margin-bottom: 35px;
             display: flex;
             justify-content: space-between;
@@ -100,9 +109,11 @@ export default {
                 width:25%;
                 /*background: #cccccc;*/
                 img{
-                    display: inline-block;
+                    display:block;
                     height: 100%;
                     border-radius: 10px;
+                    box-shadow:3px 0 5px 4px #c9c9ca;
+                    box-sizing: border-box;
                 }
                 img[lazy="loading"] {
                     display: inline-block;
@@ -201,7 +212,7 @@ export default {
         margin: 0 auto;
         line-height: 50px;
         text-align: center;
-        background: #ddd;
+        background: #ffffff;
         color:#666;
         font-size: 23px;
     }
