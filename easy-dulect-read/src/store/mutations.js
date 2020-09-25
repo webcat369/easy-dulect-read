@@ -16,7 +16,16 @@ import {
   SET_CURRENT_WOMAN_DETAIL_PAGE,
   SET_CURRENT_MAN_DETAIL_PAGE,
   SET_CURRENT_PUBLICATION_DETAIL_PAGE,
-  SET_PAGE_NUM
+  SET_PAGE_NUM,
+  SET_SHOW_MESSAGE_LOGGING,
+  SET_SHOW_COLLECT,
+  SET_SHOW_BOOK_REVIEW,
+  SET_SHOW_READ_RECORD,
+  SET_READ_PREFERENCES,
+  SET_HELP_PAGE,
+  SET_COUPLE_BACK_PAGE,
+  SET_SET_PAGE
+
 } from './mutations-Type'
 export default {
   [SET_TABBAR_HEIGHT] (state, PayLoad) {
@@ -75,5 +84,30 @@ export default {
   },
   [SET_PAGE_NUM] (state, PayLoad) {
     state.PageNum = PayLoad
+  },
+  [SET_SHOW_MESSAGE_LOGGING] (state, PayLoad) {
+    state.showMessageLogging = PayLoad
+  },
+  [SET_SHOW_COLLECT] (state, PayLoad) {
+    state.showCollect = PayLoad
+  },
+  [SET_SHOW_BOOK_REVIEW] (state, PayLoad) {
+    state.showBookReview = PayLoad
+  },
+  [SET_SHOW_READ_RECORD] (state, PayLoad) {
+    state.showReadRecord = PayLoad
+  },
+  [SET_READ_PREFERENCES]  (state, PayLoad) {
+    state.showReadPreferences = PayLoad
+  },
+  [SET_HELP_PAGE] (state, PayLoad) {
+    state.showHelpPage = PayLoad
+  },
+  [SET_COUPLE_BACK_PAGE] (state, PayLoad) {
+    state.showCoupleBackPage = PayLoad
+  },
+  [SET_SET_PAGE] (state, PayLoad) {
+    state.showSetPage = PayLoad
   }
+
 }

@@ -67,6 +67,7 @@
                   <div class="catalog-list">
                       <happy-scroll hide-horizontal
                                     hide-vertical
+                                    resize
                                     class="happy-slow">
                           <ul>
                               <li class="active">
@@ -244,7 +245,7 @@
                   </div>
               </van-popup>
           </div>
-          <Coverage></Coverage>
+<!--          <Coverage></Coverage>-->
 <!--          <div class="changeLight"></div>-->
       </div>
    </div>
@@ -256,13 +257,13 @@ import { HappyScroll } from 'vue-happy-scroll'
 import 'vue-happy-scroll/docs/happy-scroll.css'
 import Vue from 'vue'
 import { Popup } from 'vant'
-import Coverage from '../components/PageTurning/Coverage'
+// import Coverage from '../components/PageTurning/Coverage'
 Vue.use(Popup)
 export default {
   name: 'DetailPage',
   components: {
-    HappyScroll,
-    Coverage
+    HappyScroll
+    // Coverage
   },
   data: function () {
     return {

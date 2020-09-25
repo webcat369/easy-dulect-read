@@ -3,7 +3,6 @@
         <div class="header">
             <div class="header-top">
                 <img src="../../assets/icon/moon.svg" alt="">
-                <img src="../../assets/icon/set.svg" alt="">
             </div>
             <div class="log-in"  v-show="currentUser.isShow">
                 <p>欢迎使用轻悦读</p>
@@ -14,39 +13,39 @@
                 <p>{{currentUser.userName}}</p>
             </div>
             <ul class="header-bottom">
-                <li>
+                <li @click.stop="ShowMessageLogging">
                     <img src="../../assets/icon/news.svg" alt="">
                     <p>消息</p>
                 </li>
-                <li>
+                <li @click.stop="ShowCollect">
                     <img src="../../assets/icon/collect.svg" alt="">
                     <p>收藏</p>
                 </li>
-                <li>
+                <li @click.stop="ShowBookReview">
                     <img src="../../assets/icon/review.svg" alt="">
                     <p>书评</p>
                 </li>
-                <li>
+                <li @click.stop="ShowReadRecord">
                     <img src="../../assets/icon/record.svg" alt="">
                     <p>阅历</p>
                 </li>
             </ul>
         </div>
         <ul class="list">
-            <li>
+            <li @click.stop="ShowReadPreferences">
                 <p>我的阅读喜好</p>
                 <img src="../../assets/icon/enter.svg" alt="">
             </li>
-            <li>
-                <p>帮助与反馈</p>
+            <li @click.stop="ShowHelpPage">
+                <p>帮助与建议</p>
                 <img src="../../assets/icon/enter.svg" alt="">
             </li>
-            <li>
-                <p>问题与建议</p>
+            <li @click.stop="ShowCoupleBackPage">
+                <p>问题与反馈</p>
                 <img src="../../assets/icon/enter.svg" alt="">
             </li>
-            <li>
-                <p>我要写作</p>
+            <li @click.stop="ShowSetUpPage">
+                <p>设置</p>
                 <img src="../../assets/icon/enter.svg" alt="">
             </li>
         </ul>
@@ -54,20 +53,57 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Personal',
   mounted () {
     console.log('我创建了')
   },
   methods: {
+    ...mapActions([
+      'setMessageLogging',
+      'setCollect',
+      'setBookReview',
+      'setReadRecord',
+      'setReadPreferences',
+      'setHelpPAge',
+      'setCoupleBackPage',
+      'setSetUpPage'
+    ]),
     logIn () {
       this.$router.push({ path: '/sign' })
+    },
+    ShowMessageLogging () {
+      console.log('消息')
+      this.setMessageLogging(true)
+    },
+    ShowCollect () {
+      this.setCollect(true)
+      console.log(this.showCollect, '收藏')
+    },
+    ShowBookReview () {
+      this.setBookReview(true)
+    },
+    ShowReadRecord () {
+      this.setReadRecord(true)
+    },
+    ShowReadPreferences () {
+      this.setReadPreferences(true)
+    },
+    ShowHelpPage () {
+      this.setHelpPAge(true)
+    },
+    ShowCoupleBackPage () {
+      this.setCoupleBackPage(true)
+    },
+    ShowSetUpPage () {
+      this.setSetUpPage(true)
     }
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'showCollect'
     ])
   }
 }
@@ -94,16 +130,9 @@ export default {
             img{
                 width: 50px;
                 height: 50px;
-                &:nth-of-type(1){
-                    position: absolute;
-                    top: 15px;
-                    right: 120px;
-                }
-                &:nth-of-type(2){
-                    position: absolute;
-                    top: 15px;
-                    right: 20px;
-                }
+                position: absolute;
+                top: 15px;
+                right: 20px;
             }
         }
         .log-in{

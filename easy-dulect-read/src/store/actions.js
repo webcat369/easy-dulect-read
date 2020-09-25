@@ -16,7 +16,15 @@ import {
   SET_CURRENT_WOMAN_DETAIL_PAGE,
   SET_CURRENT_MAN_DETAIL_PAGE,
   SET_CURRENT_PUBLICATION_DETAIL_PAGE,
-  SET_PAGE_NUM
+  SET_PAGE_NUM,
+  SET_SHOW_MESSAGE_LOGGING,
+  SET_SHOW_COLLECT,
+  SET_SHOW_BOOK_REVIEW,
+  SET_SHOW_READ_RECORD,
+  SET_READ_PREFERENCES,
+  SET_HELP_PAGE,
+  SET_COUPLE_BACK_PAGE,
+  SET_SET_PAGE
 } from './mutations-Type'
 export default {
   setTabBarHeight ({ commit }, PayLoad) {
@@ -73,5 +81,29 @@ export default {
   },
   setPageNum ({ commit }, payload) {
     commit(SET_PAGE_NUM, payload)
+  },
+  setMessageLogging ({ commit }, payload) {
+    commit(SET_SHOW_MESSAGE_LOGGING, payload)
+  },
+  setCollect ({ commit }, payload) {
+    commit(SET_SHOW_COLLECT, payload)
+  },
+  setBookReview ({ commit }, payload) {
+    commit(SET_SHOW_BOOK_REVIEW, payload)
+  },
+  setReadRecord ({ commit }, payload) {
+    commit(SET_SHOW_READ_RECORD, payload)
+  },
+  setReadPreferences ({ commit }, payload) {
+    commit(SET_READ_PREFERENCES, payload)
+  },
+  setHelpPAge ({ commit }, payload) {
+    commit(SET_HELP_PAGE, payload)
+  },
+  setCoupleBackPage ({ commit }, payload) {
+    commit(SET_COUPLE_BACK_PAGE, payload)
+  },
+  setSetUpPage ({ commit }, payload) {
+    commit(SET_SET_PAGE, payload)
   }
 }

@@ -20,6 +20,15 @@ export default {
   currentWomanDetailPage: {},
   currentManDetailPage: {},
   currentPublicationDetailPage: {},
-  PageNum: 0
-
+  PageNum: 0,
+  // 个人页面上半部分
+  showMessageLogging: false,
+  showCollect: false,
+  showBookReview: false,
+  showReadRecord: false,
+  // 个人页面下半部分
+  showReadPreferences: false,
+  showHelpPage: false,
+  showCoupleBackPage: false,
+  showSetPage: false
 }

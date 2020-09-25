@@ -6,10 +6,11 @@ import store from './store'
 import VueLazyload from 'vue-lazyload'
 // 借助 fastclick 插件解决移动端100~300ms的点击事件延迟问题
 import fastclick from 'fastclick'
+import animated from 'animate.css'
 // 导入初始化默认的全局样式
 import './assets/css/base.scss'
+Vue.use(animated)
 fastclick.attach(document.body)
-
 Vue.config.productionTip = false
 
 Vue.use(VueLazyload, {

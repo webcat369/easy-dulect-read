@@ -52,5 +52,30 @@ export default {
   },
   PageNum (state) {
     return state.PageNum
+  },
+  showMessageLogging (state) {
+    return state.showMessageLogging
+  },
+  showCollect (state) {
+    return state.showCollect
+  },
+  showBookReview (state) {
+    return state.showBookReview
+  },
+  showReadRecord (state) {
+    return state.showReadRecord
+  },
+  showReadPreferences (state) {
+    return state.showReadPreferences
+  },
+  showHelpPage (state) {
+    return state.showHelpPage
+  },
+  showCoupleBackPage (state) {
+    return state.showCoupleBackPage
+  },
+  showSetPage (state) {
+    return state.showSetPage
   }
+
 }
