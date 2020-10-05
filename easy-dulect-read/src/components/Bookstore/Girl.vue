@@ -361,7 +361,7 @@ export default {
                 }
             }
         .modules{
-           background: #d43c33;
+           /*background: #d43c33;*/
             margin-top:30px;
         }
     }

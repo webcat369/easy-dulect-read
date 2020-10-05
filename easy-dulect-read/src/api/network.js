@@ -47,6 +47,17 @@ export default {
         })
     })
   },
+  patch: function (path = '', data = {}) {
+    return new Promise(function (resolve, reject) {
+      axios.patch(path, data)
+        .then(function (response) {
+          resolve(response.data)
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+    })
+  },
   all: function (list) { // list:要发送哪些请求
     return new Promise(function (resolve, reject) {
       axios.all(list)

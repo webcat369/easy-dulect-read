@@ -39,11 +39,11 @@ export default {
     .Tips{
         position: fixed;
         top: 50%;
-        left: 50%;
+        left: 60%;
         margin-left: -35%;
         margin-top: -10%;
-        width: 70%;
-        height: 20%;
+        width: 50%;
+        height: 10%;
         background: rgba(0,0,0,.7);
         border-radius: 30px;
         z-index: 9999;

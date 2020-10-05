@@ -10,11 +10,11 @@ mongoose.connect('mongodb://localhost:27017/user-data',{
 const Schema = new mongoose.Schema({
     userName:{type:String},
     userPassword:{type:String},
-    userGender:{type:Number},
+    userGender:{type:String},
+    userAvatar:{type:String},
     userId:{type:Number}
 })
-
-const User = mongoose.model('user',Schema)
+const User = mongoose.model('User',Schema)
 
 //导出列表书单
 module.exports = {User}

@@ -28,6 +28,8 @@
     document.documentElement.style.fontSize = window.innerWidth / 7.5 + "px";
     //给<html>设置屏幕的像素比
     document.documentElement.setAttribute('data-dpr', parseInt(window.devicePixelRatio) + '');
+    //给<html>设置默认的行间距
+    document.documentElement.setAttribute('data-line-height', 'mode');
   </script>
   <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 </head>

@@ -24,7 +24,12 @@ import {
   SET_READ_PREFERENCES,
   SET_HELP_PAGE,
   SET_COUPLE_BACK_PAGE,
-  SET_SET_PAGE
+  SET_SET_PAGE,
+  SET_CURRENT_USER_AVATAR,
+  SET_CURRENT_BOOK_STATE,
+  SET_BOOK_PROGRESS,
+  SET_BOOK_LIST,
+  SET_CURRENT_BOOK_ID
 } from './mutations-Type'
 export default {
   setTabBarHeight ({ commit }, PayLoad) {
@@ -60,6 +65,9 @@ export default {
   },
   setCurrentUser ({ commit }, payload) {
     commit(SET_CURRENT_USER, payload)
+  },
+  setBookList ({ commit }, payload) {
+    commit(SET_BOOK_LIST, payload)
   },
   setScrollDetailPage ({ commit }, payload) {
     commit(SET_SHOW_SCROLL_DETAIL_PAGE, payload)
@@ -105,5 +113,17 @@ export default {
   },
   setSetUpPage ({ commit }, payload) {
     commit(SET_SET_PAGE, payload)
+  },
+  setCurrentUserAvatar ({ commit }, payload) {
+    commit(SET_CURRENT_USER_AVATAR, payload)
+  },
+  setCurrentBookState ({ commit }, payload) {
+    commit(SET_CURRENT_BOOK_STATE, payload)
+  },
+  setBookProgress ({ commit }, payload) {
+    commit(SET_BOOK_PROGRESS, payload)
+  },
+  setCurrentBookId ({ commit }, payload) {
+    commit(SET_CURRENT_BOOK_ID, payload)
   }
 }

@@ -134,7 +134,7 @@
             </span>
             </div>
             <div class="TabBar">
-                <p>
+                <p @click.stop="Classic">
                     <img src="../assets/icon/bookshelf.svg" alt="">
                     加入书架
                 </p>
@@ -162,6 +162,7 @@
 <script>
 import ScrollView from './ScrollView'
 import { mapGetters, mapActions } from 'vuex'
+import { classic } from '../api/index'
 export default {
   name: 'Detail',
   data () {
@@ -181,7 +182,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setShowDetail'
+      'setShowDetail',
+      'setTips',
+      'setBookList'
     ]),
     back () {
       // window.history.back
@@ -205,11 +208,45 @@ export default {
         this.ratio = 1
         this.$refs.ScrollView.scrollTo(0, -this.scrollParticularsHeight)
       }
+    },
+    Classic (e) {
+      if (this.currentUser.userId !== '0') {
+        classic(this.currentUser.userId, {
+          id: this.currentBook.id,
+          name: this.currentBook.title,
+          picUrl: this.currentBook.coverPicture,
+          author: this.currentBook.author,
+          progress: this.bookProgress.progress
+        })
+          .then(data => {
+            console.log(data)
+            if (data.msg === '收藏成功') {
+              const oldData = this.bookList
+              oldData.push({
+                id: this.currentBook.id,
+                name: this.currentBook.title,
+                picUrl: this.currentBook.coverPicture,
+                author: this.currentBook.author,
+                progress: this.bookProgress
+              })
+              this.setBookList(oldData)
+              this.setTips('收藏成功')
+            } else {
+              this.setTips(data.msg)
+            }
+          })
+      } else {
+        this.setTips('请先登录')
+        this.$router.push({ path: '/sign' })
+      }
     }
   },
   computed: {
     ...mapGetters([
-      'currentBook'
+      'currentBook',
+      'currentUser',
+      'bookProgress',
+      'bookList'
     ])
   },
   created () {

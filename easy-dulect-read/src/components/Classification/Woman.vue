@@ -8,30 +8,30 @@
                 <AllCategories v-if="active === 0"
                                :Tag="womanTag"
                 ></AllCategories>
-                <MeScroll v-if="active === 1"
+                <ListPage v-if="active === 1"
                           :Tag="'rank'"
                           :key="'rank'"
-                          :CurrentRank="rankList.hotList"></MeScroll>
-                <MeScroll v-if="active === 2"
+                          :CurrentRank="rankList.hotList"></ListPage>
+                <ListPage v-if="active === 2"
                           :Tag="'end'"
                           :key="'end'"
                           :CurrentRank="rankList.endList"
-                ></MeScroll>
-                <MeScroll v-if="active === 3"
+                ></ListPage>
+                <ListPage v-if="active === 3"
                           :Tag="'popularBook'"
                           :key="'popularBook'"
                           :CurrentRank="rankList.popularBook"
-                ></MeScroll>
-                <MeScroll v-if="active === 4"
+                ></ListPage>
+                <ListPage v-if="active === 4"
                           :Tag="'nowHot'"
                           :key="'nowHot'"
                           :CurrentRank="rankList.hotSurge"
-                ></MeScroll>
-                <MeScroll v-if="active === 5"
+                ></ListPage>
+                <ListPage v-if="active === 5"
                           :Tag="'newBook'"
                           :key="'newBook'"
                           :CurrentRank="rankList.newBookList"
-                ></MeScroll>
+                ></ListPage>
                 <ClassificationList v-if="active === 6"
                                     :ChannelType="'girl'"
                 ></ClassificationList>
@@ -44,7 +44,8 @@
 import Vue from 'vue'
 import { TreeSelect } from 'vant'
 import AllCategories from './AllCategories'
-import MeScroll from '../MeScroll'
+// import MeScroll from '../MeScroll'
+import ListPage from './ListPage'
 import ClassificationList from './ClassificationList'
 import { getSelectionTag, AllGirl } from '../../api'
 Vue.use(TreeSelect)
@@ -108,7 +109,7 @@ export default {
   components: {
     AllCategories,
     ClassificationList,
-    MeScroll
+    ListPage
   },
   methods: {
     VanTree (e) {
@@ -125,7 +126,7 @@ export default {
     left: 0;
     right: 0;
     bottom:100px;
-    background: #8dee75;
+    /*background: #8dee75;*/
     width: 100%;
     .van-tree-select{
         .van-sidebar{

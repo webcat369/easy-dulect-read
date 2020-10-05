@@ -62,7 +62,7 @@ export default {
       'setCurrentBook'
     ]),
     ShowDetail (value) {
-      console.log(value)
+      // console.log(value)
       this.setShowDetail(true)
       this.setCurrentBook(value)
     }
@@ -79,12 +79,12 @@ export default {
      .classic-external{
          width: 100%;
          height: 200px;
-         background:#aebbdb;
+         background: #f0d2d4;
      }
      .classic-inner{
          width: 100%;
          height: 550px;
-         background: #aebbdb;
+         background: #f0d2d4;
          border-radius: 500px/90px;
          position: absolute;
          top: 0;
@@ -126,7 +126,7 @@ export default {
                      color: #333333;
                      font-weight: bold;
                      span{
-                         color: #e7555b;
+                         color: #e28f8f;
                      }
                  }
              }

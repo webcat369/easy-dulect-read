@@ -17,7 +17,7 @@ Vue.use(VueLazyload, {
   preLoad: 1.3,
   attempt: 2,
   /* 可以通过loading来设置图片还未加载好之前的占位图片 */
-  loading: require('./assets/icon/loading.gif')
+  loading: require('./assets/icon/loading.png')
 })
 
 new Vue({

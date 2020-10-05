@@ -16,7 +16,7 @@
             <button type="submit" @click.stop="cut" ref="submit">{{text[0]}}</button>
             <div class="signIn">
                 <p @click.stop="switchover" ref="signIn">{{text[1]}}</p>
-                <p>清除</p>
+                <button type="reset">清除</button>
             </div>
         </form>
     </div>
@@ -63,18 +63,25 @@ export default {
       console.log(e)
       const obj = {
         userName: e.target[0].value,
-        userPassword: e.target[1].value
+        userPassword: e.target[1].value,
+        userGender: '男生',
+        userAvatar: 'http://localhost:3000/avatars/avatar_01.jpeg'
       }
       if (!this.textFlag) {
         signIn(obj).then(data => {
           console.log(data)
-          this.$router.push({ path: '/personalcenter' })
-          this.setCurrentUser({
-            userName: data.userName,
-            userId: data.userId,
-            isShow: false
-          })
-          this.setTips('登录成功')
+          if (data.msg === '登陆成功') {
+            this.$router.push({ path: '/personalcenter' })
+            this.setCurrentUser({
+              userName: data.userName,
+              userId: data.userId,
+              userGender: data.userGender,
+              userAvatar: data.userAvatar,
+              isShow: false
+            })
+            localStorage.setItem('user', `[{"userName":" ${data.userName}","userId": "${data.userId}","userGender": "${data.userGender}","userAvatar": "${data.userAvatar}","isShow": "false"}]`)
+          }
+          this.setTips(data.msg)
         })
       } else {
         signUp(obj).then(data => {
@@ -127,6 +134,9 @@ export default {
             /*background: #adbada;*/
             position: relative;
             img{
+
+                display: inline-block;
+                height: 150px;
                 position: absolute;
                 top: 100px;
                 left: 50%;
@@ -136,7 +146,7 @@ export default {
                 font-size: 28px;
                 color: #8c8c8c;
                 position: absolute;
-                top: 250px;
+                top: 280px;
                 left: 50%;
                 transform: translateX(-50%);
             }
@@ -167,7 +177,7 @@ export default {
                     }
                 }
             }
-            button{
+            button[type="submit"]{
                 width: 70%;
                 height: 90px;
                 border: none;

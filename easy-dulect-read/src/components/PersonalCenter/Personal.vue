@@ -4,13 +4,13 @@
             <div class="header-top">
                 <img src="../../assets/icon/moon.svg" alt="">
             </div>
-            <div class="log-in"  v-show="currentUser.isShow">
+            <div class="log-in"  v-show="this.currentUser.isShow">
                 <p>欢迎使用轻悦读</p>
                 <p @click.stop="logIn">马上登陆</p>
             </div>
-            <div class="header-middle" v-show="!currentUser.isShow">
-                <img src="../../assets/icon/photo.svg" alt="">
-                <p>{{currentUser.userName}}</p>
+            <div class="header-middle" v-show="!this.currentUser.isShow">
+                <img :src="this.currentUser.userAvatar" alt="">
+                <p>{{this.currentUser.userName}}</p>
             </div>
             <ul class="header-bottom">
                 <li @click.stop="ShowMessageLogging">
@@ -116,7 +116,7 @@ export default {
     left: 0;
     right: 0;
     bottom: 100px;
-    background-image:linear-gradient(to right, #caddf4,#bed0e6);
+    background-image:linear-gradient(to right, #f5d7d9, #eacbce);
     overflow: hidden;
     .header{
         width: 100%;
@@ -154,7 +154,7 @@ export default {
                     height: 80px;
                     line-height: 80px;
                     text-align: center;
-                    background: #adbada;
+                    background: #e6a9b1;
                     border-radius: 20px;
                     position: absolute;
                     top: 255px;

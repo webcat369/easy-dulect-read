@@ -1,6 +1,22 @@
 import Network from './network'
+// 注册
 export const signUp = (data) => Network.post('/user/signUp', data)
+// 登录
 export const signIn = (data) => Network.post('/user/signIn', data)
+// 修改昵称
+export const changeUserName = (id, data) => Network.patch(`/user/changeUserName/${id}`, data)
+// 修改性别
+export const changeGender = (id, data) => Network.patch(`/user/changeGender/${id}`, data)
+// 修改头像
+export const changeAvatar = (id, data) => Network.patch(`/user/changeAvatar/${id}`, data)
+
+// 加入书架
+export const classic = (id, data) => Network.patch(`/user/classic/${id}`, data)
+// 更新看小说进度
+export const changeProgress = (id, data) => Network.patch(`/user/changeProgress/${id}`, data)
+// 获取用户加入书架的书
+export const searchList = (id) => Network.get(`/user/searchList/${id}`)
+
 /* 轮播图 */
 export const getSwipe = () => Network.get('/banner.json')
 /* 列表 */
@@ -59,6 +75,7 @@ export const bookClassification = (list) => Network.all(list)
 export const filterBooks = async (list) => {
   return new Promise(function (resolve, reject) {
     Network.all(list).then(function (result) {
+      console.log(result)
       const womanList = Object.assign(...result)
       // console.log(womanList)
       resolve(womanList)
@@ -158,3 +175,6 @@ export const AllBoy = (data) => {
       })
   })
 }
+
+// 小说内容
+export const Text = () => Network.get('/text.json')

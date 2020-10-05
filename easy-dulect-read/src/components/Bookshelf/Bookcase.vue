@@ -20,56 +20,24 @@
         <div class="box">
             <ScrollView ref="ScrollView">
                 <div class="van-list">
-                    <div class="van-cell" @click.stop="readBook">
+                    <div class="van-cell"
+                         v-for="(value,index) in bookList"
+                         :key="value.id"
+                         @click.stop="readBook(index)"
+                    >
                         <div class="cell-left">
-                            <img src="https://cdn.wtzw.com/bookimg/public/images/cover/14bf/c8c7da30026cd8ea0cb36a88e4aec49a_360x480.jpg" alt="">
+                            <img v-lazy="value.picUrl" alt="">
                         </div>
                         <div class="cell-right">
                             <div class="right-top">
-                                <p>星辰入怀明</p>
+                                <p>{{value.name}}</p>
                             </div>
                             <div class="right-bottom">
                                 <p>
-                                    <span>冬日微暖</span>
+                                    <span>{{value.author}}</span>
                                 </p>
                                 <p>
-                                    <span>读到:第一章</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="van-cell">
-                        <div class="cell-left">
-                            <img src="https://cdn.wtzw.com/bookimg/public/images/cover/14bf/c8c7da30026cd8ea0cb36a88e4aec49a_360x480.jpg" alt="">
-                        </div>
-                        <div class="cell-right">
-                            <div class="right-top">
-                                <p>星辰入怀明</p>
-                            </div>
-                            <div class="right-bottom">
-                                <p>
-                                    <span>冬日微暖</span>
-                                </p>
-                                <p>
-                                    <span>读到:第一章</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="van-cell">
-                        <div class="cell-left">
-                            <img src="https://cdn.wtzw.com/bookimg/public/images/cover/14bf/c8c7da30026cd8ea0cb36a88e4aec49a_360x480.jpg" alt="">
-                        </div>
-                        <div class="cell-right">
-                            <div class="right-top">
-                                <p>星辰入怀明</p>
-                            </div>
-                            <div class="right-bottom">
-                                <p>
-                                    <span>冬日微暖</span>
-                                </p>
-                                <p>
-                                    <span>读到:第一章</span>
+                                    <span>读到：第{{bookProgress +1}}章</span>
                                 </p>
                             </div>
                         </div>
@@ -82,14 +50,43 @@
 
 <script>
 import ScrollView from '../ScrollView'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Bookcase',
+  created () {
+  },
+  data () {
+    return {
+      BookId: []
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'currentUser',
+      'bookList',
+      'bookProgress'
+    ])
+  },
   components: {
     ScrollView
   },
   methods: {
-    readBook () {
+    ...mapActions([
+      'setCurrentBookId'
+    ]),
+    readBook (index) {
       this.$router.push('/detailPage')
+      this.setCurrentBookId(this.BookId[index])
+    }
+  },
+  watch: {
+    bookList (newValue) {
+      // console.log(newValue)
+      newValue.forEach((value, index) => {
+        // console.log(value.progress)
+        this.BookId.push(value.id)
+      })
+      this.$refs.ScrollView.refresh()
     }
   }
 }
@@ -102,11 +99,11 @@ export default {
     left: 0;
     right: 0;
     bottom: 100px;
-    background: #ee9b9b;
+    /*background: #ee9b9b;*/
     .header{
         width: 100%;
         height: 150px;
-        background: #aebbdb;
+        background: #f0d2d4;
         display: flex;
         justify-content: space-between;
         .header-left{
@@ -143,7 +140,8 @@ export default {
         left: 0;
         right: 0;
         bottom: 100px;
-        background: #ffffff;
+        background: #fff;
+        overflow: hidden;
         .van-list{
             /*background: #70bfd3;*/
             margin-top: 20px;

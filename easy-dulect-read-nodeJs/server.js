@@ -3,7 +3,8 @@ const bodyParser = require('body-parser')
 const fs = require('fs')
 const path = require('path')
 const cors = require('cors')
-const {signUp, signIn} = require('./api/signUp')
+const {signUp, signIn,changeUserName,changeGender,changeAvatar} = require('./api/signUp')
+const {classic,changeProgress, searchList} = require('./api/bookShelf')
 
 // const mongoose = require('mongoose')
 // const {List} = require('./easy-dulect-read-db/list')
@@ -28,6 +29,19 @@ app.use('/data',express.static('data'))
 // 注册                                             ,
 app.post('/user/signUp',signUp)
 app.post('/user/signIn',signIn)
+//修改昵称
+app.patch('/user/changeUserName/:id',changeUserName)
+//修改性别
+app.patch('/user/changeGender/:id',changeGender)
+//修改头像
+app.patch('/user/changeAvatar/:id',changeAvatar)
+
+//加入书架
+app.patch('/user/classic/:id',classic)
+//更新观看进度
+app.patch('/user/changeProgress/:id',changeProgress)
+//获取用户加入书架的书
+app.get('/user/searchList/:id',searchList)
 
 // 指定服务器监听端口
 app.listen(3000,()=>{

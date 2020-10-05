@@ -34,13 +34,15 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'ScrollList',
+  mounted () {
+    console.log(this.Channel)
+  },
   data () {
     return {
       List: [],
-      nowPage: 1, // 当前有几页
       msg: '上拉加载更多...'
     }
   },
@@ -51,10 +53,15 @@ export default {
       require: true
     }
   },
+  computed: {
+    ...mapGetters([
+      'nowPage'
+    ])
+  },
   watch: {
     Channel (newValue, oldValue) {
       console.log(newValue, '新的值')
-      console.log(oldValue, '旧的值')
+      // console.log(oldValue, '旧的值')
       this.$nextTick(() => {
         this.List = newValue.slice(0, 5)
       })
@@ -63,15 +70,21 @@ export default {
   methods: {
     ...mapActions([
       'setShowDetail',
-      'setCurrentBook'
+      'setCurrentBook',
+      'setPageNum'
     ]),
-    scrollMore () { // 上拉查询更多
-      if (this.nowPage >= 3) return
+    scrollMore () {
+      // 上拉查询更多
+      const PageLength = parseInt(this.Channel.length / 5) + 1
+      if (this.nowPage >= PageLength) return
       // concat() 方法用于连接两个或多个数组
       this.List = this.List.concat(this.Channel.slice(this.nowPage * 5, (this.nowPage + 1) * 5))
-      this.nowPage++
+      let num = this.nowPage
+      num++
+      this.setPageNum(num)
       console.log(this.nowPage)
       console.log(this.List.length)
+      console.log(this.Channel.length)
       if (this.Channel.length <= this.nowPage * 5) {
         this.msg = '轻悦读'
       }
@@ -81,9 +94,6 @@ export default {
       this.setShowDetail(true)
       this.setCurrentBook(item)
     }
-  },
-  mounted () {
-    console.log(this.Channel)
   }
 }
 </script>

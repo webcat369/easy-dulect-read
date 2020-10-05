@@ -32,6 +32,9 @@ export default {
   currentUser (state) {
     return state.currentUser
   },
+  bookList (state) {
+    return state.bookList
+  },
   showScrollDetailPage (state) {
     return state.showScrollDetailPage
   },
@@ -50,8 +53,8 @@ export default {
   currentPublicationDetailPage (state) {
     return state.currentPublicationDetailPage
   },
-  PageNum (state) {
-    return state.PageNum
+  nowPage (state) {
+    return state.nowPage
   },
   showMessageLogging (state) {
     return state.showMessageLogging
@@ -76,6 +79,18 @@ export default {
   },
   showSetPage (state) {
     return state.showSetPage
+  },
+  currentUserAvatar (state) {
+    return state.currentUserAvatar
+  },
+  BookState (state) {
+    return state.BookState
+  },
+  bookProgress (state) {
+    return state.bookProgress
+  },
+  currentBookId (state) {
+    return state.currentBookId
   }
 
 }

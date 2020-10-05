@@ -142,7 +142,7 @@ export default {
     return {
       Height: 0,
       highMarksNovel: [],
-      girlModernStory: ['全部', '豪门总裁', '重生异能', '婚恋爱情'],
+      girlModernStory: ['全部', '总裁豪门', '重生异能', '婚恋爱情'],
       girlAncientStory: ['全部', '穿越时空', '种田经商', '宫闱宅斗', '幻想言情'],
       boyModernStory: ['全部', '都市高手', '游戏竞技', '科幻世界'],
       boyAncientStory: ['全部', '玄幻奇幻', '穿越时空', '武侠仙侠', '奇闻异事'],

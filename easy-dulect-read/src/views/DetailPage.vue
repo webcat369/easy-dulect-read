@@ -1,6 +1,8 @@
 <template>
-   <div class="DetailPage" ref="DetailPage">
-      <div class="Page" @click.self="getNavBar">
+   <div class="DetailPage" ref="DetailPage"   @click.stop="getNavBar">
+      <div class="Page">
+<!--          <Coverage ref="Coverage"></Coverage>-->
+          <Slide ref="Slide"></Slide>
           <div class="Popup-navigation" ref="PopupNavigation" @click.stop="">
               <div class="Popup-navigation-left" @click.stop="back">
                   <img src="../assets/icon/textback.svg" alt="">
@@ -23,8 +25,8 @@
           >
              <div class="Popup-menu-top">
                  <p>上一章</p>
-                 <div class="bar">
-                     <div class="core">
+                 <div class="bar" @click.stop="progressClick" ref="progressBar">
+                     <div class="line" ref="progressLine">
                          <div class="dot"></div>
                      </div>
                  </div>
@@ -35,10 +37,15 @@
                       <img src="../assets/icon/catalog.svg" alt="">
                       <i>目录</i>
                   </li>
-                  <li>
-                      <img src="../assets/icon/daytime.svg" alt="">
-                      <i>夜间</i>
+                  <li @click.stop="switchNight">
+                      <img v-if="night === false" src="../assets/icon/night.svg" alt="">
+                      <img v-else src="../assets/icon/daytime.svg" alt="">
+                      <i>{{this.night ? '白天':'夜间'}}</i>
                   </li>
+<!--                  <li>-->
+<!--                      <img src="../assets/icon/night.svg" alt="">-->
+<!--                      <i>白天</i>-->
+<!--                  </li>-->
                   <li @click="brightness">
                       <img src="../assets/icon/brightness.svg" alt="">
                       <i>亮度</i>
@@ -52,11 +59,11 @@
           <div class="Popup-catalog" ref="PopupCatalog">
               <van-popup v-model="showCatalog" position="left" :style="{ height: '100%' }">
                   <div class="catalog-header">
-                      <p class="title">小王子</p>
+                      <p class="title">{{this.basicInformation.title}}</p>
                       <div class="header-bottom">
                           <div class="state">
-                              <p>已完结</p>
-                              <p>共50章</p>
+                              <p>{{this.basicInformation.state}}</p>
+                              <p>共{{this.basicInformation.totalLength}}章</p>
                           </div>
                           <div class="order">
                               <img src="../assets/icon/invertedorder.svg" alt="">
@@ -70,121 +77,15 @@
                                     resize
                                     class="happy-slow">
                           <ul>
-                              <li class="active">
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第16章</p>
-                                  <p>飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第17章</p>
-                                  <p>飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第18章</p>
-                                  <p>飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第78章</p>
-                                  <p>飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第99章</p>
-                                  <p>飞行员奇遇飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第1023章</p>
-                                  <p>飞行员奇遇飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第1024章</p>
-                                  <p>飞行员奇遇飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第2034章</p>
-                                  <p>飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第一章</p>
-                                  <p>飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第16章</p>
-                                  <p>飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第17章</p>
-                                  <p>飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第18章</p>
-                                  <p>飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第78章</p>
-                                  <p>飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第99章</p>
-                                  <p>飞行员奇遇飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第1023章</p>
-                                  <p>飞行员奇遇飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第1024章</p>
-                                  <p>飞行员奇遇飞行员奇遇飞行员奇遇</p>
-                              </li>
-                              <li>
-                                  <p>第2034章</p>
-                                  <p>飞行员奇遇</p>
+                              <!--:class="{'active':index===0}"-->
+                              <li   ref="Catalog"
+                                    v-for="(value,index) in Chapter"
+                                    :key="index"
+                                    :class="{'active':index=== bookProgress}"
+                                    @click.stop="selectChapter(index)"
+                              >
+                                  <p>{{value}}</p>
+                                  <p>免费</p>
                               </li>
                           </ul>
                       </happy-scroll>
@@ -196,7 +97,7 @@
                   <div class="content">
                       <p><img src="../assets/icon/minibrightness.svg" alt=""></p>
                       <div class="bar">
-                          <div class="core">
+                          <div class="line">
                               <div class="dot"></div>
                           </div>
                       </div>
@@ -210,42 +111,48 @@
                       <div class="wordSize">
                           <p>字号</p>
                           <p>
-                              <button>A-</button>
-                              <i>66</i>
-                              <button>A+</button>
+                              <span @click.stop="reduce">A-</span>
+                              <i>{{fontSizeNum}}</i>
+                              <span @click.stop="addition">A+</span>
                           </p>
                       </div>
                       <div class="background">
                           <p>背景</p>
                           <p>
-                              <i></i>
-                              <i></i>
-                              <i></i>
-                              <i></i>
-                              <i></i>
-                              <i></i>
+                              <i v-for="(value,index) in BackgroundColor"
+                                 :key="index"
+                                 @click.stop="selectBackground(index)"
+                                 ref="background"
+                                 :style="{background: value}"
+                              ></i>
                           </p>
                       </div>
                       <div class="interval">
                           <p>间距</p>
                           <p>
-                              <i class="active"><img src="../assets/icon/interval4.svg" alt=""></i>
-                              <i><img src="../assets/icon/interval3.svg" alt=""></i>
-                              <i><img src="../assets/icon/interval2.svg" alt=""></i>
+                              <i ref="lineHeight"
+                                 v-for="(value,index) in modes"
+                                 :key="index"
+                                 :class="{'active':index===0}"
+                                 @click.stop="selectLineHeight(index,value)"
+                              >
+                                  <img v-if="index ===0" src="../assets/icon/interval4.svg" alt="">
+                                  <img v-else-if="index ===1" src="../assets/icon/interval3.svg" alt="">
+                                  <img v-else src="../assets/icon/interval2.svg" alt="">
+                              </i>
                           </p>
                       </div>
                       <div class="pageTurning">
                           <p>翻页</p>
                           <p>
-                              <i class="active">覆盖</i>
+                              <i class="active">上下</i>
                               <i>滑动</i>
-                              <i>上下</i>
+                              <i>覆盖</i>
                           </p>
                       </div>
                   </div>
               </van-popup>
           </div>
-<!--          <Coverage></Coverage>-->
 <!--          <div class="changeLight"></div>-->
       </div>
    </div>
@@ -255,66 +162,91 @@
 import { HappyScroll } from 'vue-happy-scroll'
 // 引入css，推荐将css放入main入口中引入一次即可。
 import 'vue-happy-scroll/docs/happy-scroll.css'
+// import Coverage from '../components/PageTurning/Coverage'
+import Slide from '../components/PageTurning/Slide'
 import Vue from 'vue'
 import { Popup } from 'vant'
-// import Coverage from '../components/PageTurning/Coverage'
+import { Text } from '../api/index'
+import { mapActions, mapGetters } from 'vuex'
 Vue.use(Popup)
 export default {
   name: 'DetailPage',
   components: {
-    HappyScroll
+    HappyScroll,
     // Coverage
+    Slide
+  },
+  created () {
+    this.$nextTick(() => {
+      Text()
+        .then(data => {
+          data.text.forEach((value, index) => {
+            // console.log(value.id)
+            this.Chapter.push(value.chapter)
+            // this.CurrentMessage.push(value)
+          })
+          this.totalLength = data.text.length - 1
+          // console.log(data.state)
+          // console.log(data.title)
+          this.basicInformation = {
+            state: data.state,
+            title: data.title,
+            totalLength: data.text.length
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    })
   },
   data: function () {
     return {
       navShow: false,
       showCatalog: false,
-      currentText: [
-        {
-          title: '楔子',
-          text: '“狼巢，狼巢，独狼已跳伞！重复，独狼已跳伞！”\n\n    “狼巢收到！”\n\n    “狼巢，狼巢，装备仓放出！重复，装备仓放出！”\n\n    “狼巢收到！”\n\n    ……\n\n    “杀了我！”\n\n    脑海中突然传来了那个熟悉的飘渺的声音，独狼的眼前仿佛又看到了那双美丽的眼睛。\n\n    ……\n\n    “狼巢，独狼终端信号突然消失！独狼终端信号在半空中突然消失！”\n\n    “狼巢，装备仓信号突然消失！装备仓信号突然消失！”\n\n    ……\n'
-        }
-      ],
+      // Text: [],
       showBrightness: false,
-      showReadSet: false
+      showReadSet: false,
+      Chapter: [],
+      totalLength: 0,
+      fontIndex: 0,
+      fontSizeNum: 56,
+      BackgroundColor: ['#FDCCBE', '#bed0e6', '#c4d7ee', '#caddf4', '#aebbdb', '#f0d2d4'],
+      modes: ['mode', 'mode1', 'mode2'],
+      modeType: '',
+      modeIndex: 0,
+      basicInformation: {},
+      night: false
+
     }
   },
+  computed: {
+    ...mapGetters([
+      'BookState',
+      'bookProgress',
+      'currentUser'
+    ])
+  },
   methods: {
+    ...mapActions([
+      'setCurrentBookState',
+      'setTips',
+      'setBookProgress'
+    ]),
     // 返回
     back () {
       window.history.back()
     },
     // Page显示导航菜单,'上一页','下一页'
     getNavBar (e) {
-      // 获取网页宽高
-      const pageHeight = e.target.clientHeight
-      const pageWidth = e.target.clientWidth
-      // 划分点击边界
-      const menuAppearsLeft = pageWidth * 0.15
-      const menuAppearsRight = pageWidth * 0.85
-      const menuAppearsBottom = pageHeight * 0.6
-      // 点击边界判断
-      const mouseX = (e.clientX > menuAppearsLeft && e.clientX < menuAppearsRight)
-      const mouseY = (e.clientY > 0 && e.clientY < menuAppearsBottom)
-      if (mouseX && mouseY) {
-        console.log('弹出设置菜单')
-        // 切换点击状态
-        this.navShow = !this.navShow
-        console.log(this.navShow)
-        // 通过类名增减来改变菜单位置
-        if (this.navShow) {
-          this.$refs.PopupNavigation.classList.add('active')
-          this.$refs.PopupMenu.classList.add('active')
-        } else {
-          this.$refs.PopupNavigation.classList.remove('active')
-          this.$refs.PopupMenu.classList.remove('active')
-        }
-      //  判断是否点击的是屏幕左侧的15%的位置
-      } else if (e.clientX < menuAppearsLeft) {
-        console.log('上一页')
-      // 除去以上点击位置 剩下的位置点击时触发下一页
+      // 切换点击状态
+      this.navShow = !this.navShow
+      // 通过类名增减来改变菜单位置
+      if (this.navShow) {
+        this.$refs.PopupNavigation.classList.add('active')
+        this.$refs.PopupMenu.classList.add('active')
       } else {
-        console.log('下一页')
+        this.$refs.PopupNavigation.classList.remove('active')
+        this.$refs.PopupMenu.classList.remove('active')
       }
     },
     // 目录
@@ -325,6 +257,17 @@ export default {
       if (this.showCatalog) {
         this.$refs.PopupNavigation.classList.remove('active')
         this.$refs.PopupMenu.classList.remove('active')
+      }
+    },
+    // 切换夜间/白天
+    switchNight () {
+      this.night = !this.night
+      if (this.night) {
+        this.$refs.Slide.$refs.modeType.style.backgroundColor = this.BookState.backgroundColor
+        this.$refs.Slide.$refs.modeType.style.color = this.BookState.fontColor
+      } else {
+        this.$refs.Slide.$refs.modeType.style.backgroundColor = '#3c3c3c'
+        this.$refs.Slide.$refs.modeType.style.color = '#d1d1d1'
       }
     },
     // 亮度条
@@ -351,6 +294,117 @@ export default {
     // 书籍详情
     particulars () {
       console.log('书籍详情')
+    },
+    // 字体大小减少
+    reduce () {
+      console.log('字体大小减少')
+      // console.log(this.currentBookState.fontSize)
+      if (this.fontSizeNum <= 52) {
+        this.setTips('已经是最小字号了')
+      } else {
+        this.fontIndex = this.fontIndex - 2
+        this.fontSizeNum = 56 - (-this.fontIndex)
+        this.$refs.Slide.$refs.modeType.style.fontSize = this.fontSizeNum + 'px'
+      }
+    },
+    // 字体大小增加
+    addition () {
+      console.log('字体大小增加')
+      if (this.fontSizeNum >= 64) {
+        this.setTips('已经是最大字号了')
+      } else {
+        this.fontIndex = this.fontIndex + 2
+        this.fontSizeNum = 56 + this.fontIndex
+        this.$refs.Slide.$refs.modeType.style.fontSize = this.fontSizeNum + 'px'
+      }
+    },
+    // 更换背景
+    selectBackground (index) {
+      this.night = true
+      this.$refs.Slide.$refs.modeType.style.backgroundColor = this.$refs.background[index].style.backgroundColor
+      this.$refs.Slide.$refs.modeType.style.color = '#333333'
+      this.setCurrentBookState({
+        backgroundColor: this.$refs.background[index].style.backgroundColor,
+        fontColor: '#333333'
+      })
+    },
+    // 改变行间距
+    selectLineHeight (index, value) {
+      if (index >= this.modes.length) {
+        index = 1
+      }
+      this.modeType = value
+      // 把拿到的mode,mode1,mode2三个参数保存成一个自定义属性，绑定在html标签上
+      // 通过document.documentElement可以拿到html标签
+      // 通过setAttribute('data-line-height', this.modes[index])设置一个自定义属性'data-line-height'，取值就是拿到的参数
+      document.documentElement.setAttribute('data-line-height', this.modes[index])
+      index++
+    },
+    // 拖拽进度条的方法
+    progressClick (e) {
+      // 1.拿到进度条‘背景’的宽度
+      /*
+          在没有观看进度的时候这句代码可行:const progressLeft = e.target.offsetWidth
+          但是在已经有一定的播放进度时,在拖拽进度条到有播放进度的地方,此时点击到的就是'前景',
+          所以不能用e.target来获取进度条宽度
+         */
+      const progressLeft = this.$refs.progressBar.offsetWidth
+      // 2.拿到点击的位置在进度条中的位置
+      // 2.1拿到进度条距离左边的宽度
+      /* const normalLeft = e.target.offsetLeft */
+      const normalLeft = this.$refs.progressBar.offsetLeft
+      // 2.2拿到点击位置距离左边的宽度
+      const eventLeft = e.pageX
+      // 2.3用 ‘点击位置距离左边的宽度’ - ‘进度条距离左边的宽度’ = ‘点击的位置在进度条中的位置’
+      const clickLeft = eventLeft - normalLeft
+      // 3.用‘点击的位置’在进度条中的位置 / 进度条‘进度条’的宽度 = 进度比例
+      const value = clickLeft / progressLeft
+      // 4.将进度比例赋值给进度条‘前景’
+      this.$refs.progressLine.style.width = value * 100 + '%'
+      // console.log(this.$refs.progressLine.style.width)
+
+      // 5.进度条被拖拽到什么地方，小说就停在什么地方
+      // 5.1小说的浏览进度 = 小说的总长度 * 进度比例
+      const currentLength = parseInt(this.totalLength * value)
+      // console.log(currentLength)
+      // 将小说的浏览进度 传递到 state中作为共享数据保存
+      this.setBookProgress(currentLength)
+      this.$refs.Slide.$refs.MeScroll.mescroll.resetUpScroll(false) // 重置列表为第一页
+    },
+    // 目录章节切换
+    selectChapter (index) {
+      this.setBookProgress(index)
+      // console.log(index)
+      this.$refs.Slide.$refs.MeScroll.mescroll.resetUpScroll(false) // 重置列表为第一页
+      if (this.bookProgress !== index) {
+        this.$refs.Catalog[this.bookProgress].classList.add('active')
+      } else {
+        this.$refs.Catalog[this.bookProgress].classList.remove('active')
+      }
+    }
+  },
+  watch: {
+    modeType (newValue, oldValue) {
+      // console.log(newValue)
+      if (newValue === 'mode') {
+        this.$refs.lineHeight[2].classList.remove('active')
+        this.$refs.lineHeight[1].classList.remove('active')
+        this.$refs.lineHeight[0].classList.add('active')
+      } else if (newValue === 'mode1') {
+        this.$refs.lineHeight[0].classList.remove('active')
+        this.$refs.lineHeight[2].classList.remove('active')
+        this.$refs.lineHeight[1].classList.add('active')
+      } else if (newValue === 'mode2') {
+        this.$refs.lineHeight[1].classList.remove('active')
+        this.$refs.lineHeight[0].classList.remove('active')
+        this.$refs.lineHeight[2].classList.add('active')
+      }
+    },
+    bookProgress (newValue, oldValue) {
+      console.log(newValue, oldValue, '当前章节的变化')
+      // 根据当前阅读章节计算比例，并且将比例赋值给进度条的前景
+      const value = newValue / this.totalLength * 100
+      this.$refs.progressLine.style.width = value + '%'
     }
   }
 }
@@ -367,7 +421,7 @@ export default {
    .Page{
       width: 100%;
       height: 100%;
-       background: #c2baee;
+       /*background: #c2baee;*/
        position: relative;
        .Popup-navigation{
           position: absolute;
@@ -441,19 +495,19 @@ export default {
                    }
                }
                .bar{
-                   position: relative;
+                   /*position: relative;
                    top: 50%;
                    left: 0;
-                   transform: translateY(-50%);
+                   transform: translateY(-50%);*/
                    width: 60%;
                    height: 10px;
                    background: #bfbfbf;
                    border-radius: 20px;
-                   .core{
-                       position: absolute;
+                   .line{
+                       position: relative;
                        left: 0;
                        top: 0;
-                       width: 50%;
+                       width: 0%;
                        height: 100%;
                        background: #fff;
                        border-radius: 20px;
@@ -579,17 +633,24 @@ export default {
                             /*background: #dddddd;*/
                             display: flex;
                             p{
-                                width:160px;
-                                padding-left: 20px;
-                                box-sizing: border-box;
-                                /*background: #fbfbfb;*/
-                                font-size: 30px;
-                                color: #dbdbdb;
-                                &:nth-of-type(2){
-                                    width: 360px;
+                                color: #c6c6c6;
+                                &:nth-of-type(1){
+                                    width: 430px;
                                     overflow: hidden;
                                     text-overflow: ellipsis;
                                     white-space: nowrap;
+                                    padding-left: 20px;
+                                    box-sizing: border-box;
+                                    /*background: #fbfbfb;*/
+                                    font-size: 30px;
+                                }
+                                &:nth-of-type(2){
+                                    /*width: 360px;*/
+                                    width: 75px;
+                                    /*background: #aebbdb;*/
+                                    font-size: 26px;
+                                    text-align: right;
+                                    box-sizing: border-box;
                                 }
                             }
                             &.active{
@@ -634,22 +695,22 @@ export default {
                         margin-right: 25px;
                     }
                 }
-                .bar{
-                    position: relative;
+                .bar{    /*背景*/
                     margin-top: 70px;
                     width: 70%;
                     height: 10px;
                     background: #bfbfbf;
                     border-radius: 20px;
-                    .core{
-                        position: absolute;
+                    .line{  /*前景*/
+                        position: relative;
                         left: 0;
                         top: 0;
                         width: 50%;
                         height: 100%;
                         background: #fff;
                         border-radius: 20px;
-                        .dot{
+                        .dot{  /*小圆点*/
+                            /*让进度条的小圆点相对于前景定位，这样做的好处：只要修改前景的宽度，小圆点就会随着宽度的改变而改变*/
                             position: absolute;
                             top: 50%;
                             right: -15px;
@@ -708,12 +769,15 @@ export default {
                 .wordSize{
                     p{
                         &:nth-of-type(2){
-                            button{
+                            span{
+                                display: inline-block;
                                 width: 150px;
                                 height: 60px;
                                 background: #363636;
                                 border: 2px solid #dbdbdb;
                                 font-size: 34px;
+                                text-align: center;
+                                line-height: 60px;
                                 color: #dbdbdb;
                                 border-radius: 30px;
                                 margin-top: 20px;
@@ -738,24 +802,24 @@ export default {
                                 border-radius: 50%;
                                 border: 2px solid #dbdbdb;
                                 margin-top: 20px;
-                                &:nth-of-type(1){
-                                    background: #cfe2f8;
-                                }
-                                &:nth-of-type(2){
-                                    background: #bed0e6;
-                                }
-                                &:nth-of-type(3){
-                                    background: #c4d7ee;
-                                }
-                                &:nth-of-type(4){
-                                    background: #caddf4;
-                                }
-                                &:nth-of-type(5){
-                                    background: #aebbdb;
-                                }
-                                &:nth-of-type(6){
-                                    background: #fddfdf;
-                                }
+                                /*&:nth-of-type(1){*/
+                                /*    background: #cfe2f8;*/
+                                /*}*/
+                                /*&:nth-of-type(2){*/
+                                /*    background: #bed0e6;*/
+                                /*}*/
+                                /*&:nth-of-type(3){*/
+                                /*    background: #c4d7ee;*/
+                                /*}*/
+                                /*&:nth-of-type(4){*/
+                                /*    background: #caddf4;*/
+                                /*}*/
+                                /*&:nth-of-type(5){*/
+                                /*    background: #aebbdb;*/
+                                /*}*/
+                                /*&:nth-of-type(6){*/
+                                /*    background: #fddfdf;*/
+                                /*}*/
                             }
                         }
                     }

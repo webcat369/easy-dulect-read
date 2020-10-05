@@ -28,7 +28,7 @@
                         @click.stop="selectionType(index)">{{value}}</li>
                 </ul>
             </div>
-            <ScrollList ref="show" :Channel="selectData"></ScrollList>
+            <ScrollList ref="show" :Channel="selectData" ></ScrollList>
         </div>
     </ScrollView>
 </template>
@@ -36,13 +36,16 @@
 <script>
 import ScrollView from '../ScrollView'
 import ScrollList from '../Module/ScrollList'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { filterBooks } from '../../api/index'
 import selectBookApi from '../../api/selectBookApi'
 
 export default {
   name: 'All',
   mounted () {
+    this.selectionTag(0, '全部')
+    // 方法是什么？函数
+    // 在什么条件下调用？点击-调用，按下-调用，移动-调用，抬起-调用，滚动-调用，生命周期执行-调用
     // 列表盒子高度
     const topHeight = window.innerHeight - this.Height
     // console.log(bottomHeight)
@@ -116,22 +119,38 @@ export default {
     ])
   },
   methods: {
-    selectionTag (id = 0, value) {
+    ...mapActions([
+      'setPageNum'
+    ]),
+    selectionTag (index = 0, value) {
+      console.log('我执行了')
       // this.$emit('switchTag')
       const List = []
-      this.currentTag = id
-      if (value === '全部') {
-        List.push(selectBookApi.getPresidentWealthy)
-        List.push(selectBookApi.getRebirthSpecialAbility)
-        List.push(selectBookApi.getMarriageAndLove)
-      } else if (value === '豪门总裁') {
-        List.push(selectBookApi.getPresidentWealthy)
-      } else if (value === '重生异能') {
-        List.push(selectBookApi.getRebirthSpecialAbility)
-      } else if (value === '婚恋爱情') {
-        List.push(selectBookApi.getMarriageAndLove)
-      }
       console.log(List)
+      this.currentTag = index
+      this.setPageNum(1)
+      switch (value) {
+        case '全部':
+          List.push(
+            selectBookApi.getMarriageAndLove,
+            selectBookApi.getPresidentWealthy,
+            selectBookApi.getRebirthSpecialAbility
+          )
+          console.log(selectBookApi.getMarriageAndLove)
+          break
+        case '总裁豪门':
+          List.push(selectBookApi.getPresidentWealthy)
+          console.log(List)
+          break
+        case '重生异能':
+          List.push(selectBookApi.getRebirthSpecialAbility)
+          console.log(List)
+          break
+        case '婚恋爱情':
+          List.push(selectBookApi.getMarriageAndLove)
+          console.log(List)
+          break
+      }
       filterBooks(List).then(data => {
         this.selectData = []
         // console.log(data) // {presidentWealthy:[],marriageAndLove:[],rebirthSpecialAbility:[]}
@@ -141,7 +160,7 @@ export default {
             this.selectData.push(item)
           }
         }
-        console.log(this.selectData)
+        // console.log(this.selectData)
       })
     },
     selectionEnd (id = 0) {

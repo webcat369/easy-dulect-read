@@ -110,3 +110,18 @@
   }
 }
 
+//设置行高
+@mixin line_height(){
+  // line_height这个函数默认设置的书的行间距
+  line-height:$line-height-mode4;
+  padding-top:$padding-top-mode4;
+  [data-line-height=mode1] & {
+    line-height: $line-height-mode3;
+    padding-top:$padding-top-mode3;
+  }
+  [data-line-height=mode2] & {
+    line-height:$line-height-mode2;
+    padding-top:$padding-top-mode2;
+  }
+}
+

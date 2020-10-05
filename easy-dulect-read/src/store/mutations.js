@@ -24,7 +24,12 @@ import {
   SET_READ_PREFERENCES,
   SET_HELP_PAGE,
   SET_COUPLE_BACK_PAGE,
-  SET_SET_PAGE
+  SET_SET_PAGE,
+  SET_CURRENT_USER_AVATAR,
+  SET_CURRENT_BOOK_STATE,
+  SET_BOOK_PROGRESS,
+  SET_BOOK_LIST,
+  SET_CURRENT_BOOK_ID
 
 } from './mutations-Type'
 export default {
@@ -62,7 +67,12 @@ export default {
     }, 1000)
   },
   [SET_CURRENT_USER] (state, PayLoad) {
-    state.currentUser = PayLoad
+    for (const key in PayLoad) {
+      state.currentUser[key] = PayLoad[key]
+    }
+  },
+  [SET_BOOK_LIST] (state, PayLoad) { // 书架小说列表
+    state.bookList = PayLoad
   },
   [SET_SHOW_SCROLL_DETAIL_PAGE] (state, PayLoad) {
     state.showScrollDetailPage = PayLoad
@@ -83,7 +93,7 @@ export default {
     state.currentPublicationDetailPage = PayLoad
   },
   [SET_PAGE_NUM] (state, PayLoad) {
-    state.PageNum = PayLoad
+    state.nowPage = PayLoad
   },
   [SET_SHOW_MESSAGE_LOGGING] (state, PayLoad) {
     state.showMessageLogging = PayLoad
@@ -108,6 +118,20 @@ export default {
   },
   [SET_SET_PAGE] (state, PayLoad) {
     state.showSetPage = PayLoad
+  },
+  [SET_CURRENT_USER_AVATAR]  (state, PayLoad) {
+    state.currentUserAvatar = PayLoad
+  },
+  [SET_CURRENT_BOOK_STATE]  (state, PayLoad) {
+    for (const key in PayLoad) {
+      state.BookState[key] = PayLoad[key]
+    }
+  },
+  [SET_BOOK_PROGRESS]  (state, PayLoad) {
+    state.bookProgress = PayLoad
+  },
+  [SET_CURRENT_BOOK_ID]  (state, PayLoad) {
+    state.currentBookId = PayLoad
   }
 
 }
