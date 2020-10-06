@@ -1,3 +1,3 @@
 # easy-dulect-read
-read with pleasure
+基于vue+express+nodejs的移动书城
 
