@@ -2,7 +2,8 @@
     <div class="Personal">
         <div class="header">
             <div class="header-top">
-                <img src="../../assets/icon/moon.svg" alt="">
+                    <!--Ap切换夜间模式-->
+<!--                <img src="../../assets/icon/moon.svg" alt="">-->
             </div>
             <div class="log-in"  v-show="this.currentUser.isShow">
                 <p>欢迎使用轻悦读</p>
@@ -68,7 +69,8 @@ export default {
       'setReadPreferences',
       'setHelpPAge',
       'setCoupleBackPage',
-      'setSetUpPage'
+      'setSetUpPage',
+      'setBookList'
     ]),
     logIn () {
       this.$router.push({ path: '/sign' })

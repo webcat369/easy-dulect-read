@@ -2,7 +2,9 @@
     <div class="books">
         <ScrollView ref="ScrollView">
             <div class="list" ref="list">
-                <Swipe></Swipe>
+                <div class="swipe">
+                    <Swipe></Swipe>
+                </div>
                 <ul class="classify">
                    <router-link tag="li" to="/classification/publication">
                        <img src="../../assets/images/stack.svg" alt="">
@@ -125,44 +127,53 @@ export default {
         bottom: 100px;
         overflow: hidden;
         background: #ffffff;
-        .classify{
-            width: 90%;
-            height: 200px;
-            /*background: #e7555b;*/
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            text-align: center;
-            li{
-                width: 120px;
-                /*background: #dddddd;*/
-                img{
-                    display: inline-block;
-                    width: 80px;
-                }
-                p{
-                    transform: translate3d(0,0,0);
-                    margin-top: 10px;
-                    font-size: 26px;
-                    color: #333333;
-                }
-                &:nth-of-type(2){
+        .list{
+            .swipe{
+                width: 100%;
+                height: 280px;
+                padding-top: 15px;
+                box-sizing: border-box;
+                /*background: #aebbdb;*/
+            }
+            .classify{
+                width: 90%;
+                height: 200px;
+                /*background: #e7555b;*/
+                margin: 0 auto;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                text-align: center;
+                li{
+                    width: 120px;
+                    /*background: #dddddd;*/
                     img{
                         display: inline-block;
-                        width: 110px;
+                        width: 80px;
+                    }
+                    p{
+                        transform: translate3d(0,0,0);
+                        margin-top: 10px;
+                        font-size: 26px;
+                        color: #333333;
+                    }
+                    &:nth-of-type(2){
+                        img{
+                            display: inline-block;
+                            width: 110px;
+                        }
                     }
                 }
             }
-        }
-        .title{
-            width: 90%;
-            height: 80px;
-            margin: 0 auto;
-            line-height: 80px;
-            font-size: 40px;
-            color: #333333;
-            font-weight: bold;
+            .title{
+                width: 90%;
+                height: 80px;
+                margin: 0 auto;
+                line-height: 80px;
+                font-size: 40px;
+                color: #333333;
+                font-weight: bold;
+            }
         }
     }
 </style>

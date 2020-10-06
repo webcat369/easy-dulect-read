@@ -77,7 +77,6 @@ export default {
         width: 90%;
         height:240px;
         margin: 0 auto;
-        margin-top: 20px;
         border-radius: 20px;
         transform: translate3d(0,0,0);
         van-swipe-item {

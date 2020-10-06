@@ -3,18 +3,8 @@
         <div class="header">
             <div class="header-left">让阅读成为习惯</div>
             <div class="header-right">
-                <p>
-                    <img src="../../assets/icon/search.svg" alt="">
-                    搜索
-                </p>
-                <p>
+                    <img src="../../assets/images/search_large.png" alt="">
                     <img src="../../assets/icon/readhistory.svg" alt="">
-                    阅读历史
-                </p>
-                <p>
-                    <img src="../../assets/images/more.png" alt="">
-                    更多
-                </p>
             </div>
         </div>
         <div class="box">
@@ -57,7 +47,8 @@ export default {
   },
   data () {
     return {
-      BookId: []
+      BookId: [],
+      isShow: false
     }
   },
   computed: {
@@ -99,44 +90,37 @@ export default {
     left: 0;
     right: 0;
     bottom: 100px;
-    /*background: #ee9b9b;*/
+    /*background: #c5d8ee;*/
+    background: #98b9da;
     .header{
         width: 100%;
-        height: 150px;
+        height: 100px;
         background: #f0d2d4;
         display: flex;
         justify-content: space-between;
         .header-left{
-            font-size: 45px;
-            color: #333333;
+            font-size: 35px;
+            color: #343333;
             font-weight: bold;
             margin-left: 20px;
-            line-height: 150px;
+            line-height: 100px;
         }
         .header-right{
+            width: 25%;
+            height: 100%;
             display: flex;
-          p{
-              display: flex;
-              flex-direction: column;
-              /*background: #facc41;*/
-              margin:30px 10px;
-              margin-bottom: 0;
-              font-size: 24px;
-              color: #333333;
-              text-align: center;
+            justify-content: space-around;
+            align-items: center;
+            /*background: skyblue;*/
               img{
-                  width: 60px;
-                  height: 60px;
-                  margin: 0 auto;
-                  padding-bottom: 10px;
-                  box-sizing: border-box;
+                  width: 45px;
+                  height: 45px;
               }
-          }
         }
     }
     .box{
         position: fixed;
-        top: 150px;
+        top: 100px;
         left: 0;
         right: 0;
         bottom: 100px;

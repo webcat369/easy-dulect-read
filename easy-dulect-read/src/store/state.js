@@ -43,13 +43,13 @@ export default {
     backgroundColor: '#3c3c3c',
     fontColor: '#d1d1d1',
     fontSize: 56,
-    lineHeight: 10,
-    mode: mode.upAndDown,
-    progress: 0,
+    lineHeight: 0, // 暂时无法保存
+    paddingTop: 0, // 暂时无法保存
+    mode: mode.upAndDown, // 暂时无法实现
     brightness: 0,
     atNight: true,
     currentCatalog: ''
   },
-  bookProgress: 0,
-  currentBookId: 0
+  bookProgress: 0, // 一本书的观看进度
+  currentBookId: 0 // 当前观看这本书的id
 }

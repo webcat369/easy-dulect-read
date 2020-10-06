@@ -113,11 +113,11 @@ export default {
                  /*background: #70bfd3;*/
                  margin: 0 auto;
                  display: flex;
-                 justify-content: space-between;
+                 justify-content: space-around;
                  i{
-                     width: 100px;
+                     width: 90px;
                      height: 2px;
-                     background: #dddddd;
+                     background: #ffffff;
                       margin-top: 50px;
                  }
                  p{

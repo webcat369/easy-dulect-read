@@ -1,6 +1,6 @@
 <template>
    <div class="DetailPage" ref="DetailPage"   @click.stop="getNavBar">
-      <div class="Page">
+      <div class="Page" ref="Page">
 <!--          <Coverage ref="Coverage"></Coverage>-->
           <Slide ref="Slide"></Slide>
           <div class="Popup-navigation" ref="PopupNavigation" @click.stop="">
@@ -96,11 +96,18 @@
               <van-popup v-model="showBrightness" position="bottom" :style="{ height: '20%' }">
                   <div class="content">
                       <p><img src="../assets/icon/minibrightness.svg" alt=""></p>
-                      <div class="bar">
-                          <div class="line">
-                              <div class="dot"></div>
-                          </div>
-                      </div>
+<!--                      <div class="bar">-->
+<!--                          <div class="line">-->
+<!--                              <div class="dot"></div>-->
+<!--                          </div>-->
+<!--                      </div>-->
+                      <!--封装的进度条(可拖拽)-->
+                      <CProgress  class="c-progress"
+                                  bgColor="#bfbfbf"
+                                  :width="750"
+                                  progressColor="#f0d2d4"
+                                  :showPerText="false"
+                                  @percentChange="onPercentChange" ></CProgress>
                       <p><img src="../assets/icon/maxbrightness.svg" alt=""></p>
                   </div>
               </van-popup >
@@ -168,13 +175,15 @@ import Vue from 'vue'
 import { Popup } from 'vant'
 import { Text } from '../api/index'
 import { mapActions, mapGetters } from 'vuex'
+import CProgress from '../components/tool/progressBar'
 Vue.use(Popup)
 export default {
   name: 'DetailPage',
   components: {
     HappyScroll,
     // Coverage
-    Slide
+    Slide,
+    CProgress
   },
   created () {
     this.$nextTick(() => {
@@ -249,7 +258,7 @@ export default {
         this.$refs.PopupMenu.classList.remove('active')
       }
     },
-    // 目录
+    // 目录菜单的显示/隐藏
     catalog () {
       console.log(this.showCatalog)
       this.showCatalog = !this.showCatalog
@@ -262,6 +271,9 @@ export default {
     // 切换夜间/白天
     switchNight () {
       this.night = !this.night
+      this.setCurrentBookState({
+        atNight: this.night
+      })
       if (this.night) {
         this.$refs.Slide.$refs.modeType.style.backgroundColor = this.BookState.backgroundColor
         this.$refs.Slide.$refs.modeType.style.color = this.BookState.fontColor
@@ -270,7 +282,7 @@ export default {
         this.$refs.Slide.$refs.modeType.style.color = '#d1d1d1'
       }
     },
-    // 亮度条
+    // 亮度条菜单的显示/隐藏
     brightness () {
       this.showBrightness = !this.showBrightness
       this.navShow = false
@@ -279,7 +291,16 @@ export default {
         this.$refs.PopupMenu.classList.remove('active')
       }
     },
-    // 阅读设置
+    // 亮度条拖拽
+    onPercentChange (per) {
+      // console.log(0.5 + (per / 100))
+      const Number = 0.5 + (per / 100)
+      this.$refs.Page.style.filter = `brightness(${Number})`
+      this.setCurrentBookState({
+        brightness: Number
+      })
+    },
+    // 阅读设置菜单的显示/隐藏
     readSet () {
       this.showReadSet = !this.showReadSet
       this.navShow = false
@@ -290,6 +311,7 @@ export default {
     },
     // 书评
     bookreview () {
+      console.log('评价')
     },
     // 书籍详情
     particulars () {
@@ -297,7 +319,7 @@ export default {
     },
     // 字体大小减少
     reduce () {
-      console.log('字体大小减少')
+      console.log('字号减少')
       // console.log(this.currentBookState.fontSize)
       if (this.fontSizeNum <= 52) {
         this.setTips('已经是最小字号了')
@@ -305,17 +327,23 @@ export default {
         this.fontIndex = this.fontIndex - 2
         this.fontSizeNum = 56 - (-this.fontIndex)
         this.$refs.Slide.$refs.modeType.style.fontSize = this.fontSizeNum + 'px'
+        this.setCurrentBookState({
+          fontSize: this.fontSizeNum
+        })
       }
     },
     // 字体大小增加
     addition () {
-      console.log('字体大小增加')
+      console.log('字号增加')
       if (this.fontSizeNum >= 64) {
         this.setTips('已经是最大字号了')
       } else {
         this.fontIndex = this.fontIndex + 2
         this.fontSizeNum = 56 + this.fontIndex
         this.$refs.Slide.$refs.modeType.style.fontSize = this.fontSizeNum + 'px'
+        this.setCurrentBookState({
+          fontSize: this.fontSizeNum
+        })
       }
     },
     // 更换背景
@@ -340,7 +368,7 @@ export default {
       document.documentElement.setAttribute('data-line-height', this.modes[index])
       index++
     },
-    // 拖拽进度条的方法
+    // 章节进度条点击切换
     progressClick (e) {
       // 1.拿到进度条‘背景’的宽度
       /*
@@ -366,7 +394,7 @@ export default {
       // 5.进度条被拖拽到什么地方，小说就停在什么地方
       // 5.1小说的浏览进度 = 小说的总长度 * 进度比例
       const currentLength = parseInt(this.totalLength * value)
-      // console.log(currentLength)
+      console.log(currentLength) // 0-26
       // 将小说的浏览进度 传递到 state中作为共享数据保存
       this.setBookProgress(currentLength)
       this.$refs.Slide.$refs.MeScroll.mescroll.resetUpScroll(false) // 重置列表为第一页
@@ -374,12 +402,10 @@ export default {
     // 目录章节切换
     selectChapter (index) {
       this.setBookProgress(index)
-      // console.log(index)
+      // console.log(index) 0-26
       this.$refs.Slide.$refs.MeScroll.mescroll.resetUpScroll(false) // 重置列表为第一页
       if (this.bookProgress !== index) {
         this.$refs.Catalog[this.bookProgress].classList.add('active')
-      } else {
-        this.$refs.Catalog[this.bookProgress].classList.remove('active')
       }
     }
   },
@@ -401,7 +427,7 @@ export default {
       }
     },
     bookProgress (newValue, oldValue) {
-      console.log(newValue, oldValue, '当前章节的变化')
+      // console.log(newValue, oldValue, '当前章节的变化')
       // 根据当前阅读章节计算比例，并且将比例赋值给进度条的前景
       const value = newValue / this.totalLength * 100
       this.$refs.progressLine.style.width = value + '%'
@@ -421,6 +447,10 @@ export default {
    .Page{
       width: 100%;
       height: 100%;
+       -webkit-filter:brightness(1);//兼容不同浏览器
+       -o-filter:brightness(1);
+       -moz-filter:brightness(1);
+       filter:brightness(1);//设置亮度值，范围：0-1
        /*background: #c2baee;*/
        position: relative;
        .Popup-navigation{
@@ -494,31 +524,29 @@ export default {
                        margin-right: 25px;
                    }
                }
-               .bar{
-                   /*position: relative;
-                   top: 50%;
-                   left: 0;
-                   transform: translateY(-50%);*/
+               .bar{    /*背景*/
+                   margin-top: 45px;
                    width: 60%;
                    height: 10px;
                    background: #bfbfbf;
                    border-radius: 20px;
-                   .line{
+                   .line{  /*前景*/
                        position: relative;
                        left: 0;
                        top: 0;
                        width: 0%;
                        height: 100%;
-                       background: #fff;
+                       background: #f0d2d4;
                        border-radius: 20px;
-                       .dot{
+                       .dot{  /*小圆点*/
+                           /*让进度条的小圆点相对于前景定位，这样做的好处：只要修改前景的宽度，小圆点就会随着宽度的改变而改变*/
                            position: absolute;
                            top: 50%;
                            right: -15px;
                            transform:translateY(-50%);
                            width: 30px;
                            height: 30px;
-                           background:#ee9b9b;
+                           background:#ffffff;
                            /*background:radial-gradient(closest-side at 20px 10px,#fff,#ee9b9b);*/
                            border-radius: 50%;
                        }
@@ -681,7 +709,7 @@ export default {
                 height: 220px;
                 line-height: 100px;
                 /*background: #8c8c8c;*/
-                display: flex; //
+                display: flex;
                 justify-content: space-between;
                 p{
                     img{
@@ -695,33 +723,36 @@ export default {
                         margin-right: 25px;
                     }
                 }
-                .bar{    /*背景*/
+                /*.bar{    //背景
                     margin-top: 70px;
                     width: 70%;
                     height: 10px;
                     background: #bfbfbf;
                     border-radius: 20px;
-                    .line{  /*前景*/
+                    .line{  //前景
                         position: relative;
                         left: 0;
                         top: 0;
                         width: 50%;
                         height: 100%;
-                        background: #fff;
+                        background: #f0d2d4;
                         border-radius: 20px;
-                        .dot{  /*小圆点*/
-                            /*让进度条的小圆点相对于前景定位，这样做的好处：只要修改前景的宽度，小圆点就会随着宽度的改变而改变*/
+                        .dot{  //小圆点
+                            //让进度条的小圆点相对于前景定位，这样做的好处：只要修改前景的宽度，小圆点就会随着宽度的改变而改变
                             position: absolute;
                             top: 50%;
                             right: -15px;
                             transform:translateY(-50%);
                             width: 30px;
                             height: 30px;
-                            background:#ee9b9b;
-                            /*background:radial-gradient(closest-side at 20px 10px,#fff,#ee9b9b);*/
+                            background: #e28f8f;
+                            //background:radial-gradient(closest-side at 20px 10px,#fff,#ee9b9b);
                             border-radius: 50%;
                         }
                     }
+                } 无用*/
+                .c-progress{
+                    margin-top: 70px;
                 }
             }
         }

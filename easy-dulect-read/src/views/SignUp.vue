@@ -9,14 +9,12 @@
             <p>海量阅读，想读就读</p>
         </div>
         <form @submit="submit">
-           <div class="user">
-               用户名：<input type="text" placeholder="请输入昵称" v-model="userName">
-               密码：<input type="password" v-model="userPassword">
-           </div>
-            <button type="submit" @click.stop="cut" ref="submit">{{text[0]}}</button>
+           <div class="user"><i></i><input type="text" placeholder="昵称" v-model="userName"></div>
+            <div class="password"><i></i><input type="password" placeholder="密码" v-model="userPassword"></div>
+            <button class="submit" @click.stop="cut" ref="submit">{{text[0]}}</button>
             <div class="signIn">
                 <p @click.stop="switchover" ref="signIn">{{text[1]}}</p>
-                <button type="reset">清除</button>
+                <button type="reset" class="clear">清除</button>
             </div>
         </form>
     </div>
@@ -25,7 +23,6 @@
 <script>
 import { signUp, signIn } from '../api'
 import { mapActions } from 'vuex'
-
 export default {
   name: 'SignUp',
   data () {
@@ -49,6 +46,8 @@ export default {
         this.setTips('用户名不能为空')
       } else if (this.userPassword === '') {
         this.setTips('密码不能为空')
+      } else {
+        console.log('用户名、密码正确')
       }
     },
     switchover () {
@@ -79,6 +78,7 @@ export default {
               userAvatar: data.userAvatar,
               isShow: false
             })
+            // console.log('我运行了吗')
             localStorage.setItem('user', `[{"userName":" ${data.userName}","userId": "${data.userId}","userGender": "${data.userGender}","userAvatar": "${data.userAvatar}","isShow": "false"}]`)
           }
           this.setTips(data.msg)
@@ -88,11 +88,6 @@ export default {
           console.log(data)
         })
       }
-    }
-  },
-  watch: {
-    textFlag () {
-
     }
   }
 }
@@ -105,7 +100,11 @@ export default {
         right: 0;
         top: 0;
         bottom: 0;
-        background: #fdfdfe;
+        /*background: #fdfdfe;*/
+        background-image: url("../assets/images/sign_bg2.jpg");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
         z-index: 999;
         .signUP-header{
             width: 100%;
@@ -129,10 +128,11 @@ export default {
             }
         }
         .logo{
-            width: 100%;
+            width: 600px;
             height: 400px;
-            /*background: #adbada;*/
             position: relative;
+            left: 50%;
+            transform: translateX(-50%);
             img{
 
                 display: inline-block;
@@ -159,33 +159,65 @@ export default {
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
-            div{
-                width: 80%;
+            .user,.password{
+                width: 70%;
                 font-size: 34px;
                 color: #333333;
+                /*background: #000;*/
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                /*border: 2px solid rgba(238,156,156);*/
+                border: 2px solid #fff;
+                border-radius: 20px;
+                background: #fff;
+                i{
+                    display: inline-block;
+                    width: 60px;
+                    height: 60px;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
+                    margin-left: 15px;
+                }
+                &:nth-child(1){
+                    i{
+                        background-image: url('../assets/icon/user_icon.svg');
+                    }
+
+                }
+                &:nth-child(2){
+                    i{
+                        background-image: url('../assets/icon/password_icon.svg');
+                    }
+                }
                 /*background: #facc41;*/
                 input{
-                    border: 1px solid #bfbfbf;
+                    /*border: 1px solid #bfbfbf;*/
+                    border: none;
                     outline: none; // 去除选中状态边框
-                    width: 70%;
+                    width: 80%;
                     height: 80px;
                     font-size: 28px;
-                    border-radius: 15px;
+                    border-top-right-radius: 15px;
+                    border-bottom-right-radius: 15px;
+                    padding-left: 15px;
+                    color: #666;
                     &:nth-of-type(2){
                         margin-top: 30px;
                         margin-left: 30px;
                     }
                 }
             }
-            button[type="submit"]{
+            .submit{
                 width: 70%;
                 height: 90px;
-                border: none;
                 border-radius: 50px;
                 background-image:linear-gradient(to right, #f0d3d3, #f2bbbb);
                 font-size: 34px;
                 font-weight: bold;
-                color: #333333;
+                color: #fff;
+                border: 5px solid #fff;
             }
             .signIn{
                 width: 90%;
@@ -194,7 +226,13 @@ export default {
                 display: flex;
                 justify-content: space-between;
                 font-size: 26px;
-                color: #bfbfbf;
+                color: #666;
+                .clear{
+                    border: none;
+                    background: transparent;
+                    font-size: 26px;
+                    color: #666;
+                }
             }
         }
     }

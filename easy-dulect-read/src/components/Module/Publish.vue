@@ -62,13 +62,16 @@ export default {
       'setScrollDetailPage',
       'setSelectTitle',
       'setSelectTag',
-      'setCurrentPublicationDetailPage'
+      'setCurrentPublicationDetailPage',
+      'setPageNum'
     ]),
     ShowChannel (title) {
       this.setScrollDetailPage(true)
       this.setSelectTitle(title)
       this.setSelectTag(this.Tag)
       this.setCurrentPublicationDetailPage(this.publicationBook)
+      // 进入‘更多’按钮时，清除以前Vuex中保存ScrollList组件的'加载到第几页'
+      this.setPageNum(0)
     }
   },
   created () {

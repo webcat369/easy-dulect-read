@@ -220,7 +220,7 @@ export default {
                 height: 80px;
                 line-height: 80px;
                 text-align: center;
-                background: #c7d4f4;
+                background: #f5d7d9;
                 font-size: 28px;
                 color: #333333;
                 box-shadow: 0 5px 10px 5px #a8a8a8;

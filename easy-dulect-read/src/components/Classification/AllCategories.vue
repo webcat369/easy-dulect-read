@@ -80,7 +80,8 @@ export default {
       'setSelectTitle',
       'setCurrentWomanDetailPage',
       'setCurrentManDetailPage',
-      'setCurrentPublicationDetailPage'
+      'setCurrentPublicationDetailPage',
+      'setPageNum'
     ]),
     onChange (index) {
       this.currentIndex = index
@@ -93,6 +94,8 @@ export default {
       this.setCurrentWomanDetailPage(this.WomanBook)
       this.setCurrentManDetailPage(this.ManBook)
       this.setCurrentPublicationDetailPage(this.publicationBook)
+      // 进入ScrollDetailPage页面时，清除以前Vuex中保存ScrollList组件的'加载到第几页'
+      this.setPageNum(0)
       // getPresidentWealthy()
       // getRebirthSpecialAbility()
       // getTravelThroughTime()

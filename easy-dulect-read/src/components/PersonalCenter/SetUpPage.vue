@@ -176,9 +176,10 @@ export default {
       // console.log(this.oldIndex)
       if (this.currentIndex !== this.oldIndex) {
         this.$refs.headerPhoto[this.currentUserAvatar.currentIndex].classList.add('active')
-      } else {
-        this.$refs.headerPhoto[this.currentUserAvatar.currentIndex].classList.remove('active')
       }
+      // else {
+      //   this.$refs.headerPhoto[this.currentUserAvatar.currentIndex].classList.remove('active')
+      // }
       this.setCurrentUser({
         userAvatar: value
       })

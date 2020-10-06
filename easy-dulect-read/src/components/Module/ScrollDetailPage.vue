@@ -34,10 +34,13 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setScrollDetailPage'
+      'setScrollDetailPage',
+      'setPageNum'
     ]),
     back () {
       this.setScrollDetailPage(false)
+      // 进入返回按钮时，清除以前Vuex中保存ScrollList组件的'加载到第几页'
+      this.setPageNum(0)
     }
   },
   computed: {

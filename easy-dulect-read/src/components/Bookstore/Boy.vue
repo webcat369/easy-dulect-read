@@ -2,7 +2,9 @@
   <div class="boy">
     <ScrollView>
       <div class="list" >
-        <Swipe></Swipe>
+        <div class="swipe">
+          <Swipe></Swipe>
+        </div>
         <div class="classic">
           <ul class="grid-two">
             <router-link tag="li" to="/classification/man">
@@ -134,6 +136,9 @@
                   :Channel="scienceFictionWorld.slice(0,8)"
                   :Only="scienceFictionWorld[8]"
           ></MoreModules>
+        </div>
+        <div class="Placeholder">
+          免费小说 想看就看
         </div>
       </div>
     </ScrollView>
@@ -302,6 +307,13 @@ export default {
     width: 100%;
     overflow: hidden;
     .list{
+      .swipe{
+        width: 100%;
+        height: 280px;
+        padding-top: 15px;
+        box-sizing: border-box;
+        /*background: #aebbdb;*/
+      }
       .classic{
         width: 90%;
         /*background: #ee9b9b;*/
@@ -313,13 +325,18 @@ export default {
           li{
             width: 330px;
             height: 150px;
-            background: #c2baee;
+            background: #c5d8ee;
             margin-bottom: 10px;
             border-radius: 20px;
             display: flex;
             justify-content: space-between;
             &:nth-of-type(2){
-              background: #eeb9bb;
+              background: #baeedb;
+              .grid-right{
+                img{
+                  background-image: url("https://cdn.wtzw.com/bookimg/public/images/cover/5ed744f8a36c8_360x480.jpg");
+                }
+              }
             }
             div{
               width: 150px;
@@ -341,13 +358,14 @@ export default {
               }
             }
             .grid-right{
-              padding: 30px 20px;
+              padding: 15px 20px;
               box-sizing: border-box;
               img{
                 width: 100px;
-                height: 100px;
+                height: 120px;
+                border-radius: 10px;
                 background-size: cover;
-                background-image: url("https://cdn.wtzw.com/bookimg/public/images/cover/5ed74acf59a39_360x480.jpg");
+                background-image: url("https://cdn.wtzw.com/bookimg/public/images/cover/a3c6/2d4ba2f953ffa43438c49480d7c1a694_360x480.jpg");
               }
             }
           }
@@ -387,6 +405,15 @@ export default {
       .modules{
         /*background: #d43c33;*/
         margin-top:30px;
+      }
+      .Placeholder{
+        width: 100%;
+        height: 100px;
+        /*background: #e3e3e3;*/
+        text-align: center;
+        line-height: 80px;
+        font-size: 32px;
+        color: #c7c7c7;
       }
     }
   }

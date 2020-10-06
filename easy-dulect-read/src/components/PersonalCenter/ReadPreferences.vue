@@ -126,7 +126,7 @@ export default {
     .bottom{
         width: 100%;
         height: 100%;
-        background: peachpuff;
+        /*background: peachpuff;*/
         position: relative;
         div{
             width: 500px;

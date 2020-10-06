@@ -67,7 +67,7 @@ export default {
 <style lang="scss">
 .eightGrid{
     width: 100%;
-    /*background: #cccccc;*/
+    background: #ffffff;
     .van-grid{
         .van-grid-item{
             width: 100%;
@@ -77,6 +77,7 @@ export default {
                 width:100%;
                 height: 320px;
                 position: relative;
+                border: none;
                 /*background: yellowgreen;*/
                 padding: 0;
                 .van-image{

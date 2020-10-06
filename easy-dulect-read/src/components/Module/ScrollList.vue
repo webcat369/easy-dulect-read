@@ -28,8 +28,8 @@
                     </div>
                 </div>
             </div>
-            <div class="more">{{msg}}</div>
         </div>
+        <div class="more">{{msg}}</div>
     </div>
 </template>
 
@@ -76,10 +76,13 @@ export default {
     scrollMore () {
       // 上拉查询更多
       const PageLength = parseInt(this.Channel.length / 5) + 1
-      if (this.nowPage >= PageLength) return
+      // console.log(PageLength)
+      // console.log(this.nowPage)
+      // console.log(PageLength)
       // concat() 方法用于连接两个或多个数组
       this.List = this.List.concat(this.Channel.slice(this.nowPage * 5, (this.nowPage + 1) * 5))
       let num = this.nowPage
+      if (this.nowPage >= PageLength) return
       num++
       this.setPageNum(num)
       console.log(this.nowPage)
@@ -222,9 +225,9 @@ export default {
         margin: 0 auto;
         line-height: 50px;
         text-align: center;
-        background: #ffffff;
+        /*background: #99badd;*/
         color:#666;
-        font-size: 23px;
+        font-size: 28px;
     }
 }
 </style>

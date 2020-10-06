@@ -26,11 +26,17 @@ export default {
       })
       searchList(this.currentUser.userId)
         .then(data => {
+          // console.log(data)
+          this.setBookList(data.result)
+          console.log(data.result)
+        })
+    } else {
+      searchList(this.currentUser.userId)
+        .then(data => {
+          console.log(data)
           this.setBookList(data.result)
           // console.log(data.result)
         })
-    } else {
-      console.log('未登录')
     }
   },
   computed: {

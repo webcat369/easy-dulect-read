@@ -118,9 +118,11 @@ export default {
         this.setBookProgress(1)
         this.setTips('当前是第一章')
       }
+
       this.ItemIndex = this.bookProgress - 1
-      console.log(this.ItemIndex)
+      // console.log(this.ItemIndex) 0-26
       this.setBookProgress(this.ItemIndex)
+      console.log(this.ItemIndex)
       this.$refs.MeScroll.mescroll.resetUpScroll(this.isShowLoading) // 重置列表为第一页
     },
     // 下一页
@@ -134,6 +136,7 @@ export default {
       }, 300)
       // 当前是最后一页时，没有下一页
       this.ItemIndex = this.bookProgress + 1
+      // console.log(this.ItemIndex)  0-26
       this.setBookProgress(this.ItemIndex)
       if (this.ItemIndex >= this.totalLength) {
         this.setBookProgress(this.totalLength)

@@ -369,7 +369,7 @@ export default {
                 line-height: 80px;
                 margin-top:10px;
                 border-radius: 40px;
-                background-image: linear-gradient(to right, #adbada, #9198e5);
+                background-image: linear-gradient(to right, #f5d7d9, #eacbce);
             }
         }
     }
@@ -412,7 +412,7 @@ export default {
                 width: 100%;
                 margin: 0 auto;
                 height: 600px;
-                background: #adbada;
+                background: #eacbce;
                 position: relative;
                 /*margin-bottom: 20px;*/
                 .titleTop{
@@ -600,7 +600,7 @@ export default {
                         display: inline-block;
                         width: 0;
                         height:0;
-                        border-top: 15px solid #aebbdb;
+                        border-top: 15px solid #eacbce;
                         border-right:15px solid transparent;
                         border-left: 15px solid transparent;
                         position: absolute;
