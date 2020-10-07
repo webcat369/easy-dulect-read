@@ -8,9 +8,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!--SEO三大标签-->
   <!--利用预渲染vue-cli-plugin-prerender-spa插件自动添加多个界面的SEO标签后,就需要在这里手动添加SEO标签-->
-        <title>轻悦读</title>
-        <meta name="keywords" content="轻悦读,读书,读好书,好读书">
-        <meta name="description" content="轻悦读是一款专注于发现和阅读的产品,为用户打造全新的极简生活。">
+  <title>轻悦读</title>
+  <meta name="keywords" content="轻悦读,读书,读好书,好读书">
+  <meta name="description" content="轻悦读是一款专注于发现和阅读的产品,为用户打造全新的极简生活。">
   <!--
   apple-touch-icon: 是苹果私有的属性
   作用: 指定将网页保存到主屏幕上的时候的图标
@@ -25,6 +25,23 @@
     let scale = 1.0 / window.devicePixelRatio;
     let text = `<meta name="viewport" content="width=device-width, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no">`;
     document.write(text);
+    /*
+    屏幕缩放因子：window.devicePixelRatio (是一个小数)
+    通常 物理分辨率 > 逻辑分辨率，而 物理分辨率 * 缩放因子 = 逻辑分辨率；
+    屏幕逻辑分辨率：window.screen.width * window.devicePixelRatio (物理分辨率的乘积与缩放因子)
+    */
+    // console.log(document.documentElement.clientWidth,'网页可见区域宽');750px
+    // console.log(document.documentElement.offsetWidth,'网页可见区域宽(包含扁线的宽)'); 750px
+    // console.log(document.documentElement.scrollWidth,'网页正文全文宽');  750px
+    // console.log(document.documentElement.scrollWidth,'屏幕可用工作区宽度'); 750px
+    // console.log(window.innerWidth); //屏幕物理分辨率的宽(750px)=网页宽度=视窗视口宽度
+    // console.log(window.screen.width); //屏幕逻辑分辨率的宽(375px)=设备大小=可视视口宽度
+    /*
+        "设计稿"是基于iPhone6/7/8的，所以它的设计稿竖直放时的横向逻辑分辨率
+        为750px，也就是视窗视口宽度(又叫做网页宽度),为了计算方便，
+        取一个100px的font-size为参照，那么html元素的宽度就可以设置为width: 750 /100 = 7.5rem，
+        html的font-size = 网页宽度 / 7.5
+    */
     document.documentElement.style.fontSize = window.innerWidth / 7.5 + "px";
     //给<html>设置屏幕的像素比
     document.documentElement.setAttribute('data-dpr', parseInt(window.devicePixelRatio) + '');
