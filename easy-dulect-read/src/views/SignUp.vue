@@ -46,8 +46,6 @@ export default {
         this.setTips('用户名不能为空')
       } else if (this.userPassword === '') {
         this.setTips('密码不能为空')
-      } else {
-        console.log('用户名、密码正确')
       }
     },
     switchover () {
@@ -78,7 +76,7 @@ export default {
               userAvatar: data.userAvatar,
               isShow: false
             })
-            // console.log('我运行了吗')
+            console.log('我运行了吗')
             localStorage.setItem('user', `[{"userName":" ${data.userName}","userId": "${data.userId}","userGender": "${data.userGender}","userAvatar": "${data.userAvatar}","isShow": "false"}]`)
           }
           this.setTips(data.msg)
