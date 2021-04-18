@@ -9,6 +9,11 @@ import fastclick from 'fastclick'
 import animated from 'animate.css'
 // 导入初始化默认的全局样式
 import './assets/css/base.scss'
+// BUG监控工具Fundebug:https://www.fundebug.com/?utm_source=liao
+// import * as fundebug from 'fundebug-javascript'
+// import fundebugVue from 'fundebug-vue'
+// fundebug.apikey = 'f6be99e650a39404548fcc622826da975a293e08d346c1a0880afac7fdc0e3c3'
+// fundebugVue(fundebug, Vue)
 Vue.use(animated)
 fastclick.attach(document.body)
 Vue.config.productionTip = false

@@ -17,6 +17,23 @@
                 <button type="reset" class="clear">清除</button>
             </div>
         </form>
+        <!-- 波浪区域 -->
+    <div>
+      <!-- svg形状 -->
+      <svg class="waves" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <!-- 形状容器 -->
+        <defs>
+          <path id="" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <!-- 组合形状 -->
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+          <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+        </g>
+      </svg>
+    </div>
     </div>
 </template>
 
@@ -93,13 +110,16 @@ export default {
 
 <style scoped lang="scss">
     .signUp{
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
+        position: relative;
+        // position: fixed;
+        // left: 0;
+        // right: 0;
+        // top: 0;
+        // bottom: 0;
+        background: linear-gradient(60deg,rgba(238,196,201,1) 0%, rgba(247,214,212,1) 100%);
+  color: wheat;
         /*background: #fdfdfe;*/
-        background-image: url("../assets/images/sign_bg2.jpg");
+        // background-image: url("../assets/images/sign_bg2.jpg");
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -210,12 +230,12 @@ export default {
             .submit{
                 width: 70%;
                 height: 90px;
-                border-radius: 50px;
+                border-radius: 30px;
                 background-image:linear-gradient(to right, #f0d3d3, #f2bbbb);
                 font-size: 34px;
                 font-weight: bold;
                 color: #fff;
-                border: 5px solid #fff;
+                border:none;
             }
             .signIn{
                 width: 90%;
@@ -233,6 +253,47 @@ export default {
                 }
             }
         }
+         .waves {
+            // position: relative;
+            // width: 100%;
+            // height:100%;
+            // margin-bottom: -7px;
+            // /* 最小值 */
+            // min-height: 100px;
+            // /* 最大值 */
+            // max-height: 150px;
+            .parallax>use {
+              animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+            }
+            /* 选择的一个use */
+            .parallax>use:nth-child(1) {
+              /* 延迟 2s 执行 */
+              animation-delay: -2s;
+              /* 7s 内 执行完毕 */
+              animation-duration: 7s;
+            }
+            .parallax>use:nth-child(2) {
+              animation-delay: -3s;
+              animation-duration: 10s;
+            }
+            .parallax>use:nth-child(3) {
+              animation-delay: -4s;
+              animation-duration: 13s;
+            }
+            .parallax>use:nth-child(4) {
+              animation-delay: -5s;
+              animation-duration: 20s;
+            }
+          }
+  }
+  /* 动画 */
+@keyframes move-forever {
+  0% {
+        transform: translate3d(-90px,0,0);
     }
+  100% {
+      transform: translate3d(85px,0,0);
+  }
+}
 
 </style>
