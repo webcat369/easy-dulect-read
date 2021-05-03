@@ -180,16 +180,16 @@ export default {
          transform: translateX(-50%);
          bottom: 5px;
          width: 160px;
-         height: 10px;
+         height: 8px;
          /*background: #d43c33;*/
          display: flex;
          justify-content: space-around;
          .custom-indicator{
             width: 40px;
-            background: #cccccc;
+            background: #f4f4f4;
             border-radius: 5px;
             &.custom-indicator-active{
-               background: #eeb9bb;
+               background: #ffcb5d;
             }
          }
 

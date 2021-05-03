@@ -182,7 +182,8 @@ export default {
             width: 500px;
             height: 100px;
             border-radius: 50px;
-            background-image:linear-gradient(to right, #c7d4f4, #b6c3e3) ;
+            /*background-image:linear-gradient(to right, #c7d4f4, #b6c3e3) ;*/
+            background: #fbb756;
             position: absolute;
             bottom: 400px;
             left: 120px;

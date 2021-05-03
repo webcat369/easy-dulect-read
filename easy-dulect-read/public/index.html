@@ -21,6 +21,20 @@
   <link rel="apple-touch-icon" sizes="180x180" href="./reading.png">
   <!--网页快捷图标-->
   <link rel="icon" href="./reading.png">
+  <style>
+    body
+    {
+      width:auto;
+      margin-left:1px;
+      float:left;
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:13px;
+      color:#5f5f5f;
+      /*line-height:35px;*/
+      text-transform:uppercase
+    }
+
+  </style>
   <script>
     let scale = 1.0 / window.devicePixelRatio;
     /*
@@ -44,7 +58,7 @@
     // console.log(document.documentElement.offsetWidth,'网页可见区域宽(包含扁线的宽)'); 750px
     // console.log(document.documentElement.scrollWidth,'网页正文全文宽');  750px
     // console.log(document.documentElement.scrollWidth,'屏幕可用工作区宽度'); 750px
-    console.log(window.innerWidth); //屏幕物理分辨率的宽(750px)=网页宽度=视窗视口宽度
+    // console.log(window.innerWidth); //屏幕物理分辨率的宽(750px)=网页宽度=视窗视口宽度
     // console.log(window.screen.width); //屏幕逻辑分辨率的宽(375px)=设备大小=可视视口宽度
     /*
         "设计稿"是基于iPhone6/7/8的，所以它的设计稿竖直放时的横向物理分辨率

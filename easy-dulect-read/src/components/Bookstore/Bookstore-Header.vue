@@ -73,7 +73,7 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    /*background: #aebbdb;*/
+    background: #ffce66;
     .Header{
         width: 100%;
         display: flex;
@@ -81,7 +81,7 @@ export default {
         border-bottom: 1px solid #ccc;
         box-sizing: border-box;
         &.active{
-            background: #f0d2d4;
+            background: #ffce66;
         }
         .Header-left{
             ul{
@@ -99,7 +99,8 @@ export default {
                     font-size: 0.32rem;
                     font-weight: bold;
                     &.router-link-active {
-                        color: #ee9b9b;
+                        /*color: #f0912e;*/
+                        color: #fa8000;
                         font-size: 0.38rem;
                     }
                 }
@@ -107,7 +108,7 @@ export default {
                     width: 0.6rem;
                     height: 0.05rem;
                     border-radius: 0.03rem;
-                    background: #ee9b9b;
+                    background: #fa8000;
                     bottom: 10px;
                     position: absolute;
                     transition: all 0.5s;

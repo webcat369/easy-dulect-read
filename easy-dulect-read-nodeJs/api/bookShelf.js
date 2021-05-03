@@ -1,6 +1,6 @@
 const {BookShelf} = require('../easy-dulect-read-db/userBookShelf')
 
-//收藏
+//加入书架
 let classic = async (req,res)=>{
     const data = await BookShelf.findOne({
         userId:req.params.id
@@ -17,7 +17,7 @@ let classic = async (req,res)=>{
            }]
        })
         res.send({
-            msg:'恭喜你收藏了第一本书'
+            msg:'恭喜你加入了第一本书'
         })
     }else {
         let flag = false
@@ -26,7 +26,7 @@ let classic = async (req,res)=>{
             if (value.id === req.body.id){
                 flag = true
                 res.send({
-                    msg:'您已经收藏过这本书啦~'
+                    msg:'您已经加入过这本书啦~'
                 })
             }
         }
@@ -46,13 +46,13 @@ let classic = async (req,res)=>{
                 bookList:newList
             })
             res.send({
-                msg:'收藏成功'
+                msg:'加入书架成功'
             })
         }
     }
 
 }
-//更新进度
+//更新阅读器进度
 let changeProgress = async (req,res)=>{
     // 找到当前用户的数据
     const data = await BookShelf.findOne({
@@ -75,7 +75,7 @@ let changeProgress = async (req,res)=>{
         })
     }
 }
-// 获取用户收藏列表
+// 获取用户书架列表
 let searchList = async (req,res)=>{
     const data = await BookShelf.findOne({
         userId:req.params.id
@@ -84,4 +84,30 @@ let searchList = async (req,res)=>{
         result:data.bookList
     })
 }
-module.exports = {classic,changeProgress, searchList}
+//删除书架中的书单
+let deleteBooks = async (req,res) => {
+    const data = await BookShelf.findOne({
+        userId:req.params.id
+    })
+
+    // console.log(req.body.idList)
+    req.body.idList.forEach((value,index)=>{
+        // console.log(value)
+        data.bookList.forEach((v,i) =>{
+            // console.log(v);
+            if(value.id === v.id){
+                v.remove()
+            }
+        })
+    })
+    const updateBooks = await BookShelf.findOneAndUpdate({
+        userId:req.params.id
+    },{
+        bookList:data.bookList
+    })
+    res.send({
+        msg:'删除书单成功',
+        success:true
+    })
+}
+module.exports = {classic,changeProgress, searchList,deleteBooks}

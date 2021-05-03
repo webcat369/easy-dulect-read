@@ -1,22 +1,22 @@
 <template>
    <div class="TabBar" ref="tabbar">
        <ul>
-           <router-link tag="li" class="item" to="/bookshelf">
-               <div ref="Bookshelf" class="Bookshelf icon"></div>
-               <p>书架</p>
-           </router-link>
-           <router-link tag="li" class="item" to="/bookstore">
-               <div ref="Bookstore"  class="Bookstore icon"></div>
-               <p>书城</p>
-           </router-link>
-           <router-link tag="li" class="item" to="/classification">
-               <div ref="Classification"  class="Classification icon"></div>
-               <p>分类</p>
-           </router-link>
-           <router-link tag="li" class="item" to="/personalcenter">
-               <div ref="PersonalCenter" class="PersonalCenter icon"></div>
-               <p>我的</p>
-           </router-link>
+               <router-link tag="li" class="item" to="/bookshelf">
+                   <div ref="Bookshelf" class="Bookshelf icon"></div>
+                   <p>书架</p>
+               </router-link>
+               <router-link tag="li" class="item" to="/bookstore">
+                   <div ref="Bookstore"  class="Bookstore icon"></div>
+                   <p>书城</p>
+               </router-link>
+               <router-link tag="li" class="item" to="/classification">
+                   <div ref="Classification"  class="Classification icon"></div>
+                   <p>分类</p>
+               </router-link>
+               <router-link tag="li" class="item" to="/personalcenter">
+                   <div ref="PersonalCenter" class="PersonalCenter icon"></div>
+                   <p>我的</p>
+               </router-link>
        </ul>
    </div>
 </template>
@@ -31,22 +31,23 @@ export default {
         { title: 'girl', id: 1 },
         { title: 'boy', id: 2 },
         { title: 'books', id: 3 }
-      ]
+      ],
+      isRoute: ''
     }
   },
   methods: {
     ...mapActions([
       'setTabBarHeight'
     ])
-
   },
   computed: {
-
   },
   watch: {
   },
+  created () {
+
+  },
   mounted () {
-    this.setTabBarHeight(this.$refs.tabbar.offsetHeight)
   }
 }
 </script>

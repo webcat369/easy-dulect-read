@@ -1,22 +1,29 @@
 <template>
   <div class="Bookshelf">
     <Bookcase></Bookcase>
+    <Search v-if="this.showPage"></Search>
+    <ReadRecord v-if="this.showReadRecord"></ReadRecord>
   </div>
 </template>
 
 <script>
 import Bookcase from '../components/Bookshelf/Bookcase'
+import Search from '../components/Search'
+import ReadRecord from '../components/PersonalCenter/ReadRecord'
 import { mapActions, mapGetters } from 'vuex'
 import { searchList } from '../api'
 export default {
   name: 'Bookshelf',
   components: {
-    Bookcase
+    Bookcase,
+    Search,
+    ReadRecord
   },
   created () {
-    if (this.currentUser.userId === '0') {
-      const currentUser = localStorage.getItem('user')
-      const currentUserData = JSON.parse(currentUser)[0]
+    const currentUser = JSON.parse(localStorage.getItem('user'))
+    if (currentUser) {
+      console.log(currentUser)
+      const currentUserData = currentUser[0]
       this.setCurrentUser({
         userName: currentUserData.userName,
         userId: currentUserData.userId,
@@ -26,22 +33,24 @@ export default {
       })
       searchList(this.currentUser.userId)
         .then(data => {
-          // console.log(data)
           this.setBookList(data.result)
           console.log(data.result)
         })
     } else {
-      searchList(this.currentUser.userId)
-        .then(data => {
-          console.log(data)
-          this.setBookList(data.result)
-          // console.log(data.result)
-        })
+      this.setBookList = []
+      // searchList(this.currentUser.userId)
+      //   .then(data => {
+      //     // console.log(data.result, 'result')
+      //     this.setBookList(data.result)
+      //     // console.log(data.result)
+      //   })
     }
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'showPage',
+      'showReadRecord'
     ])
   },
   methods: {

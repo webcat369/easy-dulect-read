@@ -96,7 +96,7 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 999;
-    background: #fa816d;
+    background: #ffcb5d;
     .top{
         width: 100%;
         height: 100px;
@@ -208,7 +208,7 @@ export default {
                         line-height: 40px;
                         text-align: center;
                         margin-top:10px;
-                        background: #fa4531;
+                        background: #ea8c1d;
                         margin-right: 20px;
                         color:#ffffff;
                     }

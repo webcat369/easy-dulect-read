@@ -11,16 +11,16 @@
                 <p @click.stop="edit">{{this.hide===true ? '取消' : '编辑'}}</p>
             </div>
             <div class="bottom">
-                <van-empty description="暂无收藏记录" />
+<!--                <van-empty description="暂无收藏记录" />-->
                 <happy-scroll hide-horizontal
                               color="rgba(51,51,51,0.2)"
                               size="8"
                               :min-length-v="20"
                               resize
                               class="happy-slow"
-                              v-show="false">
+                              v-show="true">
                     <div class="list">
-                        <div class="van-cell" ref="VanCell">
+                        <div class="van-cell" ref="VanCell" v-for="(value,index) in collectList" :key="index">
                             <i  @click.stop="Selected" v-show="hide">
                                 <img class="tick"
                                      src="../../assets/icon/unselected.svg"
@@ -32,17 +32,17 @@
                                      alt=""/>
                             </i>
                             <div class="cell-left">
-                                <img src="https://cdn.wtzw.com/bookimg/public/images/cover/14bf/c8c7da30026cd8ea0cb36a88e4aec49a_360x480.jpg" alt="">
+                                <img v-lazy="value.picUrl" alt="">
                             </div>
                             <div class="cell-right">
-                                <p>星辰入怀明</p>
-                                <p>冬日微暖</p>
-                                <p>2020-09-24</p>
+                                <p>{{value.name}}</p>
+                                <p>{{value.author}}</p>
+                                <p>{{value.collectTime}}</p>
                             </div>
                         </div>
                     </div>
                 </happy-scroll>
-                <div class="cancel" ref="cancel" @click.stop="Delect" v-show="false">
+                <div class="cancel" ref="cancel" @click.stop="Delect" v-show="true">
                     取消收藏
                 </div>
             </div>
@@ -57,18 +57,31 @@ import { Empty } from 'vant'
 import { HappyScroll } from 'vue-happy-scroll'
 // 引入css，推荐将css放入main入口中引入一次即可。
 import 'vue-happy-scroll/docs/happy-scroll.css'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import { getCollect } from './../../api'
 Vue.use(Empty)
 export default {
   name: 'Collect',
   data () {
     return {
       hide: false,
-      switchImg: true
+      switchImg: true,
+      collectList: []
     }
+  },
+  created () {
+    getCollect(this.currentUser.userId).then(data => {
+      this.collectList = data.result
+      console.log(data.result)
+    })
   },
   components: {
     HappyScroll
+  },
+  computed: {
+    ...mapGetters([
+      'currentUser'
+    ])
   },
   methods: {
     ...mapActions([
@@ -227,10 +240,11 @@ export default {
             color: #8c8c8c;
             text-align: center;
             line-height: 100px;
+            /*background: #ffcb5d;*/
             border-top: 1px solid #c2c2c2;
             transition: bottom 0.3s ease-in-out;
             &.active{
-                color: #aebbdb;
+                color: #ffcb5d;
             }
         }
     }

@@ -154,7 +154,7 @@ export default {
                     padding-left:25px;
                     box-sizing: border-box;
                     margin:  0 auto;
-                    background: #f5d7d9;
+                    background: #ffcb5d;
                 }
                 .van-collapse{
                     width: 100%;

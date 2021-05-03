@@ -3,9 +3,7 @@
         <BookstoreHeader></BookstoreHeader>
         <!--路由出口:切换推荐,女生,男生,图书-->
         <transition :name="this.names">
-            <keep-alive>
                 <router-view></router-view>
-            </keep-alive>
         </transition>
         <Search v-if="this.showPage"></Search>
         <Detail v-if="this.showDetail"></Detail>

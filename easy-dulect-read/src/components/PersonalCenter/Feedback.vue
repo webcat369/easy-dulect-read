@@ -220,10 +220,11 @@ export default {
                 height: 80px;
                 line-height: 80px;
                 text-align: center;
-                background: #f5d7d9;
+                background: #facc41;
                 font-size: 28px;
                 color: #333333;
-                box-shadow: 0 5px 10px 5px #a8a8a8;
+                /*box-shadow: 0 5px 10px 5px #a8a8a8;*/
+                box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2);
             }
         }
     }

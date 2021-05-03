@@ -74,7 +74,7 @@ export default {
     left: 0;
     right: 0;
     z-index: 99;
-    background: #fdfdfe;
+    background: #ffcb5d;
     .Header{
         width: 100%;
         display: flex;
@@ -106,7 +106,7 @@ export default {
                     width: 0.6rem;
                     height: 0.05rem;
                     border-radius: 0.03rem;
-                    background: #ee9b9b;
+                    background: #fa8000;
                     bottom: 10px;
                     position: absolute;
                     transition: all 0.5s;

@@ -70,7 +70,8 @@ export default {
       'setHelpPAge',
       'setCoupleBackPage',
       'setSetUpPage',
-      'setBookList'
+      'setBookList',
+      'setTips'
     ]),
     logIn () {
       this.$router.push({ path: '/sign' })
@@ -99,6 +100,11 @@ export default {
       this.setCoupleBackPage(true)
     },
     ShowSetUpPage () {
+      const value = localStorage.getItem('user')
+      if (value == null) {
+        this.setTips('请先登录')
+        return
+      }
       this.setSetUpPage(true)
     }
   },
@@ -118,7 +124,8 @@ export default {
     left: 0;
     right: 0;
     bottom: 100px;
-    background-image:linear-gradient(to right, #f5d7d9, #eacbce);
+    /*background:linear-gradient(to right, #f5d7d9, #eacbce);*/
+    background: #ffce66;
     overflow: hidden;
     .header{
         width: 100%;
@@ -154,9 +161,11 @@ export default {
                 &:nth-of-type(2){
                     width: 200px;
                     height: 80px;
+                    font-size: 28px;
+                    font-weight: 400;
                     line-height: 80px;
                     text-align: center;
-                    background: #e6a9b1;
+                    background: #fbb756;
                     border-radius: 20px;
                     position: absolute;
                     top: 255px;
@@ -236,6 +245,12 @@ export default {
             p{
                 font-size: 30px;
                 color: #333333;
+            }
+            img{
+                display: inline-block;
+                height: 50px;
+                margin-top: 20px;
+                vertical-align: center;
             }
         }
     }

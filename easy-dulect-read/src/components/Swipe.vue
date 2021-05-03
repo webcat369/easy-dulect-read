@@ -77,7 +77,8 @@ export default {
         width: 90%;
         height:240px;
         margin: 0 auto;
-        border-radius: 20px;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
         transform: translate3d(0,0,0);
         van-swipe-item {
             width: 100%;
@@ -97,17 +98,17 @@ export default {
             left: 50%;
             transform: translateX(-50%);
             bottom: 5px;
-            width: 200px;
-            height: 10px;
+            width: 250px;
+            height: 8px;
             /*background: #d43c33;*/
             display: flex;
             justify-content: space-around;
             .custom-indicator{
                 width: 40px;
-                background: #cccccc;
+                background: #f4f4f4;
                 border-radius: 5px;
                 &.custom-indicator-active{
-                    background: #eeb9bb;
+                    background: #ffcb5d;
                 }
             }
 

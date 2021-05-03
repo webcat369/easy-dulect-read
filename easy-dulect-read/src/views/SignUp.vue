@@ -1,39 +1,27 @@
 <template>
     <div class="signUp">
-        <div class="signUP-header">
-           <img src="../assets/icon/back.svg" alt="" @click.stop="back">
-            <p>账号登录</p>
-        </div>
-        <div class="logo">
-            <img src="../assets/images/reading.png" alt="">
-            <p>海量阅读，想读就读</p>
-        </div>
-        <form @submit="submit">
-           <div class="user"><i></i><input type="text" placeholder="昵称" v-model="userName"></div>
-            <div class="password"><i></i><input type="password" placeholder="密码" v-model="userPassword"></div>
-            <button class="submit" @click.stop="cut" ref="submit">{{text[0]}}</button>
-            <div class="signIn">
-                <p @click.stop="switchover" ref="signIn">{{text[1]}}</p>
-                <button type="reset" class="clear">清除</button>
+        <div class="singUp-box">
+            <div class="signUP-header">
+                <img src="../assets/icon/back.svg" alt="" @click.stop="back">
+                <p>账号登录</p>
             </div>
-        </form>
-        <!-- 波浪区域 -->
-    <div>
-      <!-- svg形状 -->
-      <svg class="waves" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-        <!-- 形状容器 -->
-        <defs>
-          <path id="" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-        </defs>
-        <!-- 组合形状 -->
-        <g class="parallax">
-          <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
-          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
-          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
-          <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
-        </g>
-      </svg>
-    </div>
+            <div class="image" style="width:500px; position: absolute; top: 150px;left:50px;">
+                <img style="display: inline-block;width: 100%;" src="../assets/images/yun.png" alt="">
+            </div>
+            <div class="logo">
+                <img src="../assets/images/2.png" alt="">
+                <p>海量阅读，想读就读</p>
+            </div>
+            <form @submit.prevent="submit">
+                <div class="user"><i></i><input type="text" placeholder="昵称" v-model="userName"></div>
+                <div class="password"><i></i><input type="password" placeholder="密码" v-model="userPassword"></div>
+                <button class="submit" @click.stop="cut" ref="submit">{{text[0]}}</button>
+                <div class="signIn">
+                    <p @click.stop="switchover" ref="signIn">{{text[1]}}</p>
+                    <button type="reset" class="clear">清除</button>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -64,6 +52,7 @@ export default {
       } else if (this.userPassword === '') {
         this.setTips('密码不能为空')
       }
+      return this.userName.length === 0 || this.userPassword.length === 0
     },
     switchover () {
       this.textFlag = !this.textFlag
@@ -74,7 +63,6 @@ export default {
       }
     },
     submit (e) {
-      console.log(e)
       const obj = {
         userName: e.target[0].value,
         userPassword: e.target[1].value,
@@ -82,7 +70,12 @@ export default {
         userAvatar: 'http://localhost:3000/avatars/avatar_01.jpeg'
       }
       if (!this.textFlag) {
-        signIn(obj).then(data => {
+        console.log(this.cut())
+        if (this.cut()) return
+        signIn({
+          userName: e.target[0].value,
+          userPassword: e.target[1].value
+        }).then(data => {
           console.log(data)
           if (data.msg === '登陆成功') {
             this.$router.push({ path: '/personalcenter' })
@@ -93,7 +86,7 @@ export default {
               userAvatar: data.userAvatar,
               isShow: false
             })
-            console.log('我运行了吗')
+            // console.log('我运行了吗')
             localStorage.setItem('user', `[{"userName":" ${data.userName}","userId": "${data.userId}","userGender": "${data.userGender}","userAvatar": "${data.userAvatar}","isShow": "false"}]`)
           }
           this.setTips(data.msg)
@@ -110,20 +103,28 @@ export default {
 
 <style scoped lang="scss">
     .signUp{
-        position: relative;
-        // position: fixed;
-        // left: 0;
-        // right: 0;
-        // top: 0;
-        // bottom: 0;
-        background: linear-gradient(60deg,rgba(238,196,201,1) 0%, rgba(247,214,212,1) 100%);
-  color: wheat;
-        /*background: #fdfdfe;*/
-        // background-image: url("../assets/images/sign_bg2.jpg");
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
+        /*position: relative;*/
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        /*bottom: 0;*/
+        height: 100%;
+        /*background: linear-gradient(60deg, rgba(247,214,212,1) 0%, rgba(255,255,255,1) 100%);*/
+        background: #fdfdfe;
         z-index: 999;
+        .singUp-box{
+            width: 100%;
+            height: 100%;
+            background-image: url("../assets/images/readbook.png");
+            /*background-position: 120px 920px;*/
+            background-position: 120px 100%;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            /*background: url("../assets/images/4.png") 100px 500px  no-repeat;*/
+            /*background: url("../assets/images/6.png")  300px 960px  no-repeat;*/
+            /*background-size: 60%;*/
+        }
         .signUP-header{
             width: 100%;
             height: 100px;
@@ -186,7 +187,7 @@ export default {
                 justify-content: space-between;
                 align-items: center;
                 /*border: 2px solid rgba(238,156,156);*/
-                border: 2px solid #fff;
+                border: 2px solid #fbb756;
                 border-radius: 20px;
                 background: #fff;
                 i{
@@ -231,7 +232,8 @@ export default {
                 width: 70%;
                 height: 90px;
                 border-radius: 30px;
-                background-image:linear-gradient(to right, #f0d3d3, #f2bbbb);
+                /*background-image:linear-gradient(to right, #f0d3d3, #f2bbbb);*/
+                background-image:radial-gradient(#ffbe71,#ffbe71);
                 font-size: 34px;
                 font-weight: bold;
                 color: #fff;
@@ -253,47 +255,6 @@ export default {
                 }
             }
         }
-         .waves {
-            // position: relative;
-            // width: 100%;
-            // height:100%;
-            // margin-bottom: -7px;
-            // /* 最小值 */
-            // min-height: 100px;
-            // /* 最大值 */
-            // max-height: 150px;
-            .parallax>use {
-              animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
-            }
-            /* 选择的一个use */
-            .parallax>use:nth-child(1) {
-              /* 延迟 2s 执行 */
-              animation-delay: -2s;
-              /* 7s 内 执行完毕 */
-              animation-duration: 7s;
-            }
-            .parallax>use:nth-child(2) {
-              animation-delay: -3s;
-              animation-duration: 10s;
-            }
-            .parallax>use:nth-child(3) {
-              animation-delay: -4s;
-              animation-duration: 13s;
-            }
-            .parallax>use:nth-child(4) {
-              animation-delay: -5s;
-              animation-duration: 20s;
-            }
-          }
-  }
-  /* 动画 */
-@keyframes move-forever {
-  0% {
-        transform: translate3d(-90px,0,0);
     }
-  100% {
-      transform: translate3d(85px,0,0);
-  }
-}
 
 </style>

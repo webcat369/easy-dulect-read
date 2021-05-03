@@ -149,7 +149,7 @@ export default {
                 width: 0.06rem;
                 height: 0.4rem;
                 border-radius: 6px;
-                background-color: #ee9b9b;
+                background-color: #fa8000;
             }
         }
         .van-tree-select__content{

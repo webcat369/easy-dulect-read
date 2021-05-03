@@ -283,10 +283,10 @@ export default {
     .list{
         .swipe{
             width: 100%;
-            height: 280px;
+            /*height: 280px;*/
             padding-top: 15px;
             box-sizing: border-box;
-            /*background: #aebbdb;*/
+            background: #ffce66;
         }
         .classic{
                 width: 90%;

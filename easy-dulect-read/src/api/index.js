@@ -16,6 +16,12 @@ export const classic = (id, data) => Network.patch(`/user/classic/${id}`, data)
 export const changeProgress = (id, data) => Network.patch(`/user/changeProgress/${id}`, data)
 // 获取用户加入书架的书
 export const searchList = (id) => Network.get(`/user/searchList/${id}`)
+// 删除书架中书单
+export const deleteBooks = (id, data) => Network.patch(`/user/deleteBooks/${id}`, data)
+// 加入收藏夹
+export const addCollect = (id, data) => Network.patch(`/user/addCollect/${id}`, data)
+// 获取收藏夹数据
+export const getCollect = (id, data) => Network.get(`user/searchCollect/${id}`, data)
 
 /* 轮播图 */
 export const getSwipe = () => Network.get('/banner.json')

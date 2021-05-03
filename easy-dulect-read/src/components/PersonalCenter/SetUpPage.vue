@@ -158,7 +158,8 @@ export default {
       'setSetUpPage',
       'setCurrentUser',
       'setTips',
-      'setCurrentUserAvatar'
+      'setCurrentUserAvatar',
+      'setBookList'
     ]),
     // 返回个人中心界面
     back () {
@@ -237,6 +238,7 @@ export default {
         isShow: true
       })
       this.setSetUpPage(false)
+      this.setBookList([])
       localStorage.removeItem('user')
     }
   }

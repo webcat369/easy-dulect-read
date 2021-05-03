@@ -166,7 +166,7 @@ export default {
         .middle{
             width: 100%;
             height: 150px;
-            background: #bed0e6;
+            background: #e3f1f4;
             border-radius: 10px;
             position: relative;
             margin-bottom: 20px;

@@ -4,7 +4,8 @@ const fs = require('fs')
 const path = require('path')
 const cors = require('cors')
 const {signUp, signIn,changeUserName,changeGender,changeAvatar} = require('./api/signUp')
-const {classic,changeProgress, searchList} = require('./api/bookShelf')
+const {classic,changeProgress, searchList,deleteBooks} = require('./api/bookShelf')
+const {addCollect,getCollect} = require('./api/collectBook')
 
 // const mongoose = require('mongoose')
 // const {List} = require('./easy-dulect-read-db/list')
@@ -42,7 +43,13 @@ app.patch('/user/classic/:id',classic)
 app.patch('/user/changeProgress/:id',changeProgress)
 //获取用户加入书架的书
 app.get('/user/searchList/:id',searchList)
+//删除书架中书单
+app.patch('/user/deleteBooks/:id',deleteBooks)
 
+//加入收藏夹
+app.patch('/user/addCollect/:id',addCollect)
+//获取收藏夹数据
+app.get('/user/searchCollect/:id',getCollect)
 // 指定服务器监听端口
 app.listen(3000,()=>{
     console.log('服务器http://localhost:3000已启动!');

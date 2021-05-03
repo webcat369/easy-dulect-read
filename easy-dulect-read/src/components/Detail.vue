@@ -369,7 +369,8 @@ export default {
                 line-height: 80px;
                 margin-top:10px;
                 border-radius: 40px;
-                background-image: linear-gradient(to right, #f5d7d9, #eacbce);
+                /*background-image: linear-gradient(to right, #f5d7d9, #eacbce);*/
+                background:#fbb756;
             }
         }
     }
@@ -395,7 +396,7 @@ export default {
             bottom: 0;
             width: 50px;
             height:10px;
-            background: #ee9b9b;
+            background: #fbb756;
             border-radius: 10px;
         }
     }
@@ -412,7 +413,7 @@ export default {
                 width: 100%;
                 margin: 0 auto;
                 height: 600px;
-                background: #eacbce;
+                background: #ffce66;
                 position: relative;
                 /*margin-bottom: 20px;*/
                 .titleTop{
@@ -560,7 +561,7 @@ export default {
                         bottom: 0;
                         width: 50px;
                         height:10px;
-                        background: #ee9b9b;
+                        background: #fbb756;
                         border-radius: 10px;
                     }
                 }
