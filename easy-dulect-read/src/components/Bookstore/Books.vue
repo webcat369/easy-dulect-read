@@ -110,7 +110,7 @@ export default {
     this.$refs.ScrollView.scrolling((y) => {
       const listHeight = this.$refs.list.offsetHeight
       const scrollY = listHeight + y
-      if (Math.abs(bottomHeight - scrollY) < 10) {
+      if (Math.abs(bottomHeight - scrollY) <= 300) {
         this.$refs.ScrollList.scrollMore()
       }
     })

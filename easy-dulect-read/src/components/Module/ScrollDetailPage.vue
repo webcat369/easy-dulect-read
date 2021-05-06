@@ -158,7 +158,7 @@ export default {
     this.$refs.ScrollView.scrolling((y) => {
       const boxHeight = this.$refs.box.offsetHeight
       const scrollY = boxHeight + y
-      if (Math.abs(ScrollListHeight - scrollY) < 10) {
+      if (Math.abs(ScrollListHeight - scrollY) <= 300) {
         this.$refs.ScrollList.scrollMore()
       }
       // console.log(y)
@@ -184,7 +184,7 @@ export default {
         width: 100%;
         height: 100px;
         line-height: 100px;
-        /*background: #42b983;*/
+        background: #ffcb5d;
         display: flex;
         img{
             width: 60px;

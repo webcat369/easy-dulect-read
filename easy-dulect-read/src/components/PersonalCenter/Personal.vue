@@ -7,7 +7,7 @@
             </div>
             <div class="log-in"  v-show="this.currentUser.isShow">
                 <p>欢迎使用轻悦读</p>
-                <p @click.stop="logIn">马上登陆</p>
+                <p @click.stop="logIn">马上登录</p>
             </div>
             <div class="header-middle" v-show="!this.currentUser.isShow">
                 <img :src="this.currentUser.userAvatar" alt="">

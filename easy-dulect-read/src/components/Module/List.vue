@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-        <div class="more">{{msg}}</div>
+        <div class="more" ref="more">{{msg}}</div>
     </div>
 </template>
 
@@ -166,9 +166,8 @@ export default {
         this.girlList = this.girlList.concat(data.list.girlList.slice(this.nowPage * 5, (this.nowPage + 1) * 5))
 
         this.boyList = this.boyList.concat(data.list.boyList.slice(this.nowPage * 5, (this.nowPage + 1) * 5))
-
         this.nowPage++
-
+        console.log(this.nowPage)
         if (data.list.girlList.length <= this.nowPage * 5) {
           this.msg = '已加载全部'
         }
@@ -366,9 +365,9 @@ export default {
         height: 50px;
         line-height: 50px;
         text-align: center;
-        background: #ddd;
+        background: #fff;
         color:#666;
-        font-size: 23px;
+        font-size: 28px;
     }
 }
 

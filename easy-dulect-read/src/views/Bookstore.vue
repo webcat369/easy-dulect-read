@@ -1,4 +1,5 @@
 <template>
+    <!--  书城界面  -->
     <div class="Bookstore">
         <BookstoreHeader></BookstoreHeader>
         <!--路由出口:切换推荐,女生,男生,图书-->

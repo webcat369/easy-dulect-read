@@ -52,7 +52,7 @@
                         <div class="van-cell"
                              v-for="(value,index) in bookList"
                              :key="value.id"
-                             @click.stop="readBook(index)"
+                             @click="readBook(index)"
                              ref="vancell"
                         >
                             <div class="cell-left">
@@ -62,14 +62,7 @@
                                 <div class="right-top">
                                     <p>{{value.name}}</p>
                                 </div>
-                                <i  @click.stop="openAlone(index,value.id)" v-show="hide" ref="selectedI" class="tick">
-<!--                                    <img src="../../assets/icon/unselected.svg"-->
-<!--                                         v-if="switchImg"-->
-<!--                                         alt=""/>-->
-<!--                                    <img src="../../assets/icon/pitchOn.svg"-->
-<!--                                         v-else-->
-<!--                                         alt=""/>-->
-                                </i>
+                                <i  @click.stop="openAlone(index,value.id)" v-show="hide" ref="selectedI" class="tick"></i>
                                 <div class="right-bottom">
                                     <p>
                                         <span>{{value.author}}</span>
@@ -101,10 +94,12 @@ import { deleteBooks, searchList, addCollect } from './../../api'
 export default {
   name: 'Bookcase',
   created () {
-    // console.log('???')
+    console.log('???')
     const currentUser = localStorage.getItem('user')
-    // console.log(currentUser, 'sss')
-    if (currentUser !== null) {
+    console.log(currentUser, 'sss', this.BookId)
+    if (currentUser !== null && this.BookId.length !== 0) {
+      this.isShow = false
+    } else {
       this.isShow = true
     }
   },
@@ -138,6 +133,7 @@ export default {
       'setTips'
     ]),
     readBook (index) {
+      console.log('点击这本书')
       this.$router.push('/detailPage')
       this.setCurrentBookId(this.BookId[index])
     },

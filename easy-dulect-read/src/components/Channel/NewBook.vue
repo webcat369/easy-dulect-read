@@ -1,7 +1,7 @@
 <template>
     <ScrollView ref="ScrollView">
         <div class="NewBook" ref="NewBook">
-            <div class="title">上架新书</div>
+            <div class="titles">上架新书</div>
             <div class="van-list">
                 <div class="van-cell"
                      v-for="(item,index) in List"
@@ -53,7 +53,7 @@ export default {
       const scrollY = NewBookHeight + y
       // console.log(scrollY, 'mounted')
       // console.log(y)
-      if (Math.abs(topHeight - scrollY) < 10) {
+      if (Math.abs(topHeight - scrollY) <= 300) {
         this.scrollMore()
       }
     })
@@ -89,7 +89,7 @@ export default {
       if (this.Channel.length <= 5) { // 5条数据一页
         this.List = this.Channel
       } else {
-        this.List = this.Channel.slice(0, 5)
+        this.List = this.Channel.slice(0, 6)
       }
     },
     scrollMore () { // 上拉查询更多
@@ -117,7 +117,7 @@ export default {
     width: 100%;
     background: #fdfdfe;
     overflow: hidden;
-    .title{
+    .titles{
         width: 90%;
         height: 100px;
         margin: auto;
@@ -229,7 +229,7 @@ export default {
         margin: 0 auto;
         line-height: 50px;
         text-align: center;
-        background: #ddd;
+        /*background: #ddd;*/
         color:#666;
         font-size: 23px;
     }

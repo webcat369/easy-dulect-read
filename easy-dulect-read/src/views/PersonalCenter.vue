@@ -1,4 +1,5 @@
 <template>
+    <!--  个人中心界面  -->
     <div content="PersonalCenter">
         <Personal></Personal>
         <MessageLogging v-if="showMessageLogging"></MessageLogging>

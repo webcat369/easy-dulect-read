@@ -1,24 +1,31 @@
 import axios from 'axios'
+import 'nprogress/nprogress.css'
+import NProgress from 'nprogress'
 
 axios.defaults.baseURL = 'http://localhost:3000'
 // axios.defaults.baseURL = 'http://192.168.137.1:3000'
+// axios.defaults.baseURL = 'http://192.168.31.56:3000'
 axios.defaults.timeout = 3000
 
 // 添加请求拦截器
 axios.interceptors.request.use((config) => {
   // 在发送请求之前做些什么
+  NProgress.start()
   return config
 }, (error) => {
   // 对请求错误做些什么
+  NProgress.done()
   return Promise.reject(error)
 })
 
 // 添加响应拦截器
 axios.interceptors.response.use((response) => {
   // 对响应数据做点什么
+  NProgress.done()
   return response
 }, (error) => {
   // 对响应错误做点什么
+  NProgress.done()
   return Promise.reject(error)
 })
 

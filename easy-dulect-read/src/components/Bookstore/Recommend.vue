@@ -85,7 +85,9 @@ export default {
       const scrollY = listHeight + y
       // console.log(listHeight, 'mounted')
       // console.log(y)
-      if (Math.abs(bottomHeight - scrollY) < 10) {
+      // console.log(document.getElementsByClassName('more').offsetTop)
+      // console.log(Math.abs(bottomHeight - scrollY))
+      if (Math.abs(bottomHeight - scrollY) <= 300) {
         this.$refs.show.scrollMore()
       }
     })

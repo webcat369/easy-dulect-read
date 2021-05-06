@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 // import SignUp from '../views/SignUp'
 
 // 如何实现Vue组件的'按需加载'(异步加载)
@@ -113,7 +114,7 @@ Vue.use(VueRouter)
 /* 指定路由切换的规则 */
 const routes = [
   // { path: '/', redirect: '/bookshelf' },
-  { path: '/', redirect: '/bookshelf' },
+  { path: '/', redirect: '/bookstore' },
   { path: '/bookshelf', component: Bookshelf },
   {
     path: '/bookstore',

@@ -1,9 +1,10 @@
 <template>
+<!--    登录注册页-->
     <div class="signUp">
         <div class="singUp-box">
             <div class="signUP-header">
                 <img src="../assets/icon/back.svg" alt="" @click.stop="back">
-                <p>账号登录</p>
+                <p>{{text[0]}}</p>
             </div>
             <div class="image" style="width:500px; position: absolute; top: 150px;left:50px;">
                 <img style="display: inline-block;width: 100%;" src="../assets/images/yun.png" alt="">
@@ -45,6 +46,7 @@ export default {
     ]),
     back () {
       this.$router.go(-1)
+      // this.$router.push({ path: '/bookstore' })
     },
     cut () {
       if (this.userName === '') {
@@ -69,6 +71,7 @@ export default {
         userGender: '男生',
         userAvatar: 'http://localhost:3000/avatars/avatar_01.jpeg'
       }
+      this.setTips('注册成功')
       if (!this.textFlag) {
         console.log(this.cut())
         if (this.cut()) return

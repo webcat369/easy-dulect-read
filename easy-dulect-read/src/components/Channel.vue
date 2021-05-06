@@ -186,7 +186,7 @@ export default {
         width: 100%;
         height: 100px;
         line-height: 100px;
-        /*background: #42b983;*/
+        background: #ffcb5d;
         display: flex;
         img{
             width: 60px;
@@ -210,20 +210,22 @@ export default {
         bottom: 0;
         .van-tabs{
             .van-tabs__wrap{
-              height: 80px;
+              height: 90px;
               .van-tabs__nav{
+                  line-height:90px;
+                  box-sizing: border-box;
                   .van-tab{
                       .van-tab__text{
                           width: 100%;
-                          height: 80px;
-                          line-height: 80px;
+                          height: 90px;
+                          line-height: 90px;
                           text-align: center;
                           /*background: #facc41;*/
                           font-size: 30px;
                       }
                   }
                   .van-tabs__line{
-                      background-color: #c2baee;
+                      background-color: #fa8000;
                   }
               }
           }

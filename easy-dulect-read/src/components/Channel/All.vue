@@ -55,7 +55,7 @@ export default {
       const scrollY = AllHeight + y
       // console.log(scrollY, 'mounted')
       // console.log(y)
-      if (Math.abs(topHeight - scrollY) < 10) {
+      if (Math.abs(topHeight - scrollY) <= 300) {
         this.$refs.show.scrollMore()
       }
     })
@@ -211,10 +211,10 @@ export default {
                 box-sizing: border-box;
                 /*background: #ee9b9b;*/
                 &.active{
-                    border: 2px solid #fa8100;
-                    font-weight: bold;
+                    border: 2px solid #fa8000;
+                    font-weight: 500;
                     box-sizing: border-box;
-                    color: #e07500;
+                    color: #fa8000;
                 }
             }
         }

@@ -63,7 +63,8 @@ export default {
       console.log(newValue, '新的值')
       // console.log(oldValue, '旧的值')
       this.$nextTick(() => {
-        this.List = newValue.slice(0, 5)
+        // 不同型号手机截取数不同
+        this.List = newValue.slice(0, 6)
       })
     }
   },
@@ -113,7 +114,8 @@ export default {
             transform: translateX(-50%);
             width: 90%;
             height: 210px;
-            padding: 0;
+            padding-top: 20px;
+            box-sizing: border-box;
             /*background: #ee9b9b;*/
             margin-bottom: 35px;
             display: flex;
@@ -157,6 +159,7 @@ export default {
                             white-space: nowrap;
                         }
                         &:nth-of-type(2){
+                            width: 80px;
                             line-height: 40px;
                             font-size: 22px;
                             color: #ee9b9b;
@@ -225,7 +228,7 @@ export default {
         margin: 0 auto;
         line-height: 50px;
         text-align: center;
-        /*background: #99badd;*/
+        background: #fff;
         color:#666;
         font-size: 28px;
     }

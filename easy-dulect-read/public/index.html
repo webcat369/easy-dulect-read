@@ -71,6 +71,37 @@
     document.documentElement.setAttribute('data-dpr', parseInt(window.devicePixelRatio) + '');
     //给<html>设置默认的行间距
     document.documentElement.setAttribute('data-line-height', 'mode');
+    //如下代码主要是解决, 打包后的app点击返回键直接退出的bug.
+    document.addEventListener('plusready', function(a) {
+      plus.navigator.setStatusBarBackground("#ffce66");
+      //等待plus ready后再调用5+ API：
+      // 在这里调用5+ API
+      let first = false;
+      //监听返回键
+      plus.key.addEventListener('backbutton', function() {
+        let isHome = window.location.href.indexOf('/bookshelf') !== -1
+        let isSign = window.location.href.indexOf('/sign') !== -1
+        // alert(window.location.href)
+        // 如果到了主页或注册页面 点两次返回键退出
+        if(isHome || isSign){
+          //首次按键，提示‘再按一次退出应用’
+          if (!first) {
+            // first = new Date().getTime(); //获取第一次点击的时间戳
+            first = true
+            // console.log('再按一次退出应用');//用自定义toast提示最好
+            plus.nativeUI.toast("再次点击即可退出", {duration:'short'}); //通过H5+ API 调用Android 上的toast 提示框
+          }
+          else {
+            plus.runtime.quit();
+          }
+        }
+        // 如果没到主页 那就返回上级路由
+        else{
+          window.history.back()
+        }
+      }, false);
+    });
+
   </script>
   <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 </head>

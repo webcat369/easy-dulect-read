@@ -9,6 +9,10 @@ import fastclick from 'fastclick'
 import animated from 'animate.css'
 // 导入初始化默认的全局样式
 import './assets/css/base.scss'
+// Vue.use(VConsole)
+import Vconsole from 'vconsole'
+import NProgress from 'nprogress'
+// import VConsole from 'vconsole'
 // BUG监控工具Fundebug:https://www.fundebug.com/?utm_source=liao
 // import * as fundebug from 'fundebug-javascript'
 // import fundebugVue from 'fundebug-vue'
@@ -17,7 +21,7 @@ import './assets/css/base.scss'
 Vue.use(animated)
 fastclick.attach(document.body)
 Vue.config.productionTip = false
-
+Vue.use(NProgress)
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   attempt: 2,
@@ -25,6 +29,8 @@ Vue.use(VueLazyload, {
   loading: '../src/assets/images/1.png',
   error: '../src/assets/images/1.png'
 })
+const vConsole = new Vconsole()
+export default vConsole
 
 new Vue({
   router,
