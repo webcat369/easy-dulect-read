@@ -1,18 +1,22 @@
 <template>
+    <!--  个人中心界面 -->
     <div class="Personal">
         <div class="header">
             <div class="header-top">
                     <!--Ap切换夜间模式-->
 <!--                <img src="../../assets/icon/moon.svg" alt="">-->
             </div>
+            <!--   “马上登录按钮”按钮   -->
             <div class="log-in"  v-show="this.currentUser.isShow">
                 <p>欢迎使用轻悦读</p>
                 <p @click.stop="logIn">马上登录</p>
             </div>
+            <!-- 头像昵称展示  -->
             <div class="header-middle" v-show="!this.currentUser.isShow">
                 <img :src="this.currentUser.userAvatar" alt="">
                 <p>{{this.currentUser.userName}}</p>
             </div>
+            <!--  个人中心界面模块功能  -->
             <ul class="header-bottom">
                 <li @click.stop="ShowMessageLogging">
                     <img src="../../assets/icon/news.svg" alt="">
@@ -32,6 +36,7 @@
                 </li>
             </ul>
         </div>
+        <!--  个人中心界面列表功能  -->
         <ul class="list">
             <li @click.stop="ShowReadPreferences">
                 <p>我的阅读喜好</p>
@@ -45,6 +50,7 @@
                 <p>问题与反馈</p>
                 <img src="../../assets/icon/enter.svg" alt="">
             </li>
+            <!--  点击设置进入修改个人信息界面  -->
             <li @click.stop="ShowSetUpPage">
                 <p>设置</p>
                 <img src="../../assets/icon/enter.svg" alt="">

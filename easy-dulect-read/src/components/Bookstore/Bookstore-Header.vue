@@ -1,12 +1,11 @@
 <template>
     <!--  书城头部选项卡  -->
       <div class="Bookstore-Header">
-          <div class="Header"
-               ref="header"
-               :class="{'active': checkIndex === 0}"
-          >
+          <div class="Header" ref="header" :class="{'active': checkIndex === 0}">
               <div class="Header-left">
+                <!--    点击顶部tab选项卡跳转：推荐、女生、男生、图书不同书城展示页   -->
                   <ul>
+                    <!--   使用router-link标签的to属性进行跳转    -->
                       <router-link
                               tag="li"
                               ref="item"

@@ -1,17 +1,19 @@
 <template>
     <!--    分类界面 -->
     <div class="Classification">
+        <!--  分类界面顶部导航条组件  -->
         <ClassificationHeader></ClassificationHeader>
-        <!--路由出口:切换女生,男生,图书-->
+        <!--路由出口:切换女生,男生,图书；transition标签加入页面跳转动画-->
         <transition :name="this.names">
+            <!--   keep-alive缓存页面状态   -->
             <keep-alive>
                 <router-view></router-view>
             </keep-alive>
         </transition>
-        <Search v-if="this.showPage"></Search>
-        <Detail v-if="this.showDetail"></Detail>
-        <Channel v-if="this.showChannel"></Channel>
-        <ScrollDetailPage v-if="this.showScrollDetailPage"></ScrollDetailPage>
+        <Search v-if="this.showPage"></Search> <!--  点击“放大镜”按钮展示搜索页   -->
+        <Detail v-if="this.showDetail"></Detail><!--  点击分类列表中书单显示书单详情界面   -->
+        <Channel v-if="this.showChannel"></Channel> <!--  列表分类组件   -->
+        <ScrollDetailPage v-if="this.showScrollDetailPage"></ScrollDetailPage>  <!--  分类列表滚动展示列表  -->
     </div>
 </template>
 

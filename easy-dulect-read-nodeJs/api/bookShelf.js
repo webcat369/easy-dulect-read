@@ -1,11 +1,12 @@
 const {BookShelf} = require('../easy-dulect-read-db/userBookShelf')
 
-//加入书架
-let classic = async (req,res)=>{
+let classic = async (req,res)=>{  //加入书架接口
+    // 寻找用户id
     const data = await BookShelf.findOne({
         userId:req.params.id
     })
     if (!data){
+        // 未找到用户id,在数据书架集合中新增该用户加入的第一本书单信息，并返回提示信息
        const newList = BookShelf.create({
            userId:req.params.id,
            bookList:[{
@@ -23,6 +24,7 @@ let classic = async (req,res)=>{
         let flag = false
         // 查询是否收藏过这本书
         for (let value of data.bookList){
+            // 若收藏过这本书需要也需要返回提示信息
             if (value.id === req.body.id){
                 flag = true
                 res.send({
@@ -31,6 +33,7 @@ let classic = async (req,res)=>{
             }
         }
         if (flag===false){
+            // 判断该用户下已经收藏过书单，再次信息书单需要给bookList信息书单信息
             const newList = data.bookList
             newList.push({
                 id:req.body.id,
@@ -39,6 +42,7 @@ let classic = async (req,res)=>{
                 picUrl:req.body.picUrl,
                 progress:0
             })
+            // 将bookList书单列表更新到数据库
             const upData = await BookShelf.findOneAndUpdate({
                 userId:req.params.id
             },{
@@ -50,8 +54,8 @@ let classic = async (req,res)=>{
             })
         }
     }
-
 }
+
 //更新阅读器进度
 let changeProgress = async (req,res)=>{
     // 找到当前用户的数据

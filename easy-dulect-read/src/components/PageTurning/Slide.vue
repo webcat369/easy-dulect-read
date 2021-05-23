@@ -79,18 +79,19 @@ export default {
       'setTips',
       'setBookProgress'
     ]),
+    // 获取书单章节内容
     getData () {
-      if (this.page.page === 1) {
-        this.dataList = []
-      }
+      // 1.如果当前页是第一页，清除保存章节列表的数组
+      if (this.page.page === 1) this.dataList = []
+      // 2.调用Text接口获取书的详细章节内容
       Text()
         .then(data => {
-          // console.log(data.text.length - 1)
+          // 获取章节总数
           this.totalLength = data.text.length - 1
+          // 将后端返回的json数据按需求格式处理
           const newList = data.text[this.bookProgress].contents.split('\n')
-          // console.log(newList.length)
+          // 将处理后值重新赋值给dataList
           this.dataList = newList
-          // console.log(this.dataList)
           // 传递参数，本页的数据、是否有下一页
           this.$nextTick(() => {
             // 后台返回hasNextPage告知是否有下一页，或者前端这边自己判断
@@ -125,35 +126,36 @@ export default {
       console.log(this.ItemIndex)
       this.$refs.MeScroll.mescroll.resetUpScroll(this.isShowLoading) // 重置列表为第一页
     },
-    // 下一页
-    NextPage () {
-      console.log('下一页')
-      // console.log(this.ItemIndex)
-      // 在没有数据的情况下，消除按钮的闪退问题
+    // 下一章按钮点击事件
+    NextPage () { // 存在问题：在没有数据的情况下，消除按钮的闪退问题
+      // 点击下一章按钮后隐藏按钮
       this.isShowBottom = false
+      // 定时300毫秒后显示按钮
       setTimeout(() => {
         this.isShowBottom = true
       }, 300)
-      // 当前是最后一页时，没有下一页
+      // 触发按钮点击让ItemIndex加1
       this.ItemIndex = this.bookProgress + 1
-      // console.log(this.ItemIndex)  0-26
+      // 同步保存到vuex中
       this.setBookProgress(this.ItemIndex)
+      // 判断当前是最后一页时，弹框提示用户为最后一章
       if (this.ItemIndex >= this.totalLength) {
         this.setBookProgress(this.totalLength)
         this.setTips('当前是最后一章')
       }
       /*
-      重置列表为第一页 (常用于列表筛选条件变化或切换菜单时重新刷新列表数据)内部实现:
-      把page.num=1,再主动触发up.callback
-          isShowLoading 是否显示进度布局;
-          1.默认null,不传参,则显示上拉加载的进度布局
-          2.传参true, 则显示下拉刷新的进度布局
-          3.传参false,则不显示上拉和下拉的进度 (常用于静默更新列表数据)
-       */
+     重置列表为第一页 (常用于列表筛选条件变化或切换菜单时重新刷新列表数据)内部实现:
+     把page.num=1,再主动触发up.callback
+         isShowLoading 是否显示进度布局;
+         1.默认null,不传参,则显示上拉加载的进度布局
+         2.传参true, 则显示下拉刷新的进度布局
+         3.传参false,则不显示上拉和下拉的进度 (常用于静默更新列表数据)
+     */
+      // 给滚动组价设置是否显示下拉刷新的进度布局，true：显示；false:不显示
       this.$refs.MeScroll.mescroll.resetUpScroll(this.isShowLoading)
-      // this.$refs.MeScroll.mescroll.scrollTo(0, 0)
-      // this.$refs.MeScroll.mescroll.triggerDownScroll()
     }
+    // this.$refs.MeScroll.mescroll.scrollTo(0, 0)
+    // this.$refs.MeScroll.mescroll.triggerDownScroll()
   }
 }
 </script>

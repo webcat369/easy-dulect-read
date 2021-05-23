@@ -2,6 +2,7 @@
 <!--    登录注册页-->
     <div class="signUp">
         <div class="singUp-box">
+            <!--   标题导航    -->
             <div class="signUP-header">
                 <img src="../assets/icon/back.svg" alt="" @click.stop="back">
                 <p>{{text[0]}}</p>
@@ -9,14 +10,17 @@
             <div class="image" style="width:500px; position: absolute; top: 150px;left:50px;">
                 <img style="display: inline-block;width: 100%;" src="../assets/images/yun.png" alt="">
             </div>
+            <!--    logo&标语  -->
             <div class="logo">
                 <img src="../assets/images/2.png" alt="">
                 <p>海量阅读，想读就读</p>
             </div>
+            <!--    注册登录表单     -->
             <form @submit.prevent="submit">
                 <div class="user"><i></i><input type="text" placeholder="昵称" v-model="userName"></div>
                 <div class="password"><i></i><input type="password" placeholder="密码" v-model="userPassword"></div>
                 <button class="submit" @click.stop="cut" ref="submit">{{text[0]}}</button>
+                <!--    注册&登录按钮切换和清除按钮    -->
                 <div class="signIn">
                     <p @click.stop="switchover" ref="signIn">{{text[1]}}</p>
                     <button type="reset" class="clear">清除</button>

@@ -1,6 +1,7 @@
 <template>
     <transition appear name="detail">
         <div class="Detail">
+            <!--   详情页内容部分    -->
             <div class="content">
                 <ScrollView ref="ScrollView">
                     <div class="bookDetail" ref="bookDetail">
@@ -124,15 +125,17 @@
                     </div>
                 </ScrollView>
             </div>
+            <!--   详情页头部     -->
             <div class="title" ref="title" :style="{opacity:`${ratio}`}">
-            <span @click="back">
-               <img src="../assets/icon/back.svg" alt="">
-            </span>
-                <p>{{this.currentBook.title}}</p>
-                <span>
-                <img src="../assets/icon/more.svg" alt="">
-            </span>
+                <span @click="back">
+                   <img src="../assets/icon/back.svg" alt="">
+                </span>
+                    <p>{{this.currentBook.title}}</p>
+                    <span>
+                    <img src="../assets/icon/more.svg" alt="">
+                </span>
             </div>
+            <!--   详情页底部     -->
             <div class="TabBar">
                 <p @click.stop="Classic">
                     <img src="../assets/icon/bookshelf.svg" alt="">
@@ -209,8 +212,11 @@ export default {
         this.$refs.ScrollView.scrollTo(0, -this.scrollParticularsHeight)
       }
     },
+    // 加入书架方法
     Classic (e) {
+      // 判断用户是否登录
       if (this.currentUser.userId !== '0') {
+        // 通过接口classic将用户id和书单基本信息传入
         classic(this.currentUser.userId, {
           id: this.currentBook.id,
           name: this.currentBook.title,
@@ -219,8 +225,8 @@ export default {
           progress: this.bookProgress.progress
         })
           .then(data => {
-            console.log(data)
-            if (data.msg === '收藏成功') {
+            // 若返回加入书架成功的数据，需要将书单基本信息加入oldData数组
+            if (data.msg === '加入书架成功') {
               const oldData = this.bookList
               oldData.push({
                 id: this.currentBook.id,
@@ -229,13 +235,15 @@ export default {
                 author: this.currentBook.author,
                 progress: this.bookProgress
               })
+              // 并将数据保存到vuex中，利用弹框将加入数据成功信息展示
               this.setBookList(oldData)
-              this.setTips('收藏成功')
+              this.setTips('加入书架成功')
             } else {
               this.setTips(data.msg)
             }
           })
       } else {
+        // 未登录情况下，跳转到登录页先登录
         this.setTips('请先登录')
         this.$router.push({ path: '/sign' })
       }

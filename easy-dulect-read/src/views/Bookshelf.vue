@@ -1,6 +1,7 @@
 <template>
   <!--  书架界面 -->
   <div class="Bookshelf">
+<!--    <bookshelf-header></bookshelf-header>-->
     <Bookcase></Bookcase>
     <Search v-if="this.showPage"></Search>
     <ReadRecord v-if="this.showReadRecord"></ReadRecord>
@@ -9,6 +10,7 @@
 
 <script>
 import Bookcase from '../components/Bookshelf/Bookcase'
+// import BookshelfHeader from './../components/Bookshelf/Bookshelf-Header'
 import Search from '../components/Search'
 import ReadRecord from '../components/PersonalCenter/ReadRecord'
 import { mapActions, mapGetters } from 'vuex'
@@ -19,6 +21,7 @@ export default {
     Bookcase,
     Search,
     ReadRecord
+    // BookshelfHeader
   },
   created () {
     const currentUser = JSON.parse(localStorage.getItem('user'))

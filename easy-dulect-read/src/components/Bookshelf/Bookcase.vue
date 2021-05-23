@@ -1,29 +1,8 @@
 <template>
+    <!--  书架界面 -->
     <div class="Bookcase">
+        <!--   书架界面头部导航模块    -->
         <div class="header">
-            <div class="float-top">
-                <div class="float-left">
-                    <div class="float-left-img">
-                        <img src="https://cdn.wtzw.com/bookimg/public/images/cover/85d8/086e82caab246524274bd83a0eb9ffeb_360x480.jpg" alt="">
-                    </div>
-                    <div class="float-left-p">
-                        <p>
-                            <span>王子病</span>
-                            <i></i>
-                        </p>
-                        <p>
-                            <span>
-                                全城人都知道苏家三小姐脑子不好，身体体弱，反应迟钝...
-                            </span>
-                        </p>
-                    </div>
-                </div>
-                <div class="float-right">
-                    <p>今日签到</p>
-                    <p>+20金币</p>
-                    <button>签到</button>
-                </div>
-            </div>
             <div class="header-left">让阅读成为习惯</div>
             <div class="header-right">
                 <div class="header-right-icon" @click.stop="openSearch">
@@ -41,13 +20,42 @@
             </div>
         </div>
         <div class="box">
-            <ScrollView ref="ScrollView">
-                <div class="van-list" style="margin-top: 240px;">
+            <!--   书架界面列表滚动展示模块    -->
+<!--            <ScrollView ref="ScrollView">-->
+<!--              -->
+<!--            </ScrollView>-->
+            <div style="width: 100%;height: auto;">
+                <div class="float-bottom"></div>
+                <div class="float-top">
+                    <div class="float-left">
+                        <div class="float-left-img">
+                            <img src="https://cdn.wtzw.com/bookimg/public/images/cover/85d8/086e82caab246524274bd83a0eb9ffeb_360x480.jpg" alt="">
+                        </div>
+                        <div class="float-left-p">
+                            <p>
+                                <span>王子病</span>
+                                <i></i>
+                            </p>
+                            <p>
+                            <span>
+                                全城人都知道苏家三小姐脑子不好，身体体弱，反应迟钝...
+                            </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="float-right">
+                        <p>今日签到</p>
+                        <p>+20金币</p>
+                        <button>签到</button>
+                    </div>
+                </div>
+                <div class="van-list">
                     <div class="van-cell" v-if="!isShow" style="width: 92%;">
                         <div class="cell-left-top" style="height: 100%; background: #fafafa;margin-left: 25px;border-radius: 15px; padding: 20px 40px; box-sizing: border-box">
                             <img src="../../assets/images/adddf.png" alt="" style="margin-top: 45px; height: 150px">
                         </div>
                     </div>
+                    <!--   书单基本信息展示模块   -->
                     <div v-else>
                         <div class="van-cell"
                              v-for="(value,index) in bookList"
@@ -75,8 +83,9 @@
                         </div>
                     </div>
                 </div>
-            </ScrollView>
+            </div>
         </div>
+        <!--  全选、移入收藏夹、删除按钮模块  -->
         <div class="delete" ref="delete" >
             <span @click.stop="selecAtll"><i ref="allSelect" :class="{'selectedAllI':selectAllBtn}"></i>全选</span>
             <span>
@@ -88,7 +97,7 @@
 </template>
 
 <script>
-import ScrollView from '../ScrollView'
+// import ScrollView from '../ScrollView'
 import { mapGetters, mapActions } from 'vuex'
 import { deleteBooks, searchList, addCollect } from './../../api'
 export default {
@@ -122,7 +131,7 @@ export default {
     ])
   },
   components: {
-    ScrollView
+    // ScrollView
   },
   methods: {
     ...mapActions([
@@ -169,54 +178,50 @@ export default {
       }
     },
     // 选中某本书
-    openAlone (i, id) {
+    openAlone (i, id) { // 传入书单列表索引和id值
+      // 获取书单列表类名转换成字符串数组保存在classListArr
       const classListArr = this.$refs.selectedI[i].classList.toString()
-      if (classListArr.indexOf('selected') === -1) {
-        this.$refs.selectedI[i].classList.add('selected')
+      if (classListArr.indexOf('selected') === -1) { // 判断classListArr中是否存在动态类名selected
+        this.$refs.selectedI[i].classList.add('selected') // true：添加
         this.idsList.push({
           id: id,
           time: new Date().toLocaleDateString()
-        })
-        console.log(this.idsList)
-      } else {
+        }) // 同时将选中的书单id加入idList数组
+      } else { // false:删除
         this.$refs.selectedI[i].classList.remove('selected')
         this.idsList.map((value, index) => {
           if (value.id === id) {
             this.idsList.splice(index, 1)
-            console.log(this.idsList, '删除')
           }
-        })
-        this.$refs.allSelect.classList.remove('selectedAllI')
+        }) // 将书单id从idList数组移除
+        this.$refs.allSelect.classList.remove('selectedAllI') // 移除全选按钮动态类名，关闭全选按钮
         this.selectAllBtn = false
       }
       if (this.idsList.length === this.bookList.length) {
         this.selectAllBtn = true
-      }
-      // this.switchImg = !this.switchImg
+      } // 若选中书单列表中全部书单信息，给全选按钮添加动态类名
     },
+    // this.switchImg = !this.switchImg
     // 全选
     selecAtll () {
       this.selectAllBtn = this.$refs.allSelect.classList.toString().indexOf('selectedAllI') === -1
-      // this.selectAllBtn = !this.selectAllBtn
-      console.log(this.$refs.allSelect.classList.toString().indexOf('selectedAllI') === -1)
+      // 若未全选
       if (this.selectAllBtn) {
         this.bookList.forEach((value, index) => {
           const classListArr = this.$refs.selectedI[index].classList.toString()
+          // 若classListArr字符串数组里不存在selected动态类名，就添加此类名，并加添加类名的书单id加入idsList数组
           if (classListArr.indexOf('selected') === -1) {
             this.$refs.selectedI[index].classList.add('selected')
-            console.log(this.$refs.selectedI[index], 'this.$refs.selectedI[index]')
             this.idsList.push({
               id: value.id,
               time: new Date().toLocaleDateString()
             })
-            // console.log(this.collectTime)
           }
         })
       } else {
         this.bookList.forEach((value, index) => {
           const classListArr = this.$refs.selectedI[index].classList.toString()
           if (classListArr.indexOf('selected') !== -1) {
-            console.log(classListArr)
             this.$refs.selectedI[index].classList.remove('selected')
           }
         })
@@ -240,29 +245,21 @@ export default {
           }
         })
       })
-      // console.log(this.collectList, '移入收藏夹')
+      // 调用收藏夹接口
       addCollect(this.currentUser.userId, {
         collectList: this.collectList
-      }).then(data => {
-        // console.log(data.msg)
-        this.setTips(data.msg)
-      })
+      }).then(data => { this.setTips(data.msg) })
       this.removeSelect()
     },
     // 删除
     Delect () {
-      console.log('删除', this.idsList)
+      // 调用删除接口
       deleteBooks(this.currentUser.userId, {
         idList: this.idsList
       }).then(data => {
-        // console.log(data.success)
         if (data.success) {
           searchList(this.currentUser.userId)
-            .then(data => {
-              this.setBookList(data.result)
-              // this.bookList = data.result
-              // console.log(data.result)
-            })
+            .then(data => { this.setBookList(data.result) })
         }
       })
       this.$refs.delete.style.bottom = -25 + 'px'
@@ -292,11 +289,11 @@ export default {
     left: 0;
     right: 0;
     bottom: 100px;
-    /*background: #c5d8ee;*/
     /*background: #98b9da;*/
     .header{
         width: 100%;
-        height: 200px;
+        /*height: 200px;*/
+        height: 100px;
         background: #ffce66;
         display: flex;
         justify-content: space-between;
@@ -340,11 +337,26 @@ export default {
                 }
             }
         }
+    }
+    .box{
+        position: fixed;
+        top: 100px;
+        left: 0;
+        right: 0;
+        bottom:100px;
+        /*background: #bed0e6;*/
+        width: 100%;
+        overflow: hidden;
+        .float-bottom{
+            width: 100%;
+            height: 100px;
+            background-color: #ffce66;
+            margin-bottom: 130px;
+        }
         .float-top{
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            top: 100px;
+            top: 0;
+            left: 4%;
             width: 92%;
             height: 210px;
             border-radius: 15px;
@@ -403,18 +415,7 @@ export default {
                 }
             }
         }
-    }
-    .box{
-        position: fixed;
-        top: 200px;
-        left: 0;
-        right: 0;
-        bottom: 100px;
-        /*background: #fff;*/
-        overflow: hidden;
         .van-list{
-            /*background: #70bfd3;*/
-            margin-top: 20px;
             .van-cell{
                 position: relative;
                 width: 92%;

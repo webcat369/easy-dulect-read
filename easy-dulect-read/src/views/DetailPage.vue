@@ -2,7 +2,9 @@
    <div class="DetailPage" ref="DetailPage"   @click.stop="getNavBar">
       <div class="Page" ref="Page">
 <!--          <Coverage ref="Coverage"></Coverage>-->
+          <!--阅读器内容展示 -->
           <Slide ref="Slide"></Slide>
+          <!--阅读器头部导航-->
           <div class="Popup-navigation" ref="PopupNavigation" @click.stop="">
               <div class="Popup-navigation-left" @click.stop="back">
                   <img src="../assets/icon/textback.svg" alt="">
@@ -19,6 +21,7 @@
                   </p>
               </div>
           </div>
+          <!--阅读器底部设置-->
           <div class="Popup-menu"
                ref="PopupMenu"
                @click.stop=""
@@ -56,6 +59,7 @@
                   </li>
               </ul>
           </div>
+          <!--阅读器侧边目录-->
           <div class="Popup-catalog" ref="PopupCatalog">
               <van-popup v-model="showCatalog" position="left" :style="{ height: '100%' }">
                   <div class="catalog-header">
@@ -92,6 +96,7 @@
                   </div>
               </van-popup>
           </div>
+          <!--亮度拖拽-->
           <div class="Popup-brightness">
               <van-popup v-model="showBrightness" position="bottom" :style="{ height: '20%' }">
                   <div class="content">
@@ -112,6 +117,7 @@
                   </div>
               </van-popup >
           </div>
+          <!--阅读设置-->
           <div class="Popup-readSet">
               <van-popup v-model="showReadSet" position="bottom" :style="{ height: '30%' }">
                   <div class="content">
@@ -293,9 +299,11 @@ export default {
     },
     // 亮度条拖拽
     onPercentChange (per) {
-      // console.log(0.5 + (per / 100))
+      // 利用传入的拖拽进度值计算亮度值
       const Number = 0.5 + (per / 100)
+      // 给阅读器整体设置亮度样式
       this.$refs.Page.style.filter = `brightness(${Number})`
+      // 将计算出的亮度值保存到vuex中
       this.setCurrentBookState({
         brightness: Number
       })
@@ -317,16 +325,20 @@ export default {
     particulars () {
       console.log('书籍详情')
     },
-    // 字体大小减少
+    // 减少字号按钮事件
     reduce () {
-      console.log('字号减少')
-      // console.log(this.currentBookState.fontSize)
+      // 默认字号56，最小字号52，最大字号64；
+      // 判断当前字号小于52，弹框提示用户是最小字号
       if (this.fontSizeNum <= 52) {
         this.setTips('已经是最小字号了')
       } else {
+        // 若点击后字号未减小到52,每点击一次减小两个字号
         this.fontIndex = this.fontIndex - 2
+        // 将计算后的值赋值给fontSizeNum
         this.fontSizeNum = 56 - (-this.fontIndex)
+        // 获取阅读器设置内容字号
         this.$refs.Slide.$refs.modeType.style.fontSize = this.fontSizeNum + 'px'
+        // 将重新计算的字号值加入vuex保存
         this.setCurrentBookState({
           fontSize: this.fontSizeNum
         })
@@ -399,11 +411,13 @@ export default {
       this.setBookProgress(currentLength)
       this.$refs.Slide.$refs.MeScroll.mescroll.resetUpScroll(false) // 重置列表为第一页
     },
-    // 目录章节切换
+    // 目录章节切换方法
     selectChapter (index) {
+      // 将传入的章节进度保存到vuex中
       this.setBookProgress(index)
-      // console.log(index) 0-26
-      this.$refs.Slide.$refs.MeScroll.mescroll.resetUpScroll(false) // 重置列表为第一页
+      // 阅读器数据刷新操作，重置列表为第一页
+      this.$refs.Slide.$refs.MeScroll.mescroll.resetUpScroll(false)
+      // 判断：当vuex中获取的目录进度与传入目录进度不同时，给获取到的目录项添加动态类名
       if (this.bookProgress !== index) {
         this.$refs.Catalog[this.bookProgress].classList.add('active')
       }
